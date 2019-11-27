@@ -1,0 +1,68 @@
+.headshot {
+  width: 100%;
+  max-width: 113px;
+  max-height: 130px;
+}
+
+.dr-card {
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 5px;
+}
+
+.dr-address, .dr-details {
+  padding: 10px;
+}
+
+.dr-info {
+  display: grid;
+  grid-template-columns: 113px 1fr;
+}
+
+.user-input {
+  text-align: center;
+  padding: 30px;
+}
+
+.header {
+  text-align: center;
+  margin: 0;
+}
+
+.directions, #search, input, .specialties {
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.directions {
+  margin-bottom: 30px;
+  padding: 20px;
+}
+
+input {
+  text-align: center;
+  margin: 20px auto;
+}
+
+.load, .error {
+  padding: 20%;
+  text-align: center;
+}
+
+#restart {
+  display: none;
+}
+
+
+@media (min-width: 470px) {
+  .dr-card {
+    grid-template-columns: 3fr 2fr;
+  }
+
+  .user-input {
+    padding: 20px 15%;
+  }
+
+
+}
