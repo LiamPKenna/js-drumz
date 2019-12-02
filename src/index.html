@@ -1,11 +1,170 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="utf-8">
+  <title>Drum Machine</title>
+</head>
+<body>
 
-  </body>
+
+  <div class="wrapper" id="wrapper">
+    <div id="left">
+      <h1>volume tempo kit selector start/stop</h1>
+      <div class="left-col-div" id="a-b-buttons">
+        <h2>Patterns</h2>
+        <button type="button" name="button">A</button>
+        <button type="button" name="button">B</button>
+      </div>
+
+      <div class="left-col-div" id="tempo-div">
+        <h2>Tempo</h2>
+        <input type="number" name="" value="">
+      </div>
+
+      <div class="left-col-div" id="dropdown">
+        <h2>Drum Kits</h2>
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Drum Kit Selector
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Kit1</a>
+          <a class="dropdown-item" href="#">Kit2</a>
+          <a class="dropdown-item" href="#">Kit3</a>
+          <a class="dropdown-item" href="#">Kit4</a>
+        </div>
+      </div>
+      <div class="left-col-div" id="start-stop-button-div">
+        <button id="start-stop-button" type="button" name="button">Start/Stop</button>
+      </div>
+
+    </div>
+
+    <div id="main">
+      <div id="top">
+        <h1>strecth, ui</h1>
+      </div>
+      <div id="body">
+        <div class="inst-panel" id="kick">
+          <h1>kick</h1>
+          <div class="slider">
+            <input type="range" min="0" max="127" value="7" step="1">
+          </div>
+        </div>
+        <div class="inst-panel" id="snare">
+          <h1>snare</h1>
+          <div class="slider">
+            <input type="range" min="0" max="127" value="7" step="1">
+          </div>
+        </div>
+        <div class="inst-panel" id="high-tom">
+          <h1>high-tom</h1>
+          <div class="slider">
+            <input type="range" min="0" max="127" value="7" step="1">
+          </div>
+        </div>
+        <div class="inst-panel" id="mid-tom">
+          <h1>mid-tom</h1>
+          <div class="slider">
+            <input type="range" min="0" max="127" value="7" step="1">
+          </div>
+        </div>
+        <div class="inst-panel" id="low-tom">
+          <h1>low-tom</h1>
+          <div class="slider">
+            <input type="range" min="0" max="127" value="7" step="1">
+          </div>
+        </div>
+        <div class="inst-panel" id="rim-shot">
+          <h1>rim-shot</h1>
+          <div class="slider">
+            <input type="range" min="0" max="127" value="7" step="1">
+          </div>
+        </div>
+        <div class="inst-panel" id="hand-clap">
+          <h1>hand-clap</h1>
+          <div class="slider">
+            <input type="range" min="0" max="127" value="7" step="1">
+          </div>
+        </div>
+        <div class="inst-panel" id="closed-hat">
+          <h1>closed-hat</h1>
+          <div class="slider">
+            <input type="range" min="0" max="127" value="7" step="1">
+          </div>
+        </div>
+        <div class="inst-panel" id="open-hat">
+          <h1>open-hat</h1>
+          <div class="slider">
+            <input type="range" min="0" max="127" value="7" step="1">
+          </div>
+        </div>
+        <div class="inst-panel" id="crash">
+          <h1>crash</h1>
+          <div class="slider">
+            <input type="range" min="0" max="127" value="7" step="1">
+          </div>
+        </div>
+      </div>
+      <div id="step-sequencer">
+
+        <div class="sequence-button">
+          <button type="button" name="button">1</button>
+        </div>
+        <div class="sequence-button">
+          <button type="button" name="button">2</button>
+        </div>
+        <div class="sequence-button">
+          <button type="button" name="button">3</button>
+        </div>
+        <div class="sequence-button">
+          <button type="button" name="button">4</button>
+        </div>
+        <div class="sequence-button">
+          <button type="button" name="button">5</button>
+        </div>
+        <div class="sequence-button">
+          <button type="button" name="button">6</button>
+        </div>
+        <div class="sequence-button">
+          <button type="button" name="button">7</button>
+        </div>
+        <div class="sequence-button">
+          <button type="button" name="button">8</button>
+        </div>
+        <div class="sequence-button">
+          <button type="button" name="button">9</button>
+        </div>
+        <div class="sequence-button">
+          <button type="button" name="button">9</button>
+        </div>
+        <div class="sequence-button">
+          <button type="button" name="button">10</button>
+        </div>
+        <div class="sequence-button">
+          <button type="button" name="button">11</button>
+        </div>
+        <div class="sequence-button">
+          <button type="button" name="button">12</button>
+        </div>
+        <div class="sequence-button">
+          <button type="button" name="button">13</button>
+        </div>
+        <div class="sequence-button">
+          <button type="button" name="button">14</button>
+        </div>
+        <div class="sequence-button">
+          <button type="button" name="button">15</button>
+        </div>
+        <div class="sequence-button">
+          <button type="button" name="button">16</button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
 </html>
