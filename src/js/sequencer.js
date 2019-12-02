@@ -58,6 +58,14 @@ export class Sequencer {
     this.selectedTrack = parseInt(i);
   }
 
+  loadSequence(array) {
+    array.forEach(xy => {
+      this.selectedTrack = xy[0];
+      this.toggleStepOnOff(xy[1]);
+    });
+    this.selectedTrack = 0;
+  }
+
   toggleStepOnOff(step) {
     const currentSequence = this.sequence[this.selectedTrack][this.aOrB];
     currentSequence[parseInt(step)] = (currentSequence[parseInt(step)]) ? 0 : 1;
