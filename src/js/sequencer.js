@@ -22,7 +22,7 @@ export class Sequencer {
     if (!this.playing) return;
     this.playStep();
     setTimeout(function () {
-      this.takeStep();
+      this.step();
     }, tempo);
   }
 
