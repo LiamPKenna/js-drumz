@@ -72,7 +72,7 @@ export class Sequencer {
   }
 
   changeAB() {
-    this.aOrB = (this.aOrB === 0) ? 1 : 0;
+    this.aOrB = (this.aOrB) ? 0 : 1;
   }
 
   selectKit(kit) {
