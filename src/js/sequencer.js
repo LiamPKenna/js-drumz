@@ -9,6 +9,17 @@ export class Sequencer {
     this.tempo = 125;
     this.aOrB = 0;
     this.selectedTrack = 0;
+    this.swing = 0;
+    this.swing16 = true;
+  }
+
+  getSwing() {
+    const swingShift = Math.round((this.tempo * 100)*this.swing)/100;
+    if (this.currentStep === 0 || (this.currentStep % 2) === 0) {
+      return swingShift;
+    } else {
+      return swingShift * -1;
+    }
   }
 
   makeNewSequence() {
@@ -23,9 +34,10 @@ export class Sequencer {
     if (this.frontEndFunction) this.frontEndFunction(this.currentStep);
     const thisSequence = this;
     this.playStep();
+    const newTempo = tempo + this.getSwing();
     setTimeout(function () {
       thisSequence.step();
-    }, tempo);
+    }, newTempo);
   }
 
   togglePlay() {
@@ -98,6 +110,13 @@ export class Sequencer {
     };
     const newPitch = switchPitch(pitch);
     this.drumKit.drums[track].rate(newPitch);
+  }
+
+  changeSwing(swing) {
+    console.log(swing);
+    const swingPercent = Math.round((parseInt(swing)/127)*100)/100;
+    console.log(swingPercent);
+    this.swing = ((swingPercent*100)/2)/100;
   }
 
 }
