@@ -12,7 +12,8 @@ export class DrumKit {
     const allDrums = [];
     for(let i = 0; i < this.sounds.length; i++) {
       let sound = new Howl({
-        src: [this.sounds[i]]
+        src: [this.sounds[i]],
+        volume: 0.79
       });
       allDrums.push(sound);
     }

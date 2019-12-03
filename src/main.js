@@ -27,6 +27,7 @@ $(document).ready(function(){
     });
   };
 
+
   sequencer.frontEndFunction = (currentStep) => {
     $('.glow').removeClass('glow');
     $(`#${currentStep}`).addClass('glow');
@@ -53,6 +54,19 @@ $(document).ready(function(){
     refreshSequence();
   });
 
+  $('.volume').change((event) => {
+    const track = event.target.name;
+    const volume = event.target.value;
+    sequencer.changeVolume(track, volume);
+  });
+
+  $('.pitch-slider').change((event) => {
+    const track = event.target.name;
+    const pitch = event.target.value;
+    sequencer.changePitch(track, pitch);
+  });
+
   refreshSequence();
+  refreshSliders();
 
 });

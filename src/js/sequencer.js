@@ -31,6 +31,7 @@ export class Sequencer {
   togglePlay() {
     this.currentStep = 0;
     this.playing = !this.playing;
+    if (this.frontEndFunction) this.frontEndFunction(this.currentStep);
     if (this.playing) this.step();
   }
 
@@ -78,6 +79,25 @@ export class Sequencer {
 
   selectKit(kit) {
     this.drumKit = new DrumKit(parseInt(kit));
+  }
+
+  changeVolume(track, volume) {
+    const newVolume = parseInt(volume)/127;
+    this.drumKit.drums[track].volume(newVolume);
+  }
+
+  changePitch(track, pitch) {
+    const switchPitch = (n) => {
+      let pitch;
+      if (n <= 64) {
+        pitch = Math.round((n/127)*100)/100 + .5;
+      } else {
+        pitch = Math.round((n/127)*100)/100 * 2;
+      }
+      return pitch;
+    };
+    const newPitch = switchPitch(pitch);
+    this.drumKit.drums[track].rate(newPitch);
   }
 
 }
