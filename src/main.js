@@ -66,7 +66,11 @@ $(document).ready(function(){
     sequencer.changePitch(track, pitch);
   });
 
+  $('#dropdownMenuButton').change(() => {
+    const kitSelected = $('#dropdownMenuButton option:selected').val();
+    sequencer.selectKit(kitSelected);
+  });
+
   refreshSequence();
-  refreshSliders();
 
 });
