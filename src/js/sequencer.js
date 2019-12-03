@@ -20,6 +20,7 @@ export class Sequencer {
 
   step(tempo = this.tempo) {
     if (!this.playing) return;
+    if (this.frontEndFunction) this.frontEndFunction(this.currentStep);
     const thisSequence = this;
     this.playStep();
     setTimeout(function () {
