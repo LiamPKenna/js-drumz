@@ -39,4 +39,9 @@ describe('Sequencer', () => {
     expect(sequencer.tempo).toEqual(111);
   });
 
+  test('should load a given sequence into the drum machine', () => {
+    sequencer.loadSequence([[0,0],[0,8],[1,4],[1,12]]);
+    expect(sequencer.sequence[1][0][12]).toEqual(1);
+  });
+
 });

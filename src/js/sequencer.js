@@ -1,7 +1,7 @@
 import { DrumKit } from './drums.js';
 
 export class Sequencer {
-  constructor(kit = 0) {
+  constructor(kit = 1) {
     this.drumKit = new DrumKit(kit);
     this.currentStep = 0;
     this.playing = false;
@@ -20,9 +20,10 @@ export class Sequencer {
 
   step(tempo = this.tempo) {
     if (!this.playing) return;
+    const thisSequence = this;
     this.playStep();
     setTimeout(function () {
-      this.step();
+      thisSequence.step();
     }, tempo);
   }
 
@@ -49,12 +50,20 @@ export class Sequencer {
     }
   }
 
-  getTempo(bpm) {
+  changeTempo(bpm) {
     this.tempo = Math.round((60000/parseInt(bpm))/4);
   }
 
   selectTrack(i) {
     this.selectedTrack = parseInt(i);
+  }
+
+  loadSequence(array) {
+    array.forEach(xy => {
+      this.selectedTrack = xy[0];
+      this.toggleStepOnOff(xy[1]);
+    });
+    this.selectedTrack = 0;
   }
 
   toggleStepOnOff(step) {
@@ -63,7 +72,7 @@ export class Sequencer {
   }
 
   changeAB() {
-    this.aOrB = (this.aOrB === 0) ? 1 : 0;
+    this.aOrB = (this.aOrB) ? 0 : 1;
   }
 
   selectKit(kit) {
