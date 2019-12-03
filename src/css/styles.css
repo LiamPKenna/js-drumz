@@ -96,7 +96,7 @@ h1{
   width: 50px;
 }
 
-.glow{
+.glow, .instrument-glow {
   border: solid blue;
   border-width: medium;
   border: 3px solid #F1F827;
