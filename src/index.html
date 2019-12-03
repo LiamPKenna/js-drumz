@@ -14,10 +14,9 @@
       <div class="left-col-div" id="volume">
         <h2>Volume</h2>
         <div id="volume-slider" class="slider">
-          <input type="range" min="0" max="127" value="100" step="1">
+          <input type="range" min="0" max="127" step="1">
         </div>
       </div>
-
       <div class="left-col-div" id="a-b-button-div">
         <h2>Patterns</h2>
         <button id="a-button" class="a-b-buttons glow" type="button" name="button">A</button>
@@ -29,28 +28,20 @@
         <input type="number" id="tempo-input" name="" value="120">
       </div>
       <div>
-      <div class="left-col-div dropdown" id="dropdown">
-        <h2>Drum Kits</h2>
-
-
-
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Drum Kit Selector
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Kit1</a>
-          <a class="dropdown-item" href="#">Kit2</a>
-          <a class="dropdown-item" href="#">Kit3</a>
-          <a class="dropdown-item" href="#">Kit4</a>
-        </div>
+        <div class="left-col-div dropdown" id="dropdown">
+          <h2>Sounds</h2>
+            <select id="dropdownMenuButton" class="form-control form-control-lg btn btn-secondary dropdown-toggle">
+              <option value="1">Kit 1</option>
+              <option value="2">Kit 2</option>
+              <option value="3">Kit 3</option>
+              <option value="4">Kit 4</option>
+            </select>
         </div>
       </div>
       <div class="left-col-div" id="start-stop-button-div">
         <button id="start-stop-button" type="button" name="button">Start/Stop</button>
       </div>
-
     </div>
-
     <div id="main">
       <div id="top">
         <h1>Drum Machine</h1>
@@ -58,112 +49,110 @@
       <div id="body">
         <div class="inst-panel" id="kick">
           <div class="pitch-slider-div">
-            <input type="range" min="1" max="100" value="50" class="pitch-slider" id="myRange">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" name="0">
             <h5>Pitch</h5>
           </div>
-
           <div class="slider">
-            <input type="range" min="0" max="127" value="100" step="1">
+            <input value="100" name="0"type="range" min="0" max="127" class="volume" step="1">
           </div>
           <h4>BD</h4>
           <button class="instrument-button instrument-glow" type="button" name="0"></button>
         </div>
         <div class="inst-panel" id="snare">
           <div class="pitch-slider-div">
-            <input type="range" min="1" max="100" value="50" class="pitch-slider" id="myRange">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" name="1">
             <h5>Pitch</h5>
           </div>
           <div class="slider">
-            <input type="range" min="0" max="127" value="100" step="1">
+            <input value="100" name="1" type="range" min="0" max="127" class="volume" step="1">
           </div>
-
           <h4>SD</h4>
           <button class="instrument-button" type="button" name="1"></button>
         </div>
         <div class="inst-panel" id="high-tom">
           <div class="pitch-slider-div">
-            <input type="range" min="1" max="100" value="50" class="pitch-slider" id="myRange">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" name="2">
             <h5>Pitch</h5>
           </div>
           <div class="slider">
-            <input type="range" min="0" max="127" value="100" step="1">
+            <input value="100" name="2" type="range" min="0" max="127" class="volume" step="1">
           </div>
           <h4>LT</h4>
           <button class="instrument-button" type="button" name="2"></button>
         </div>
         <div class="inst-panel" id="mid-tom">
           <div class="pitch-slider-div">
-            <input type="range" min="1" max="100" value="50" class="pitch-slider" id="myRange">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" name="3">
             <h5>Pitch</h5>
           </div>
           <div class="slider">
-            <input type="range" min="0" max="127" value="100" step="1">
+            <input value="100" name="3" type="range" min="0" max="127" class="volume" step="1">
           </div>
           <h4>MT</h4>
           <button class="instrument-button" type="button" name="3"></button>
         </div>
         <div class="inst-panel" id="low-tom">
           <div class="pitch-slider-div">
-            <input type="range" min="1" max="100" value="50" class="pitch-slider" id="myRange">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" name="4">
             <h5>Pitch</h5>
           </div>
           <div class="slider">
-            <input type="range" min="0" max="127" value="100" step="1">
+            <input value="100" name="4" type="range" min="0" max="127" class="volume" step="1">
           </div>
           <h4>HT</h4>
           <button class="instrument-button" type="button" name="4"></button>
         </div>
         <div class="inst-panel" id="rim-shot">
           <div class="pitch-slider-div">
-            <input type="range" min="1" max="100" value="50" class="pitch-slider" id="myRange">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" name="5">
             <h5>Pitch</h5>
           </div>
           <div class="slider">
-            <input type="range" min="0" max="127" value="100" step="1">
+            <input value="100" name="5"type="range" min="0" max="127" class="volume" step="1">
           </div>
           <h4>RS</h4>
           <button class="instrument-button" type="button" name="5"></button>
         </div>
         <div class="inst-panel" id="hand-clap">
           <div class="pitch-slider-div">
-            <input type="range" min="1" max="100" value="50" class="pitch-slider" id="myRange">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" name="6">
             <h5>Pitch</h5>
           </div>
           <div class="slider">
-            <input type="range" min="0" max="127" value="100" step="1">
+            <input value="100" name="6" type="range" min="0" max="127" class="volume" step="1">
           </div>
           <h4>HC</h4>
           <button class="instrument-button" type="button" name="6"></button>
         </div>
         <div class="inst-panel" id="closed-hat">
           <div class="pitch-slider-div">
-            <input type="range" min="1" max="100" value="50" class="pitch-slider" id="myRange">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" name="7">
             <h5>Pitch</h5>
           </div>
           <div class="slider">
-            <input type="range" min="0" max="127" value="100" step="1">
+            <input value="100" name="7" type="range" min="0" max="127" class="volume" step="1">
           </div>
           <h4>CH</h4>
           <button class="instrument-button" type="button" name="7"></button>
         </div>
         <div class="inst-panel" id="open-hat">
           <div class="pitch-slider-div">
-            <input type="range" min="1" max="100" value="50" class="pitch-slider" id="myRange">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" name="8">
             <h5>Pitch</h5>
           </div>
           <div class="slider">
-            <input type="range" min="0" max="127" value="100" step="1">
+            <input value="100" name="8" type="range" min="0" max="127" class="volume" step="1">
           </div>
           <h4>OH</h4>
           <button class="instrument-button" type="button" name="8"></button>
         </div>
         <div class="inst-panel" id="crash">
           <div class="pitch-slider-div">
-            <input type="range" min="1" max="100" value="50" class="pitch-slider" id="myRange">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" name="9">
             <h5>Pitch</h5>
           </div>
           <div class="slider">
-            <input type="range" min="0" max="127" value="100" step="1">
+            <input value="100" name="9" type="range" min="0" max="127" class="volume" step="1">
           </div>
           <h4>CC</h4>
           <button class="instrument-button" type="button" name="9"></button>
@@ -172,8 +161,6 @@
       <div id="step-sequencer">
         <div id="empty-seq-div" class="sequence-button">
         </div>
-
-
         <div class="sequence-button-div">
           <button class="sequence-button glow on" type="button" name="button" id="0">1</button>
         </div>
@@ -243,6 +230,20 @@
     </div>
 
   </div>
+  <div class="chaos-wrapper">
+    <div class="left-chaos-col-div">
+    <h4 class="chaos-text">Chaos Pad</h4>
+    <button class="chaos-mute" type="button" name="button">Mute</button>
+      <div id="chaos-volume-slider" class="slider">
+        <input class="chaos-slider" type="range" min="0" max="127" id="chaos-slider" step="1">
+      </div>
+      <h5>Volume</h5>
+    </div>
+    <div class="choas-body">
+      <h1>Pad itself</h1>
+    </div>
+  </div>
+
 
 </body>
 </html>
