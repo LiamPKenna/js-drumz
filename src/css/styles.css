@@ -5,25 +5,27 @@ body{
 
 h1{
   font-family: 'Monoton', cursive;
-  font-size: 125px;
+  font-size: 8rem;
   color: #E72E2E;
 }
+
 #volume-2{
   padding-top: 40px;
-}
 
+}
 
 #left{
   text-align: center;
   background-color: #36383b;
   color: #f8f8f8;
   border: 3px solid #F8A125;
+  padding-top: 10%;
 }
+
 
 .wrapper{
   display: grid;
   grid-template-columns: 2fr 10fr;
-  height: 1000px;
   border: 3px solid #F8A125;
 
 }
@@ -37,7 +39,6 @@ h1{
 
 #body{
   background-color: #36383b;
-  height: 55%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
@@ -45,11 +46,15 @@ h1{
 #step-sequencer{
   background-color: #36383b;
   border: 3px solid #F8A125;
-  height: 25%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   text-align: center;
   color: #E72E2E;
+  padding: 0 1rem;
+}
+#patterns{
+  margin-top: 20%;
+  display: block;
 }
 
 .inst-panel{
@@ -61,38 +66,43 @@ h1{
 }
 
 .instrument-slider{
-  margin-top: 50%;
-  margin-bottom: 20%;
-  display: inline-block;
-  width: 20px;
-  height: 150px;
+  margin-top: 60%;
+  margin-bottom: 50%;
+  display: block;
   padding: 0;
-  transform-origin: 75px 75px;
   transform: rotate(-90deg);
 }
 
-#volume-slider {
-  margin: 0;
+#volume-slider-div {
+  display: block;
+  margin: auto;
+
 }
 
-.sequence-button-div{
-  margin-top: 100px;
+.volume-slider{
+
 }
 
-.left-col-div{
-  margin-top: 90px;
+#a-b-button-div{
+  /* margin-top: .9rem; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: center;
 }
 
 #start-stop-button{
   border-radius: 10px;
   padding: 20px 10px;
   background-color: #F8A125;
+  display: block;
+  margin: 20% auto;
 }
 
 .sequence-button{
   border-radius: 10px;
   height: 50px;
   width: 50px;
+  margin: 3rem 0;
 }
 
 .glow, .instrument-glow {
@@ -103,25 +113,34 @@ h1{
 }
 
 .a-b-buttons{
+  display: block;
   border-radius: 10px;
   height: 50px;
   width: 50px;
   background-color: #F8A125;
-
+  margin: 5px auto;
 }
+
+.a-b-wrap {
+  width: 100%;
+  /* display: grid;
+  grid-template-columns: 1fr 1fr; */
+}
+
+
 
 .instrument-button{
   border-radius: 10px;
   height: 30px;
   width: 50px;
-  margin-top: 25%;
+  margin: 25% auto;
   background-color: #E72E2E
 }
 .pitch-slider{
+  display: block;
   width: 50%;
-  height: 25px;
-  margin-top: 50%;
   background: #d3d3d3;
+  margin: 20% auto 5%;
   outline: none;
   opacity: 0.7;
   transition: opacity .2s;
@@ -134,16 +153,16 @@ h1{
   text-align: center;
   width: 80px;
   background-color: #f8f8f8;
+  display: block;
+  margin: 10% auto;
 
 }
 #dropdownMenuButton{
   background-color: #54575B;
   color: #f8f8f8;
   width: 100px;
-}
-
-#volume-slider-div {
   display: block;
+  margin: 10% auto;
 }
 
 .on{
@@ -153,14 +172,14 @@ h1{
 .chaos-wrapper{
   display: grid;
   grid-template-columns: 2fr 10fr;
-  height: 800px;
+  height: 100%;
   border: 3px solid #FB5B5A;
   background-color: #003F5C;
   color: #FB5B5A;
 }
 
 .chaos-body{
-  height: 800px;
+  height: 100%;
   border: 3px solid #FB5B5A;
 }
 
@@ -177,7 +196,7 @@ padding: 0 auto;
 .chaos-mute-button{
   margin-top: 10px;
   border-radius: 10px;
-  padding: 150px 75px;
+  padding: 75px 75px;
   background-color: #BC4873;
   color: #f8f8f8;
   font-size: 50px;
