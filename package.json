@@ -15,7 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "howler": "^2.1.2",
-    "jquery": "^3.4.1"
+    "jquery": "^3.4.1",
+    "pizzicato": "^0.6.4"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
