@@ -1,29 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link href="https://fonts.googleapis.com/css?family=Monoton&display=swap" rel="stylesheet">
+
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta charset="utf-8">
   <title>Drum Machine</title>
 </head>
 <body>
 
-
   <div class="wrapper" id="wrapper">
     <div id="left">
-      <h1>volume tempo kit selector start/stop</h1>
-      <div class="left-col-div" id="a-b-buttons">
+      <div class="left-col-div" id="volume">
+        <h2>Volume</h2>
+        <div id="volume-slider" class="slider">
+          <input type="range" min="0" max="127" value="100" step="1">
+        </div>
+      </div>
+
+      <div class="left-col-div" id="a-b-button-div">
         <h2>Patterns</h2>
-        <button type="button" name="button">A</button>
-        <button type="button" name="button">B</button>
+        <button id="a-button" class="a-b-buttons glow" type="button" name="button">A</button>
+        <button id="b-button" class="a-b-buttons" type="button" name="button">B</button>
       </div>
 
       <div class="left-col-div" id="tempo-div">
         <h2>Tempo</h2>
-        <input type="number" name="" value="">
+        <input type="number" id="tempo-input" name="" value="120">
       </div>
-
-      <div class="left-col-div" id="dropdown">
+      <div>
+      <div class="left-col-div dropdown" id="dropdown">
         <h2>Drum Kits</h2>
+
+
+
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Drum Kit Selector
         </button>
@@ -32,6 +42,7 @@
           <a class="dropdown-item" href="#">Kit2</a>
           <a class="dropdown-item" href="#">Kit3</a>
           <a class="dropdown-item" href="#">Kit4</a>
+        </div>
         </div>
       </div>
       <div class="left-col-div" id="start-stop-button-div">
@@ -42,123 +53,191 @@
 
     <div id="main">
       <div id="top">
-        <h1>strecth, ui</h1>
+        <h1>Drum Machine</h1>
       </div>
       <div id="body">
         <div class="inst-panel" id="kick">
-          <h1>kick</h1>
-          <div class="slider">
-            <input type="range" min="0" max="127" value="7" step="1">
+          <div class="pitch-slider-div">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" id="myRange">
+            <h5>Pitch</h5>
           </div>
+
+          <div class="slider">
+            <input type="range" min="0" max="127" value="100" step="1">
+          </div>
+          <h4>BD</h4>
+          <button class="instrument-button glow" type="button" name="button"></button>
         </div>
         <div class="inst-panel" id="snare">
-          <h1>snare</h1>
-          <div class="slider">
-            <input type="range" min="0" max="127" value="7" step="1">
+          <div class="pitch-slider-div">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" id="myRange">
+            <h5>Pitch</h5>
           </div>
+          <div class="slider">
+            <input type="range" min="0" max="127" value="100" step="1">
+          </div>
+
+          <h4>SD</h4>
+          <button class="instrument-button" type="button" name="button"></button>
         </div>
         <div class="inst-panel" id="high-tom">
-          <h1>high-tom</h1>
-          <div class="slider">
-            <input type="range" min="0" max="127" value="7" step="1">
+          <div class="pitch-slider-div">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" id="myRange">
+            <h5>Pitch</h5>
           </div>
+          <div class="slider">
+            <input type="range" min="0" max="127" value="100" step="1">
+          </div>
+          <h4>LT</h4>
+          <button class="instrument-button" type="button" name="button"></button>
         </div>
         <div class="inst-panel" id="mid-tom">
-          <h1>mid-tom</h1>
-          <div class="slider">
-            <input type="range" min="0" max="127" value="7" step="1">
+          <div class="pitch-slider-div">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" id="myRange">
+            <h5>Pitch</h5>
           </div>
+          <div class="slider">
+            <input type="range" min="0" max="127" value="100" step="1">
+          </div>
+          <h4>MT</h4>
+          <button class="instrument-button" type="button" name="button"></button>
         </div>
         <div class="inst-panel" id="low-tom">
-          <h1>low-tom</h1>
-          <div class="slider">
-            <input type="range" min="0" max="127" value="7" step="1">
+          <div class="pitch-slider-div">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" id="myRange">
+            <h5>Pitch</h5>
           </div>
+          <div class="slider">
+            <input type="range" min="0" max="127" value="100" step="1">
+          </div>
+          <h4>HT</h4>
+          <button class="instrument-button" type="button" name="button"></button>
         </div>
         <div class="inst-panel" id="rim-shot">
-          <h1>rim-shot</h1>
-          <div class="slider">
-            <input type="range" min="0" max="127" value="7" step="1">
+          <div class="pitch-slider-div">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" id="myRange">
+            <h5>Pitch</h5>
           </div>
+          <div class="slider">
+            <input type="range" min="0" max="127" value="100" step="1">
+          </div>
+          <h4>RS</h4>
+          <button class="instrument-button" type="button" name="button"></button>
         </div>
         <div class="inst-panel" id="hand-clap">
-          <h1>hand-clap</h1>
-          <div class="slider">
-            <input type="range" min="0" max="127" value="7" step="1">
+          <div class="pitch-slider-div">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" id="myRange">
+            <h5>Pitch</h5>
           </div>
+          <div class="slider">
+            <input type="range" min="0" max="127" value="100" step="1">
+          </div>
+          <h4>HC</h4>
+          <button class="instrument-button" type="button" name="button"></button>
         </div>
         <div class="inst-panel" id="closed-hat">
-          <h1>closed-hat</h1>
-          <div class="slider">
-            <input type="range" min="0" max="127" value="7" step="1">
+          <div class="pitch-slider-div">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" id="myRange">
+            <h5>Pitch</h5>
           </div>
+          <div class="slider">
+            <input type="range" min="0" max="127" value="100" step="1">
+          </div>
+          <h4>CH</h4>
+          <button class="instrument-button" type="button" name="button"></button>
         </div>
         <div class="inst-panel" id="open-hat">
-          <h1>open-hat</h1>
-          <div class="slider">
-            <input type="range" min="0" max="127" value="7" step="1">
+          <div class="pitch-slider-div">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" id="myRange">
+            <h5>Pitch</h5>
           </div>
+          <div class="slider">
+            <input type="range" min="0" max="127" value="100" step="1">
+          </div>
+          <h4>OH</h4>
+          <button class="instrument-button" type="button" name="button"></button>
         </div>
         <div class="inst-panel" id="crash">
-          <h1>crash</h1>
-          <div class="slider">
-            <input type="range" min="0" max="127" value="7" step="1">
+          <div class="pitch-slider-div">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" id="myRange">
+            <h5>Pitch</h5>
           </div>
+          <div class="slider">
+            <input type="range" min="0" max="127" value="100" step="1">
+          </div>
+          <h4>CC</h4>
+          <button class="instrument-button" type="button" name="button"></button>
         </div>
       </div>
       <div id="step-sequencer">
+        <div id="empty-seq-div" class="sequence-button">
+        </div>
 
-        <div class="sequence-button">
-          <button type="button" name="button">1</button>
+
+        <div class="sequence-button-div">
+          <button class="sequence-button glow on" type="button" name="button" id="0">1</button>
         </div>
-        <div class="sequence-button">
-          <button type="button" name="button">2</button>
+
+        <div class="sequence-button-div">
+          <button class="sequence-button" type="button" name="button" id="1">2</button>
         </div>
-        <div class="sequence-button">
-          <button type="button" name="button">3</button>
+
+        <div class="sequence-button-div">
+          <button class="sequence-button" type="button" name="button" id="2">3</button>
         </div>
-        <div class="sequence-button">
-          <button type="button" name="button">4</button>
+
+        <div class="sequence-button-div">
+          <button class="sequence-button" type="button" name="button" id="3">4</button>
         </div>
-        <div class="sequence-button">
-          <button type="button" name="button">5</button>
+
+        <div class="sequence-button-div">
+          <button class="sequence-button" type="button" name="button" id="4">5</button>
         </div>
-        <div class="sequence-button">
-          <button type="button" name="button">6</button>
+
+        <div class="sequence-button-div">
+          <button class="sequence-button" type="button" name="button" id="5">6</button>
         </div>
-        <div class="sequence-button">
-          <button type="button" name="button">7</button>
+
+        <div class="sequence-button-div">
+          <button class="sequence-button" type="button" name="button" id="6">7</button>
         </div>
-        <div class="sequence-button">
-          <button type="button" name="button">8</button>
+
+        <div class="sequence-button-div">
+          <button class="sequence-button" type="button" name="button" id="7">8</button>
         </div>
-        <div class="sequence-button">
-          <button type="button" name="button">9</button>
+
+        <div class="sequence-button-div">
+          <button class="sequence-button" type="button" name="button" id="8">9</button>
         </div>
-        <div class="sequence-button">
-          <button type="button" name="button">9</button>
+
+        <div class="sequence-button-div">
+          <button class="sequence-button" type="button" name="button" id="9">10</button>
         </div>
-        <div class="sequence-button">
-          <button type="button" name="button">10</button>
+
+        <div class="sequence-button-div">
+          <button class="sequence-button" type="button" name="button" id="10">11</button>
         </div>
-        <div class="sequence-button">
-          <button type="button" name="button">11</button>
+
+        <div class="sequence-button-div">
+          <button class="sequence-button" type="button" name="button" id="11">12</button>
         </div>
-        <div class="sequence-button">
-          <button type="button" name="button">12</button>
+
+        <div class="sequence-button-div">
+          <button class="sequence-button" type="button" name="button" id="12">13</button>
         </div>
-        <div class="sequence-button">
-          <button type="button" name="button">13</button>
+
+        <div class="sequence-button-div">
+          <button class="sequence-button" type="button" name="button" id="13">14</button>
         </div>
-        <div class="sequence-button">
-          <button type="button" name="button">14</button>
+
+        <div class="sequence-button-div">
+          <button class="sequence-button" type="button" name="button" id="14">15</button>
         </div>
-        <div class="sequence-button">
-          <button type="button" name="button">15</button>
+
+        <div class="sequence-button-div">
+          <button class="sequence-button" type="button" name="button" id="15">16</button>
         </div>
-        <div class="sequence-button">
-          <button type="button" name="button">16</button>
-        </div>
+
 
       </div>
 
