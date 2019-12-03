@@ -1,46 +1,69 @@
-#main{
-  background-color: lightgray;
+body{
+  background-color: #36383b;
+  color: #f8f8f8;
 }
+
+h1{
+  font-family: 'Monoton', cursive;
+  font-size: 125px;
+  color: #E72E2E;
+}
+/* #main{
+  background-color: lightgray;
+  border-color: #F8A125;
+  border-width: 10px;
+} */
 
 #left{
   text-align: center;
-  background-color: lightyellow;
+  background-color: #36383b;
+  color: #f8f8f8;
+  border: 3px solid #F8A125;
+
 
 }
 .wrapper{
   display: grid;
   grid-template-columns: 2fr 10fr;
   height: 1000px;
+  border: 3px solid #F8A125;
+
 
 }
 #top{
-  background-color: lightblue;
+  background-color: #36383b;
+  border: 3px solid #F8A125;
   grid-template-columns: 9fr 10fr;
   height: 20%;
 }
 #body{
-  background-color: green;
+  background-color: #36383b;
   height: 55%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 #step-sequencer{
-  background-color: red;
+  background-color: #36383b;
+  border: 3px solid #F8A125;
   height: 25%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   text-align: center;
+  color: #E72E2E;
 }
 
 .inst-panel{
   text-align: center;
-  background-color: lightgreen;
+  background-color: #36383b;
+  border: 3px solid #F8A125;
   height: 100%;
+  border-color: solid green;
 }
 
 .slider{
-  margin-top: 200px;
+  margin-top: 50%;
+  margin-bottom: 20%;
   display: inline-block;
   width: 20px;
   height: 150px;
@@ -49,10 +72,74 @@
   transform: rotate(-90deg);
 }
 
-.sequence-button{
+#volume-slider{
+  margin: 0;
+}
+
+.sequence-button-div{
   margin-top: 100px;
 }
 
 .left-col-div{
   margin-top: 90px;
+}
+
+#start-stop-button{
+  border-radius: 10px;
+  padding: 20px 10px;
+  background-color: #F8A125;
+}
+
+.sequence-button{
+  border-radius: 10px;
+  height: 50px;
+  width: 50px;
+}
+
+.glow{
+  border: solid blue;
+  border-width: medium;
+  border: 3px solid #F1F827;
+  box-shadow: 0 0 10px #F1F827;
+}
+
+.a-b-buttons{
+  border-radius: 10px;
+  height: 50px;
+  width: 50px;
+  background-color: #F8A125;
+
+}
+
+.instrument-button{
+  border-radius: 10px;
+  height: 30px;
+  width: 50px;
+  margin-top: 25%;
+  background-color: #E72E2E
+}
+.pitch-slider{
+  width: 50%;
+  height: 25px;
+  margin-top: 50%;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  transition: opacity .2s;
+}
+
+.pitch-slider:hover {
+  opacity: 1;
+}
+#tempo-input {
+  text-align: center;
+  width: 80px;
+  background-color: #f8f8f8;
+
+}
+#dropdownMenuButton{
+  background-color: #54575B;
+}
+.on{
+  background-color: #E72E2E;
 }
