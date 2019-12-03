@@ -67,6 +67,6 @@ $(document).ready(function(){
   });
 
   refreshSequence();
-  refreshSliders();
+
 
 });
