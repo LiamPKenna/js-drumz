@@ -13,7 +13,7 @@
     <div id="left">
       <div class="left-col-div" id="volume">
         <h2>Volume</h2>
-        <div id="volume-slider" class="slider">
+        <div id="volume-slider" class="instrument-slider">
           <input type="range" min="0" max="127" step="1">
         </div>
       </div>
@@ -52,7 +52,7 @@
             <input type="range" min="1" max="100" value="50" class="pitch-slider" name="0">
             <h5>Pitch</h5>
           </div>
-          <div class="slider">
+          <div class="instrument-slider">
             <input value="100" name="0"type="range" min="0" max="127" class="volume" step="1">
           </div>
           <h4>BD</h4>
@@ -63,7 +63,7 @@
             <input type="range" min="1" max="100" value="50" class="pitch-slider" name="1">
             <h5>Pitch</h5>
           </div>
-          <div class="slider">
+          <div class="instrument-slider">
             <input value="100" name="1" type="range" min="0" max="127" class="volume" step="1">
           </div>
           <h4>SD</h4>
@@ -74,7 +74,7 @@
             <input type="range" min="1" max="100" value="50" class="pitch-slider" name="2">
             <h5>Pitch</h5>
           </div>
-          <div class="slider">
+          <div class="instrument-slider">
             <input value="100" name="2" type="range" min="0" max="127" class="volume" step="1">
           </div>
           <h4>LT</h4>
@@ -85,7 +85,7 @@
             <input type="range" min="1" max="100" value="50" class="pitch-slider" name="3">
             <h5>Pitch</h5>
           </div>
-          <div class="slider">
+          <div class="instrument-slider">
             <input value="100" name="3" type="range" min="0" max="127" class="volume" step="1">
           </div>
           <h4>MT</h4>
@@ -96,7 +96,7 @@
             <input type="range" min="1" max="100" value="50" class="pitch-slider" name="4">
             <h5>Pitch</h5>
           </div>
-          <div class="slider">
+          <div class="instrument-slider">
             <input value="100" name="4" type="range" min="0" max="127" class="volume" step="1">
           </div>
           <h4>HT</h4>
@@ -107,7 +107,7 @@
             <input type="range" min="1" max="100" value="50" class="pitch-slider" name="5">
             <h5>Pitch</h5>
           </div>
-          <div class="slider">
+          <div class="instrument-slider">
             <input value="100" name="5"type="range" min="0" max="127" class="volume" step="1">
           </div>
           <h4>RS</h4>
@@ -118,7 +118,7 @@
             <input type="range" min="1" max="100" value="50" class="pitch-slider" name="6">
             <h5>Pitch</h5>
           </div>
-          <div class="slider">
+          <div class="instrument-slider">
             <input value="100" name="6" type="range" min="0" max="127" class="volume" step="1">
           </div>
           <h4>HC</h4>
@@ -129,7 +129,7 @@
             <input type="range" min="1" max="100" value="50" class="pitch-slider" name="7">
             <h5>Pitch</h5>
           </div>
-          <div class="slider">
+          <div class="instrument-slider">
             <input value="100" name="7" type="range" min="0" max="127" class="volume" step="1">
           </div>
           <h4>CH</h4>
@@ -140,7 +140,7 @@
             <input type="range" min="1" max="100" value="50" class="pitch-slider" name="8">
             <h5>Pitch</h5>
           </div>
-          <div class="slider">
+          <div class="instrument-slider">
             <input value="100" name="8" type="range" min="0" max="127" class="volume" step="1">
           </div>
           <h4>OH</h4>
@@ -151,7 +151,7 @@
             <input type="range" min="1" max="100" value="50" class="pitch-slider" name="9">
             <h5>Pitch</h5>
           </div>
-          <div class="slider">
+          <div class="instrument-slider">
             <input value="100" name="9" type="range" min="0" max="127" class="volume" step="1">
           </div>
           <h4>CC</h4>
@@ -230,20 +230,32 @@
     </div>
 
   </div>
+
   <div class="chaos-wrapper">
-    <div class="left-chaos-col-div">
-    <h4 class="chaos-text">Chaos Pad</h4>
-    <button class="chaos-mute" type="button" name="button">Mute</button>
-      <div id="chaos-volume-slider" class="slider">
-        <input class="chaos-slider" type="range" min="0" max="127" id="chaos-slider" step="1">
+    <div class="left-chaos-col-div" id="volume-2">
+      <h2>Volume</h2>
+      <div id="volume-slider-div" class="chaos-volume-slider">
+        <input class="chaos-slider" type="range" min="0" max="127" step="1">
       </div>
-      <h5>Volume</h5>
+      <button class="chaos-mute-button" type="button" name="button">Mute</button>
     </div>
-    <div class="choas-body">
-      <h1>Pad itself</h1>
+
+
+
+    <div class="chaos-body">
+      <div class="chaos-body-top">
+        <h1 id="chaos-header">Mangle Machine</h1>
+      </div>
+      <div class="chaos-display">
+        <div class="box-1">
+          <div class="box-2">
+
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
-
 
 </body>
 </html>
