@@ -3,7 +3,6 @@ import $ from 'jquery';
 import 'bootstrap';
 import './css/bootstrap.min.css';
 import './css/styles.css';
-import runSynth from './js/synth.js';
 
 
 
@@ -17,6 +16,35 @@ sequencer.changeSwing(10);
 
 // USER INTERFACE
 $(document).ready(function(){
+
+
+
+  function showCoords() {
+    $( "#chaos" ).mousemove(function( event ) {
+      let a = parseInt(event.pageX/6);
+      let b = parseInt(event.pageY/10);
+      var msg = "Handler for .mousemove() called at ";
+      msg += a + ", " + b;
+      $( "#chaos" ).text(msg);
+      sequencer.chaos.changeNote(a,b);
+    });
+  }
+
+
+  $('#chaos').mousedown(() => {
+    sequencer.chaos.a.play();
+    sequencer.chaos.b.play();
+  });
+  $('#chaos').mouseup(() => {
+    sequencer.chaos.a.stop();
+    sequencer.chaos.b.stop();
+  });
+
+  $('.chaos-mute-button').click(() => {
+    sequencer.chaos.a.stop();
+    sequencer.chaos.b.stop();
+  });
+
 
   const refreshSequence = () => {
     const currentSequence = sequencer.sequence[sequencer.selectedTrack][sequencer.aOrB];
@@ -79,6 +107,6 @@ $(document).ready(function(){
   });
 
   refreshSequence();
-  runSynth();
+  showCoords();
 
 });

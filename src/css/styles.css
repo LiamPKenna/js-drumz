@@ -218,6 +218,12 @@ padding: 0 auto;
 #chaos-header{
   font-size: 8rem;
 }
+
+#chaos{
+  background-color: white;
+  height: 200px;
+  width: 200px;
+}
 .box-1{
   margin: 5px;
   border: 3px solid #FB5B5A;
