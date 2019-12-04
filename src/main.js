@@ -58,6 +58,12 @@ $(document).ready(function(){
     });
   };
 
+  const refreshGhost = () => {
+    const currentStep = parseInt(ghostStep.text())-1;
+    const currentNote = sequencer.getGhost(currentStep);
+    $('.ghost-glow').removeClass('ghost-glow');
+    $(`#g-${currentNote}`).addClass('ghost-glow');
+  };
 
   sequencer.frontEndFunction = (currentStep) => {
     $('.glow').removeClass('glow');
@@ -112,6 +118,38 @@ $(document).ready(function(){
     $(event.target).addClass('a-b-glow');
     refreshSequence();
   });
+
+  const ghostStep = $('.edit-step-input');
+
+  $('.key-wrapper button').click((event) => {
+    const step = parseInt(ghostStep.text())-1;
+    const noteInput = parseInt(event.target.name);
+    const note = (sequencer.ghostOctaveDown) ? noteInput : noteInput + 12;
+    if (!sequencer.playing) sequencer.ghost.oOoO(note);
+    sequencer.toggleGhostNote([step,note]);
+    refreshGhost();
+  });
+
+  $('#g-0').click(() => {
+    const step = parseInt(ghostStep.text())-1;
+    sequencer.toggleGhostNote([step,0]);
+    refreshGhost();
+  });
+
+  $('.ghost-back-button').click(() => {
+    const oldStep = parseInt(ghostStep.text());
+    const newStep = (oldStep === 1) ? 16 : oldStep - 1;
+    ghostStep.text(newStep);
+    refreshGhost();
+  });
+
+  $('.ghost-forward-button').click(() => {
+    const oldStep = parseInt(ghostStep.text());
+    const newStep = (oldStep === 16) ? 1 : oldStep + 1;
+    ghostStep.text(newStep);
+    refreshGhost();
+  });
+
 
   refreshSequence();
   showCoords();
