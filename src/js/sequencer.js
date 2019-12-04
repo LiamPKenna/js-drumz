@@ -80,6 +80,7 @@ export class Sequencer {
 
   selectTrack(i) {
     this.selectedTrack = parseInt(i);
+    if (!this.playing) this.drumKit.drums[this.selectedTrack].play('go');
   }
 
   loadSequence(array) {
@@ -106,8 +107,8 @@ export class Sequencer {
     currentSequence[parseInt(step)] = (currentSequence[parseInt(step)]) ? 0 : 1;
   }
 
-  changeAB() {
-    this.aOrB = (this.aOrB) ? 0 : 1;
+  changeAB(index) {
+    this.aOrB = parseInt(index);
   }
 
   selectKit(kit) {

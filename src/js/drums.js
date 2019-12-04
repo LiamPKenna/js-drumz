@@ -7,14 +7,13 @@ export class DrumKit {
     this.drums = this.assignSounds();
   }
 
-
   assignSounds() {
     const allDrums = [];
     for(let i = 0; i < this.sounds.length; i++) {
       let sound = new Howl({
         src: [this.sounds[i]],
         volume: 0.79,
-        sprite: {go:[50,1000,false]}
+        sprite: {go:[50,2000,false]}
       });
       allDrums.push(sound);
     }

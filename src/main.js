@@ -8,7 +8,7 @@ import './css/styles.css';
 
 // MAIN LOGIC
 import { Sequencer } from './js/sequencer.js';
-const sequencer = new Sequencer(3);
+const sequencer = new Sequencer(1);
 sequencer.loadSequence([[0,0],[0,8],[1,4],[1,12],[3,2],[6,10],[7,1],[7,3],[7,5],[7,7],[7,13],[8,14],[9,0]]);
 // sequencer.loadGhostSequence([[0,1],[5,13],[7,20]]);
 sequencer.changeSwing(10);
@@ -106,7 +106,15 @@ $(document).ready(function(){
     sequencer.changeSwing(swing);
   });
 
+  $('.a-b-buttons').click((event) => {
+    $('.a-b-glow').removeClass('a-b-glow');
+    sequencer.changeAB(event.target.name);
+    $(event.target).addClass('a-b-glow');
+    refreshSequence();
+  });
+
   refreshSequence();
   showCoords();
+
 
 });
