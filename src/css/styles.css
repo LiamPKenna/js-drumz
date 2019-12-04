@@ -239,7 +239,7 @@ padding: 0 auto;
 }
 .left-ghost-col-div{
   height: 800px;
-  border: 3px solid #b8bb26;
+  border: 3px solid #cc241d;
   text-align: center;
 
 }
@@ -253,6 +253,7 @@ padding: 0 auto;
 }
 #ghost-header{
     color: #ebdbb2;
+
 }
 
 .ghost-octave-button{
@@ -260,7 +261,7 @@ padding: 0 auto;
   border-radius: 10px;
   height: 50px;
   width: 50px;
-  background-color: #F8A125;
+  background-color: #cc241d;
   margin: 5px auto;
 }
 .ghost-display{
@@ -281,19 +282,23 @@ padding: 0 auto;
 .black-ghost-note{
 background-color: #928374;
 border-radius: 5%;
+border: 5px solid #282828;
+outline: none;
 }
 
 .white-ghost-note{
 background-color: #fbf1c7;
 border-radius: 5%;
+border: 5px solid #282828;
 }
-  
+
 .ghost-body-top{
-  border: 3px solid #FB5B5A;
+  border-bottom: 6px solid #cc241d;
 }
 
 .key-wrapper{
   margin: 100px 30px 0 30px;
+
 }
 
 .ghost-margin{
@@ -307,6 +312,56 @@ border-radius: 5%;
 .ghost-glow{
   border: solid blue;
   border-width: medium;
-  border: 5px solid #FB5B5A;
-  box-shadow: 0 0 20px #FB5B5A;
+  border: 5px solid #cc241d;
+  box-shadow: 0 0 20px #cc241d;
+}
+
+.ghost-extra-controls{
+  border-left: 6px solid #cc241d;
+  border-bottom: 6px solid #cc241d;
+  text-align: center;
+}
+.ghost-extra-margin-div{
+ margin-top: 40px;
+}
+
+.ghost-off-button{
+  border-radius: 10px;
+  padding: 20px 30px;
+  background-color: #cc241d;
+  display: block;
+  margin: 40px auto;
+}
+
+.edit-step-input{
+  text-align: center;
+  width: 80px;
+  display: block;
+  margin: 10% auto;
+  font-family: 'Monoton', cursive;
+  font-size: 50px;
+}
+
+.ghost-back-button{
+  border-radius: 10px;
+  height: 50px;
+  width: 50px;
+  background-color: #cc241d;
+  margin: 5px auto;
+
+}
+.ghost-forward-button{
+  border-radius: 10px;
+  height: 50px;
+  width: 50px;
+  background-color: #cc241d;
+  margin: 5px auto;
+
+}
+
+.ghost-body{
+  border: 3px solid #cc241d;
+}
+button:focus {
+    outline:none;
 }
