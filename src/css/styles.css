@@ -196,27 +196,23 @@ padding: 0 auto;
 .chaos-mute-button{
   margin-top: 10px;
   border-radius: 10px;
-  padding: 75px 75px;
+  padding: 25px 25px;
   background-color: #BC4873;
   color: #f8f8f8;
-  font-size: 50px;
+  font-size: 2rem;
 }
 
 .chaos-volume-slider{
-  text-align: center;
-  display: inline-block;
-  width: 20px;
-  height: 150px;
-  margin: 50px auto;
-  transform-origin: 75px 75px;
-  transform: rotate(-90deg);
+  display: block;
+  margin: auto;
+
 }
 .chaos-body-top{
   border-bottom: 6px solid #FB5B5A;
   height: 30%;
 }
 #chaos-header{
-  font-size: 125px;
+  font-size: 8rem;
 }
 .box-1{
   margin: 5px;
