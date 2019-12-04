@@ -19,13 +19,11 @@ $(document).ready(function(){
 
 
 
-  function showCoords() {
+  function chaosCoords() {
     $( "#chaos" ).mousemove(function( event ) {
       let a = parseInt(event.pageX/6);
       let b = parseInt(event.pageY/10);
-      var msg = "Handler for .mousemove() called at ";
-      msg += a + ", " + b;
-      $( "#chaos" ).text(msg);
+
       sequencer.chaos.changeNote(a,b);
     });
   }
@@ -44,6 +42,26 @@ $(document).ready(function(){
     sequencer.chaos.a.stop();
     sequencer.chaos.b.stop();
   });
+
+  function doomCoords() {
+    $( "#doom" ).mousemove(function( event ) {
+      let a = parseInt(event.pageX/6);
+      let b = parseInt(event.pageY/10);
+
+      sequencer.doom.changeNote(a,b);
+    });
+  }
+
+
+  // $('#doom').mousedown(() => {
+  //   sequencer.doom.a.play();
+  //   sequencer.doom.b.play();
+  // });
+  // $('#doom').mouseup(() => {
+  //   sequencer.doom.a.stop();
+  //   sequencer.doom.b.stop();
+  // });
+
 
 
   const refreshSequence = () => {
@@ -114,7 +132,7 @@ $(document).ready(function(){
   });
 
   refreshSequence();
-  showCoords();
+  chaosCoords();
 
 
 });
