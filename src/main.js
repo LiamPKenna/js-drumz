@@ -3,7 +3,6 @@ import $ from 'jquery';
 import 'bootstrap';
 import './css/bootstrap.min.css';
 import './css/styles.css';
-// import runSynth from './js/synth.js';
 
 
 
@@ -86,6 +85,5 @@ $(document).ready(function(){
   });
 
   refreshSequence();
-  // runSynth();
 
 });
