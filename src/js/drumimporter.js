@@ -8,16 +8,16 @@ import sound7 from "./../mp3/sound7.mp3";
 import sound8 from "./../mp3/sound8.mp3";
 import sound9 from "./../mp3/sound9.mp3";
 import sound10 from "./../mp3/sound10.mp3";
-// import sound11 from "./../mp3/sound11.mp3"
-// import sound12 from "./../mp3/sound12.mp3"
-// import sound13 from "./../mp3/sound13.mp3"
-// import sound14 from "./../mp3/sound14.mp3"
-// import sound15 from "./../mp3/sound15.mp3"
-// import sound16 from "./../mp3/sound16.mp3"
-// import sound17 from "./../mp3/sound17.mp3"
-// import sound18 from "./../mp3/sound18.mp3"
-// import sound19 from "./../mp3/sound19.mp3"
-// import sound20 from "./../mp3/sound20.mp3"
+import sound11 from "./../mp3/sound11.mp3";
+import sound12 from "./../mp3/sound12.mp3";
+import sound13 from "./../mp3/sound13.mp3";
+import sound14 from "./../mp3/sound14.mp3";
+import sound15 from "./../mp3/sound15.mp3";
+import sound16 from "./../mp3/sound16.mp3";
+import sound17 from "./../mp3/sound17.mp3";
+import sound18 from "./../mp3/sound18.mp3";
+import sound19 from "./../mp3/sound19.mp3";
+import sound20 from "./../mp3/sound20.mp3";
 import sound21 from "./../mp3/sound21.mp3";
 import sound22 from "./../mp3/sound22.mp3";
 import sound23 from "./../mp3/sound23.mp3";
@@ -40,14 +40,14 @@ import sound30 from "./../mp3/sound30.mp3";
 // import sound40 from "./../mp3/sound40.mp3"
 
 const kit1 = [sound1, sound2, sound3, sound4, sound5, sound6, sound7, sound8, sound9, sound10];
-// const kit2 = [sound11, sound12, sound13, sound14, sound15, sound16, sound17, sound18, sound19, sound20];
+const kit2 = [sound11, sound12, sound13, sound14, sound15, sound16, sound17, sound18, sound19, sound20];
 const kit3 = [sound21, sound22, sound23, sound24, sound25, sound26, sound27, sound28, sound29, sound30];
 // const kit4 = [sound31, sound32, sound33, sound34, sound35, sound36, sound37, sound38, sound39, sound40];
 
 const getKit = (n) => {
   const kits = {
     kit1: kit1,
-    // kit2: kit2,
+    kit2: kit2,
     kit3: kit3,
     // kit4: kit4
   };
