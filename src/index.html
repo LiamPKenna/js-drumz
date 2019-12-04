@@ -5,7 +5,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta charset="utf-8">
-  <title>DrumMachine</title>
+  <title>Drum Machine</title>
 </head>
 <body>
 
@@ -18,24 +18,24 @@
       <h2 id='patterns'>Patterns</h2>
       <div id="a-b-button-div">
         <div class="a-b-wrap">
-          <button id="a-button" class="a-b-buttons glow" type="button" name="button">A</button>
+          <button id="a-button" class="a-b-buttons glow" type="button" name="0">A</button>
         </div>
         <div class="a-b-wrap">
-          <button id="b-button" class="a-b-buttons" type="button" name="button">B</button>
+          <button id="b-button" class="a-b-buttons" type="button" name="1">B</button>
         </div>
 
       </div>
-        <h2>Tempo</h2>
-        <input type="number" id="tempo-input" name="" value="120">
+      <h2>Tempo</h2>
+      <input type="number" id="tempo-input" name="" value="120">
       <div>
         <div class="left-col-div dropdown" id="dropdown">
           <h2>Sounds</h2>
-            <select id="dropdownMenuButton" class="form-control form-control-lg btn btn-secondary dropdown-toggle">
-              <option value="1">Kit 1</option>
-              <option value="2">Kit 2</option>
-              <option value="3">Kit 3</option>
-              <option value="4">Kit 4</option>
-            </select>
+          <select id="dropdownMenuButton" class="form-control form-control-lg btn btn-secondary dropdown-toggle">
+            <option value="1">Kit 1</option>
+            <option value="2">Kit 2</option>
+            <option value="3">Kit 3</option>
+            <option value="4">Kit 4</option>
+          </select>
         </div>
       </div>
       <div class="swing-slider">
@@ -48,7 +48,7 @@
     </div>
     <div id="main">
       <div id="top">
-        <h1>Drum Machine</h1>
+        <h1>DrumMachine</h1>
       </div>
       <div id="body">
         <div class="inst-panel" id="kick">
@@ -162,77 +162,83 @@
           <button class="instrument-button" type="button" name="9"></button>
         </div>
       </div>
+
       <div id="step-sequencer">
 
-        <div class="sequence-button-div">
-          <button class="sequence-button glow on" type="button" name="button" id="0">1</button>
-        </div>
+        <!-- <div class="seq-box-1">
+          <div class="seq-box-2"> -->
+            <div class="sequence-button-div">
+              <button class="sequence-button glow on" type="button" name="button" id="0">1</button>
+            </div>
 
-        <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="1">2</button>
-        </div>
+            <div class="sequence-button-div">
+              <button class="sequence-button" type="button" name="button" id="1">2</button>
+            </div>
 
-        <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="2">3</button>
-        </div>
+            <div class="sequence-button-div">
+              <button class="sequence-button" type="button" name="button" id="2">3</button>
+            </div>
 
-        <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="3">4</button>
-        </div>
+            <div class="sequence-button-div">
+              <button class="sequence-button" type="button" name="button" id="3">4</button>
+            </div>
 
-        <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="4">5</button>
-        </div>
+            <div class="sequence-button-div">
+              <button class="sequence-button" type="button" name="button" id="4">5</button>
+            </div>
 
-        <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="5">6</button>
-        </div>
+            <div class="sequence-button-div">
+              <button class="sequence-button" type="button" name="button" id="5">6</button>
+            </div>
 
-        <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="6">7</button>
-        </div>
+            <div class="sequence-button-div">
+              <button class="sequence-button" type="button" name="button" id="6">7</button>
+            </div>
 
-        <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="7">8</button>
-        </div>
+            <div class="sequence-button-div">
+              <button class="sequence-button" type="button" name="button" id="7">8</button>
+            </div>
 
-        <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="8">9</button>
-        </div>
+            <div class="sequence-button-div">
+              <button class="sequence-button" type="button" name="button" id="8">9</button>
+            </div>
 
-        <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="9">10</button>
-        </div>
+            <div class="sequence-button-div">
+              <button class="sequence-button" type="button" name="button" id="9">10</button>
+            </div>
 
-        <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="10">11</button>
-        </div>
+            <div class="sequence-button-div">
+              <button class="sequence-button" type="button" name="button" id="10">11</button>
+            </div>
 
-        <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="11">12</button>
-        </div>
+            <div class="sequence-button-div">
+              <button class="sequence-button" type="button" name="button" id="11">12</button>
+            </div>
 
-        <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="12">13</button>
-        </div>
+            <div class="sequence-button-div">
+              <button class="sequence-button" type="button" name="button" id="12">13</button>
+            </div>
 
-        <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="13">14</button>
-        </div>
+            <div class="sequence-button-div">
+              <button class="sequence-button" type="button" name="button" id="13">14</button>
+            </div>
 
-        <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="14">15</button>
-        </div>
+            <div class="sequence-button-div">
+              <button class="sequence-button" type="button" name="button" id="14">15</button>
+            </div>
 
-        <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="15">16</button>
-        </div>
+            <div class="sequence-button-div">
+              <button class="sequence-button" type="button" name="button" id="15">16</button>
+            </div>
+
+          <!-- </div>
+        </div> -->
+
 
       </div>
+
     </div>
-
   </div>
-
   <div class="chaos-wrapper">
     <div class="left-chaos-col-div" id="volume-2">
       <h2>Volume</h2>
@@ -251,6 +257,54 @@
       <div class="chaos-display">
         <div class="box-1">
           <div id="chaos" class="box-2">
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ghost-wrapper">
+    <div class="left-ghost-col-div" id="ghost-volume">
+      <h2>Volume</h2>
+      <div id="ghost-volume-slider-div" class="ghost-volume-slider">
+        <input class="ghost-slider" type="range" min="0" max="127" step="1">
+      </div>
+      <h2>Octave</h2>
+      <div class="ghost-octave-button-div">
+        <div class="ghost-low-div">
+          <button class="ghost-octave-button" type="button" name="button">Low</button>
+        </div>
+        <div class="ghost-high-div">
+          <button class="ghost-octave-button" type="button" name="button">High</button>
+        </div>
+      </div>
+      <div class="delay-controls">
+        <h2>Delay</h2>
+        <h4>Mix</h4>
+        <input class="mix-slider" type="range" min="0" max="127" step="1">
+        <h4>Feedback</h4>
+        <input class="feedback-slider" type="range" min="0" max="127" step="1">
+        <h4>Time</h4>
+        <input class="time-slider" type="range" min="0" max="127" step="1">
+        <h4>Cutoff</h4>
+        <input class="cutoff-slider" type="range" min="0" max="127" step="1">
+
+      </div>
+
+
+    </div>
+
+
+
+    <div class="ghost-body">
+      <div class="ghost-body-top">
+        <h1 id="ghost-header">GhostMachine</h1>
+      </div>
+      <div class="ghost-display">
+        <div class="ghost-box-1">
+          <div id="chaos" class="ghost-box-2">
 
           </div>
 
