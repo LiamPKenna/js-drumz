@@ -1,5 +1,5 @@
 import P5 from 'p5';
-import 'p5/lib/addons/p5.sound.js'
+import 'p5/lib/addons/p5.sound.js';
 
 const runSynth = () => {
 
@@ -55,11 +55,11 @@ const runSynth = () => {
         carrier.amp(1,1);
       });
 
-    }
+    };
 
     toggleAudio(cnv);
 
-  }
+  };
 
 
 
@@ -87,10 +87,10 @@ const runSynth = () => {
     }
     p5.endShape();
 
-  }
+  };
   setup();
   draw();
 
-}
+};
 
 export default runSynth;

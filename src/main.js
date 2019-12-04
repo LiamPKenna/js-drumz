@@ -3,7 +3,6 @@ import $ from 'jquery';
 import 'bootstrap';
 import './css/bootstrap.min.css';
 import './css/styles.css';
-// import runSynth from './js/synth.js';
 
 
 
@@ -17,7 +16,7 @@ sequencer.changeSwing(10);
 
 // USER INTERFACE
 $(document).ready(function(){
-// runSynth();
+
   const refreshSequence = () => {
     const currentSequence = sequencer.sequence[sequencer.selectedTrack][sequencer.aOrB];
     currentSequence.forEach((beat, index) => {
@@ -79,5 +78,6 @@ $(document).ready(function(){
   });
 
   refreshSequence();
+  runSynth();
 
 });
