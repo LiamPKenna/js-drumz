@@ -15,6 +15,7 @@ export class Sequencer {
     this.swing16 = true;
     this.ghost = new Ghost();
     this.chaos = new Chaos();
+    this.ghostOctaveDown = true;
   }
 
   getSwing() {
@@ -137,6 +138,11 @@ export class Sequencer {
   changeSwing(swing) {
     const swingPercent = Math.round((parseInt(swing)/127)*100)/100;
     this.swing = ((swingPercent*100)/2)/100;
+  }
+
+  getGhost(index) {
+    const currentNote = this.sequence[10][this.aOrB][index];
+    return (currentNote < 14) ? currentNote : currentNote - 12;
   }
 
 }
