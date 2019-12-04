@@ -17,7 +17,7 @@ sequencer.changeSwing(10);
 
 // USER INTERFACE
 $(document).ready(function(){
-runSynth();
+
   const refreshSequence = () => {
     const currentSequence = sequencer.sequence[sequencer.selectedTrack][sequencer.aOrB];
     currentSequence.forEach((beat, index) => {
@@ -79,5 +79,6 @@ runSynth();
   });
 
   refreshSequence();
+  runSynth();
 
 });
