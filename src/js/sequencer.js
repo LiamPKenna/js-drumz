@@ -52,7 +52,7 @@ export class Sequencer {
   playStep() {
     this.drumKit.drums.forEach((drum, index) => {
       if (this.sequence[index][this.aOrB][this.currentStep]) {
-        drum.play();
+        drum.play('go');
       }
     });
     if (this.sequence[10][this.aOrB][this.currentStep]) {
