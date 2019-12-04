@@ -219,6 +219,13 @@ padding: 0 auto;
   font-size: 8rem;
 }
 
+#chaos{
+  background-color: white;
+  height: 200px;
+  width: 200px;
+}
+.box-1{
+  margin: 5px;
 
 .ghost-octave-button-div{
   display: grid;
@@ -279,6 +286,7 @@ border-radius: 5%;
 background-color: #fbf1c7;
 border-radius: 5%;
 }
+  
 .ghost-body-top{
   border: 3px solid #FB5B5A;
 }
