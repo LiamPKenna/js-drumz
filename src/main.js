@@ -43,14 +43,14 @@ $(document).ready(function(){
     sequencer.chaos.b.stop();
   });
 
-  function doomCoords() {
-    $( "#doom" ).mousemove(function( event ) {
-      let a = parseInt(event.pageX/6);
-      let b = parseInt(event.pageY/10);
+//   function doomCoords() {
+//     $( "#doom" ).mousemove(function( event ) {
+//       let a = parseInt(event.pageX/6);
+//       let b = parseInt(event.pageY/10);
 
-      sequencer.doom.changeNote(a,b);
-    });
-  }
+//       sequencer.doom.changeNote(a,b);
+//     });
+//   }
 
 
   // $('#doom').mousedown(() => {
