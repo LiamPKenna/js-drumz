@@ -5,28 +5,28 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta charset="utf-8">
-  <title>Drum Machine</title>
+  <title>DrumMachine</title>
 </head>
 <body>
 
   <div class="wrapper" id="wrapper">
     <div id="left">
-      <div class="left-col-div" id="volume">
-        <h2>Volume</h2>
-        <div id="volume-slider" class="instrument-slider">
-          <input type="range" min="0" max="127" step="1">
+      <h2>Volume</h2>
+      <div id="volume-slider-div">
+        <input class="volume-slider" type="range" min="0" max="127" step="1">
+      </div>
+      <h2 id='patterns'>Patterns</h2>
+      <div id="a-b-button-div">
+        <div class="a-b-wrap">
+          <button id="a-button" class="a-b-buttons glow" type="button" name="button">A</button>
         </div>
-      </div>
-      <div class="left-col-div" id="a-b-button-div">
-        <h2>Patterns</h2>
-        <button id="a-button" class="a-b-buttons glow" type="button" name="button">A</button>
-        <button id="b-button" class="a-b-buttons" type="button" name="button">B</button>
-      </div>
+        <div class="a-b-wrap">
+          <button id="b-button" class="a-b-buttons" type="button" name="button">B</button>
+        </div>
 
-      <div class="left-col-div" id="tempo-div">
+      </div>
         <h2>Tempo</h2>
         <input type="number" id="tempo-input" name="" value="120">
-      </div>
       <div>
         <div class="left-col-div dropdown" id="dropdown">
           <h2>Sounds</h2>
@@ -37,6 +37,10 @@
               <option value="4">Kit 4</option>
             </select>
         </div>
+      </div>
+      <div class="swing-slider">
+        <h2>Swing</h2>
+        <input id="swing-slider" type="range" min="0" max="127" value="0" step="1">
       </div>
       <div class="left-col-div" id="start-stop-button-div">
         <button id="start-stop-button" type="button" name="button">Start/Stop</button>
@@ -159,8 +163,7 @@
         </div>
       </div>
       <div id="step-sequencer">
-        <div id="empty-seq-div" class="sequence-button">
-        </div>
+
         <div class="sequence-button-div">
           <button class="sequence-button glow on" type="button" name="button" id="0">1</button>
         </div>
@@ -226,7 +229,6 @@
         </div>
 
       </div>
-
     </div>
 
   </div>
@@ -244,11 +246,11 @@
 
     <div class="chaos-body">
       <div class="chaos-body-top">
-        <h1 id="chaos-header">Mangle Machine</h1>
+        <h1 id="chaos-header">MangleMachine</h1>
       </div>
       <div class="chaos-display">
         <div class="box-1">
-          <div class="box-2">
+          <div id="chaos" class="box-2">
 
           </div>
 
