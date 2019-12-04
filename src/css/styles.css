@@ -25,7 +25,7 @@ h1{
 
 .wrapper{
   display: grid;
-  grid-template-columns: 2fr 10fr;
+  grid-template-columns: 190px 10fr;
   border: 3px solid #F8A125;
 
 }
@@ -55,6 +55,10 @@ h1{
 #patterns{
   margin-top: 20%;
   display: block;
+}
+#swing-slider{
+  display: block;
+  margin: auto;
 }
 
 .inst-panel{
@@ -95,7 +99,7 @@ h1{
   padding: 20px 10px;
   background-color: #F8A125;
   display: block;
-  margin: 20% auto;
+  margin: auto;
 }
 
 .sequence-button{
@@ -171,7 +175,7 @@ h1{
 
 .chaos-wrapper{
   display: grid;
-  grid-template-columns: 2fr 10fr;
+  grid-template-columns: 190px 1fr;
   height: 100%;
   border: 3px solid #FB5B5A;
   background-color: #003F5C;
