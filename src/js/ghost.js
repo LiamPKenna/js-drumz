@@ -24,4 +24,12 @@ export class Ghost {
   changeNote(n) {
     this.sound.frequency = this.notes[n];
   }
+
+  oOoO(note) {
+    this.changeNote(note);
+    this.sound.play();
+    setTimeout(() => {
+      this.sound.stop();
+    }, 200);
+  }
 }
