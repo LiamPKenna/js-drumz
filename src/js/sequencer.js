@@ -1,4 +1,5 @@
 import { DrumKit } from './drums.js';
+import { Ghost } from './ghost.js';
 
 export class Sequencer {
   constructor(kit = 1) {
@@ -11,6 +12,7 @@ export class Sequencer {
     this.selectedTrack = 0;
     this.swing = 0;
     this.swing16 = true;
+    this.ghost = new Ghost();
   }
 
   getSwing() {
@@ -23,7 +25,7 @@ export class Sequencer {
   }
 
   makeNewSequence() {
-    return Array.from(new Array(10)).map(() => [
+    return Array.from(new Array(11)).map(() => [
       [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     ]);
@@ -53,6 +55,12 @@ export class Sequencer {
         drum.play();
       }
     });
+    if (this.sequence[10][this.aOrB][this.currentStep]) {
+      this.ghost.changeNote(this.sequence[10][this.aOrB][this.currentStep]);
+      this.ghost.sound.play();
+    } else {
+      this.ghost.sound.stop();
+    }
     this.incrementStep();
   }
 
@@ -78,6 +86,17 @@ export class Sequencer {
       this.toggleStepOnOff(xy[1]);
     });
     this.selectedTrack = 0;
+  }
+
+  loadGhostSequence(array) {
+    array.forEach(stepAndNote => {
+      this.toggleGhostNote(stepAndNote);
+    });
+  }
+
+  toggleGhostNote(stepAndNote) {
+    const currentSequence = this.sequence[10][this.aOrB];
+    currentSequence[stepAndNote[0]] = stepAndNote[1];
   }
 
   toggleStepOnOff(step) {
@@ -113,9 +132,7 @@ export class Sequencer {
   }
 
   changeSwing(swing) {
-    console.log(swing);
     const swingPercent = Math.round((parseInt(swing)/127)*100)/100;
-    console.log(swingPercent);
     this.swing = ((swingPercent*100)/2)/100;
   }
 
