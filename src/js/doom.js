@@ -1,6 +1,6 @@
 import Pizzicato from 'pizzicato';
 
-export class Chaos {
+export class Doom {
   constructor() {
     this.a = new Pizzicato.Sound({
       source: 'wave',
@@ -20,14 +20,14 @@ export class Chaos {
         attack: 1
       }
     });
-    // this.dub = new Pizzicato.Effects.DubDelay({
-    //   feedback: .3,
-    //   time: 1,
-    //   mix: 1,
-    //   cutoff: 600
-    // });
-    // this.a.addEffect(this.dub);
-    // this.b.addEffect(this.dub);
+    this.dub = new Pizzicato.Effects.DubDelay({
+      feedback: .3,
+      time: 1,
+      mix: 1,
+      cutoff: 600
+    });
+    this.a.addEffect(this.dub);
+    this.b.addEffect(this.dub);
 
 
   }
