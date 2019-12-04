@@ -78,6 +78,7 @@ export class Sequencer {
 
   selectTrack(i) {
     this.selectedTrack = parseInt(i);
+    if (!this.playing) this.drumKit.drums[this.selectedTrack].play('go');
   }
 
   loadSequence(array) {
