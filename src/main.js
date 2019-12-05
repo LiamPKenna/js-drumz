@@ -124,7 +124,15 @@ $(document).ready(function(){
 
   $('#dropdownMenuButton').change(() => {
     const kitSelected = $('#dropdownMenuButton option:selected').val();
+    sequencer.playing = false;
     sequencer.selectKit(kitSelected);
+    sequencer.drumKit.drums.forEach(drum => drum.play('go'));
+    for (let i = 0; i < 10; i++) {
+      const volume = $(`.volume[name='${i}']`).val();
+      const pitch = $(`.pitch-slider[name='${i}']`).val();
+      sequencer.changeVolume(i, volume);
+      sequencer.changePitch(i, pitch);
+    }
   });
 
   $('#swing-slider').change(() => {
@@ -137,6 +145,7 @@ $(document).ready(function(){
     sequencer.changeAB(event.target.name);
     $(event.target).addClass('a-b-glow');
     refreshSequence();
+    refreshGhost();
   });
 
   const ghostStep = $('.edit-step-input');
