@@ -10,24 +10,20 @@ import './css/styles.css';
 import { Sequencer } from './js/sequencer.js';
 const sequencer = new Sequencer(1);
 sequencer.loadSequence([[0,0],[0,8],[1,4],[1,12],[3,2],[6,10],[7,1],[7,3],[7,5],[7,7],[7,13],[8,14],[9,0]]);
-// sequencer.loadGhostSequence([[0,1],[5,13],[7,20]]);
 sequencer.changeSwing(10);
 
 
 // USER INTERFACE
 $(document).ready(function(){
 
-
-
+  //CHAOS
   function chaosCoords() {
     $( "#chaos" ).mousemove(function( event ) {
       let a = parseInt(event.pageX/6);
       let b = parseInt(event.pageY/10);
       sequencer.chaos.changeNote(a,b);
-
     });
   }
-
 
   $('#chaos').mousedown(() => {
     sequencer.chaos.a.play();
@@ -35,7 +31,6 @@ $(document).ready(function(){
   });
   $('#chaos').dblclick(() => {
     sequencer.chaos.a.play();
-
     sequencer.chaos.b.play();
   });
 
@@ -49,16 +44,14 @@ $(document).ready(function(){
     sequencer.chaos.b.stop();
   });
 
+  //DOOM
   function doomCoords() {
     $("#doom").mousemove(function( event ) {
       let c = parseInt(event.pageX/4);
       let d = parseInt(event.pageY/5);
-
-
       sequencer.doom.changeNote(c,d);
     });
   }
-
 
   $('#doom').mousedown(() => {
     sequencer.doom.c.play();
@@ -72,8 +65,6 @@ $(document).ready(function(){
     sequencer.doom.c.stop();
     sequencer.doom.d.stop();
   });
-
-
 
   const refreshSequence = () => {
     const currentSequence = sequencer.sequence[sequencer.selectedTrack][sequencer.aOrB];
@@ -179,10 +170,25 @@ $(document).ready(function(){
     refreshGhost();
   });
 
+  $('.ghost-octave-button').click((event) => {
+    $('.ghost-octave-glow').removeClass('ghost-octave-glow');
+    const octaveLow = (event.target.name === 'low');
+    sequencer.ghostOctaveDown = octaveLow;
+    $(event.target).addClass('ghost-octave-glow');
+  });
+
+  $('.ghost-slider').change((event) => {
+    sequencer.ghost.changeVolume(event.target.value);
+  });
+
+  $('.dub-slider').change((event) => {
+    const slider = event.target.id;
+    const value = event.target.value;
+    sequencer.ghost.changeDub(slider, value);
+  });
 
   refreshSequence();
   chaosCoords();
   doomCoords();
-
 
 });
