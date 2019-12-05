@@ -286,7 +286,7 @@ h1 {
   grid-template-columns: 1fr 1fr;
 }
 
-.ghost-wrapper, .ghost-wrapper, .ghost-body {
+.ghost-wrapper, .ghost-wrapper, .ghost-body, .left-ghost-col-div {
   border: 3px solid #cc241d;
 }
 
@@ -359,7 +359,11 @@ h1 {
 }
 
 #delay-control-margin {
-  margin-top: 70px;
+  margin-top: 30px;
+}
+
+.filter-controls{
+  margin-top: 30px;
 }
 
 .ghost-glow {

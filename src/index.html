@@ -253,8 +253,13 @@
         <input id="feedback" class="dub-slider" value="51" type="range" min="0" max="127" step="1">
         <h4>Time</h4>
         <input id="time" class="dub-slider" value="32" type="range" min="20" max="127" step="1">
-        <h4>Cutoff</h4>
-        <input id="cutoff" class="dub-slider" value="19" type="range" min="0" max="127" step="1">
+      </div>
+      <div class="filter-controls">
+        <h2>Filter</h2>
+        <h4>Frequency</h4>
+        <input id="frequency" class="filter-slider" value="114" type="range" min="0" max="127" step="1">
+        <h4>Peak</h4>
+        <input id="peak" class="filter-slider" value="25" type="range" min="0" max="127" step="1">
       </div>
     </div>
 
@@ -308,7 +313,7 @@
     <div class="left-chaos-col-div" id="volume-2">
       <h2>Volume</h2>
       <div id="volume-slider-div" class="chaos-volume-slider">
-        <input class="chaos-slider" type="range" min="0" max="127" step="1">
+        <input class="chaos-slider" value="127" type="range" min="0" max="127" step="1">
       </div>
       <button class="chaos-kill-button" type="button" name="button">Kill</button>
     </div>
