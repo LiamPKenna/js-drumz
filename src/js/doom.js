@@ -5,8 +5,8 @@ export class Doom {
     this.c = new Pizzicato.Sound({
       source: 'wave',
       options: {
-        volume: .30,
-        type: 'square',
+        volume: .20,
+        type: 'triangle',
         frequency: 440,
         attack: 1
       }
@@ -14,7 +14,7 @@ export class Doom {
     this.d = new Pizzicato.Sound({
       source: 'wave',
       options: {
-        volume: .30,
+        volume: .20,
         type: 'sawtooth',
         frequency: 440,
         attack: 1

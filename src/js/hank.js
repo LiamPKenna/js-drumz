@@ -5,7 +5,16 @@ export class Hank {
     this.e = new Pizzicato.Sound({
       source: 'wave',
       options: {
-        volume: .60,
+        volume: .45,
+        type: 'triangle',
+        frequency: 10,
+        attack: 1
+      }
+    });
+    this.f = new Pizzicato.Sound({
+      source: 'wave',
+      options: {
+        volume: .45,
         type: 'triangle',
         frequency: 10,
         attack: 1
@@ -16,6 +25,7 @@ export class Hank {
       depth: 1,
       mix: 1
     });
+
     this.dub = new Pizzicato.Effects.PingPongDelay({
       feedback: 0.3,
       time: .5,
@@ -26,11 +36,13 @@ export class Hank {
 
     this.e.addEffect(this.tremolo);
     this.e.addEffect(this.dub);
+    this.f.addEffect(this.tremolo);
 
 
 
   }
-  changeNote(eNote) {
-    this.e.frequency = eNote;
+  changeNote(e,f) {
+    this.e.frequency = e;
+    this.f.frequency = f;
   }
 }
