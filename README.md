@@ -1,6 +1,6 @@
-# _{JS-Drumz}_
+# _JS-Drumz_
 
-#### _Web application {INFORMATION}, Dec. 5th 2019_
+#### Music Web Application, Dec. 5th 2019
 
 #### By _**Liam Kenna, Jay Winebrenner, Casey Idsinga, Mikey Wells**_
 
@@ -8,11 +8,11 @@
 
 _This site is a fun tool for creating music from your web browser.  It's comprised of 3 musical modules: Drum Machine, Ghost Machine, and the Mangle Machine._
 
-* _Drum Machine
+# Drum Machine
 
 The drum machine is based on a 16 step sequencer. There are 3 main sections in the drum machine: the control panel, the instrument panels, and the sequence panel.  
 
-
+![](https://media.giphy.com/media/dwEwj0CreSKSdY6ZJc/giphy.gif)
 
 Control Panel:
   Volume: this slider will control the master Volume of the entire machine.
@@ -29,9 +29,11 @@ Instrument Panel:
 
 Sequencer Panel: this panel shows the steps of the sequence.  The button are colored red when the step has been selected for the currently selected instrument.  It will be white if the step hasn't been selected to be triggered.  A yellow glow will move with the tempo displaying which step of the sequence is currently being triggered.
 
-Ghost machine
+# Ghost machine
 
 The Ghost Machine is inspired by the Roland 303 Synth.  It is a sequenced melodic instrument that plays in time with the Drum Machine.  It has 3 sections to control this instrument: the main Control panel, the Keyboard panel, and Sequencer panel.
+
+![](https://media.giphy.com/media/eNSjIiEcelsABSdxBD/giphy.gif)
 
 Control Panel:
   Volume: this slider controls the volume of the Ghost Machine.  Left is volume down, right is volume up.
@@ -53,9 +55,11 @@ Sequencer:
   Back/Forward: These button increment or decrement which step in the sequence you are on for editing your notes.
 
 
-Mangle Machine:
+# Mangle Machine:
 
 The Mangle Machine has 3 crazy sound generating modules that can be effected by manipulating the X and Y axis while clicking on the corresponding graphic.  It has a Control Panel and Instrument Panel.
+
+![](https://media.giphy.com/media/l3BwmswCfKCzwJNi06/giphy.gif)
 
 Control Panel:
   Volume: This controls the overall volume of the module.  Moving the slider left will decrease the volume, right will increase.
