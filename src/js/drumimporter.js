@@ -28,28 +28,28 @@ import sound27 from "./../mp3/sound27.mp3";
 import sound28 from "./../mp3/sound28.mp3";
 import sound29 from "./../mp3/sound29.mp3";
 import sound30 from "./../mp3/sound30.mp3";
-// import sound31 from "./../mp3/sound31.mp3"
-// import sound32 from "./../mp3/sound32.mp3"
-// import sound33 from "./../mp3/sound33.mp3"
-// import sound34 from "./../mp3/sound34.mp3"
-// import sound35 from "./../mp3/sound35.mp3"
-// import sound36 from "./../mp3/sound36.mp3"
-// import sound37 from "./../mp3/sound37.mp3"
-// import sound38 from "./../mp3/sound38.mp3"
-// import sound39 from "./../mp3/sound39.mp3"
-// import sound40 from "./../mp3/sound40.mp3"
+import sound31 from "./../mp3/sound31.mp3";
+import sound32 from "./../mp3/sound32.mp3";
+import sound33 from "./../mp3/sound33.mp3";
+import sound34 from "./../mp3/sound34.mp3";
+import sound35 from "./../mp3/sound35.mp3";
+import sound36 from "./../mp3/sound36.mp3";
+import sound37 from "./../mp3/sound37.mp3";
+import sound38 from "./../mp3/sound38.mp3";
+import sound39 from "./../mp3/sound39.mp3";
+import sound40 from "./../mp3/sound40.mp3";
 
 const kit1 = [sound1, sound2, sound3, sound4, sound5, sound6, sound7, sound8, sound9, sound10];
 const kit2 = [sound11, sound12, sound13, sound14, sound15, sound16, sound17, sound18, sound19, sound20];
 const kit3 = [sound21, sound22, sound23, sound24, sound25, sound26, sound27, sound28, sound29, sound30];
-// const kit4 = [sound31, sound32, sound33, sound34, sound35, sound36, sound37, sound38, sound39, sound40];
+const kit4 = [sound31, sound32, sound33, sound34, sound35, sound36, sound37, sound38, sound39, sound40];
 
 const getKit = (n) => {
   const kits = {
     kit1: kit1,
     kit2: kit2,
     kit3: kit3,
-    // kit4: kit4
+    kit4: kit4
   };
   return kits[`kit${n}`];
 };
