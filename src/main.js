@@ -110,13 +110,13 @@ $(document).ready(function(){
     refreshSequence();
   });
 
-  $('.volume').change((event) => {
+  $('.volume').on('input', (event) => {
     const track = event.target.name;
     const volume = event.target.value;
     sequencer.changeVolume(track, volume);
   });
 
-  $('.pitch-slider').change((event) => {
+  $('.pitch-slider').on('input', (event) => {
     const track = event.target.name;
     const pitch = event.target.value;
     sequencer.changePitch(track, pitch);
@@ -135,7 +135,7 @@ $(document).ready(function(){
     }
   });
 
-  $('#swing-slider').change(() => {
+  $('#swing-slider').on('input', () => {
     const swing = event.target.value;
     sequencer.changeSwing(swing);
   });
@@ -186,11 +186,11 @@ $(document).ready(function(){
     $(event.target).addClass('ghost-octave-glow');
   });
 
-  $('.ghost-slider').change((event) => {
+  $('.ghost-slider').on('input', (event) => {
     sequencer.ghost.changeVolume(event.target.value);
   });
 
-  $('.dub-slider').change((event) => {
+  $('.dub-slider').on('input', (event) => {
     const slider = event.target.id;
     const value = event.target.value;
     sequencer.ghost.changeDub(slider, value);
