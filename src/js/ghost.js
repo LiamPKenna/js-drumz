@@ -7,7 +7,6 @@ export class Ghost {
       source: 'wave',
       options: {
         volume: 0.79,
-        frequency: 440,
         attack: 0.01
       }
     });
@@ -32,4 +31,16 @@ export class Ghost {
       this.sound.stop();
     }, 200);
   }
+
+  changeVolume(inputVolume) {
+    const newVolume = Math.round((parseInt(inputVolume)*100)/127)/100;
+    this.sound.volume = newVolume;
+  }
+
+  changeDub(slider, value) {
+    let newValue = Math.round((parseInt(value)*100)/127)/100;
+    if (slider === 'cutoff') newValue = newValue * 700;
+    this.dub[slider] = newValue;
+  }
+
 }
