@@ -196,6 +196,11 @@ $(document).ready(function(){
     sequencer.ghost.changeDub(slider, value);
   });
 
+  $('.chaos-slider').on('input', (event) => {
+    const inputVolume = event.target.value;
+    sequencer.changeVolumeChaosAndDoom(inputVolume);
+  });
+
   refreshSequence();
   chaosCoords();
   doomCoords();
