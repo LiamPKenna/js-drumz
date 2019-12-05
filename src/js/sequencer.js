@@ -2,6 +2,7 @@ import { DrumKit } from './drums.js';
 import { Ghost } from './ghost.js';
 import { Chaos } from './chaos.js';
 import { Doom } from './doom.js';
+import { Hank } from './hank.js';
 
 
 export class Sequencer {
@@ -18,6 +19,7 @@ export class Sequencer {
     this.ghost = new Ghost();
     this.chaos = new Chaos();
     this.doom = new Doom();
+    this.hank = new Hank();
     this.ghostOctaveDown = true;
   }
 
