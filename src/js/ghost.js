@@ -6,7 +6,7 @@ export class Ghost {
     this.sound = new Pizzicato.Sound({
       source: 'wave',
       options: {
-        volume: 0.79,
+        volume: 0.47,
         attack: 0.01
       }
     });
@@ -29,11 +29,11 @@ export class Ghost {
     this.sound.play();
     setTimeout(() => {
       this.sound.stop();
-    }, 200);
+    }, 100);
   }
 
   changeVolume(inputVolume) {
-    const newVolume = Math.round((parseInt(inputVolume)*100)/127)/100;
+    const newVolume = Math.round((parseInt(inputVolume)*100)/127)/100 * 0.6;
     this.sound.volume = newVolume;
   }
 
