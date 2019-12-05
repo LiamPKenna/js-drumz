@@ -121,7 +121,7 @@ export class Sequencer {
   }
 
   changeVolume(track, volume) {
-    const newVolume = parseInt(volume)/127;
+    const newVolume = this.convertMidi(volume);
     this.drumKit.drums[track].volume(newVolume);
   }
 
@@ -129,9 +129,9 @@ export class Sequencer {
     const switchPitch = (n) => {
       let pitch;
       if (n <= 64) {
-        pitch = Math.round((n/127)*100)/100 + .5;
+        pitch = this.convertMidi(n) + .5;
       } else {
-        pitch = Math.round((n/127)*100)/100 * 2;
+        pitch = this.convertMidi(n) * 2;
       }
       return pitch;
     };
@@ -140,13 +140,26 @@ export class Sequencer {
   }
 
   changeSwing(swing) {
-    const swingPercent = Math.round((parseInt(swing)/127)*100)/100;
+    const swingPercent = this.convertMidi(swing);
     this.swing = ((swingPercent*100)/2)/100;
   }
 
   getGhost(index) {
     const currentNote = this.sequence[10][this.aOrB][index];
     return (this.ghostOctaveDown) ? currentNote : currentNote - 12;
+  }
+
+  changeVolumeChaosAndDoom(volume) {
+    const chaosVolume = this.convertMidi(volume) * 0.6;
+    const doomVolume = this.convertMidi(volume) * 0.3;
+    this.chaos.a.volume = chaosVolume;
+    this.chaos.b.volume = chaosVolume;
+    this.doom.c.volume = doomVolume;
+    this.doom.d.volume = doomVolume;
+  }
+
+  convertMidi(n) {
+    return Math.round((parseInt(n)/127)*100)/100;
   }
 
 }
