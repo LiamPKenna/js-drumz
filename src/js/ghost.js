@@ -16,11 +16,14 @@ export class Ghost {
       mix: 0.4,
       cutoff: 600
     });
-    this.filter = new Pizzicato.Effects.LowPassFilter({
-      frequency: 9000,
-      peak: 2
+    this.pan =  new Pizzicato.Effects.StereoPanner({
+      pan: 0.0
     });
-    this.sound.addEffect(this.filter);
+    this.grime = new Pizzicato.Effects.Distortion({
+      gain: 0.0
+    });
+    this.sound.addEffect(this.grime);
+    this.sound.addEffect(this.pan);
     this.sound.addEffect(this.dub);
     this.notes = notes;
   }
@@ -47,14 +50,15 @@ export class Ghost {
     this.dub[slider] = newValue;
   }
 
-  changeFilter(slider, value) {
+  changePanOrGrime(slider, value) {
     let newValue;
-    if (slider === 'frequency') {
-      newValue = Math.round((parseInt(value)*100)/127)*100;
+    if (slider === 'pan') {
+      newValue = Math.round((parseInt(value)*100)/127)/100-0.5;
+      this.pan.pan = newValue;
     } else {
-      newValue = Math.round((parseInt(value)*100)/127)/100*20;
+      newValue = Math.round((parseInt(value)*100)/127)/100;
+      this.grime.gain = newValue;
     }
-    this.filter[slider] = newValue;
   }
 
 }
