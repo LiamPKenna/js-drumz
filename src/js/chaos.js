@@ -5,7 +5,7 @@ export class Chaos {
     this.a = new Pizzicato.Sound({
       source: 'wave',
       options: {
-        volume: 1,
+        volume: .60,
         type: 'triangle',
         frequency: 440,
         attack: 1
@@ -14,20 +14,32 @@ export class Chaos {
     this.b = new Pizzicato.Sound({
       source: 'wave',
       options: {
-        volume: .25,
+        volume: .60,
         type: 'sine',
         frequency: 440,
         attack: 1
       }
     });
-    // this.dub = new Pizzicato.Effects.DubDelay({
-    //   feedback: .3,
-    //   time: 1,
-    //   mix: 1,
-    //   cutoff: 600
-    // });
-    // this.a.addEffect(this.dub);
-    // this.b.addEffect(this.dub);
+    this.lp = new Pizzicato.Effects.LowPassFilter({
+      frequency: 2000,
+      peak: 11
+    });
+
+
+    this.tremolo1 = new Pizzicato.Effects.Tremolo({
+      speed: 7,
+      depth: 0.8,
+      mix: 0.8
+    });
+    this.tremolo = new Pizzicato.Effects.Tremolo({
+      speed: 10,
+      depth: 1,
+      mix: 1
+    });
+    this.a.addEffect(this.lp);
+    this.b.addEffect(this.tremolo);
+    // this.a.addEffect(this.tremolo1);
+
 
 
   }
