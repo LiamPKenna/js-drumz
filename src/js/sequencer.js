@@ -1,6 +1,8 @@
 import { DrumKit } from './drums.js';
 import { Ghost } from './ghost.js';
 import { Chaos } from './chaos.js';
+import { Doom } from './doom.js';
+
 
 export class Sequencer {
   constructor(kit = 1) {
@@ -15,6 +17,7 @@ export class Sequencer {
     this.swing16 = true;
     this.ghost = new Ghost();
     this.chaos = new Chaos();
+    this.doom = new Doom();
     this.ghostOctaveDown = true;
   }
 

@@ -175,8 +175,10 @@ h1{
 .box-2 {
   font-size: 12px;
   border: 8px solid black;
-  background: white;
+  background-color: #36383b;
   width: 400px;
+  height: 600px;
+  word-wrap: break-word;
 }
 
 .chaos-wrapper{
@@ -225,10 +227,19 @@ padding: 0 auto;
   font-size: 8rem;
 }
 
+#doomhead {
+  color: #E72E2E;
+
+}
+
+#chaoshead {
+  color: #E72E2E;
+}
+
 #chaos{
   position: sticky;
   top: 100%;
-  font-size: 14px;
+  font-size: 16px;
   background-color: white;
   color: black;
   text-align: center;
@@ -240,7 +251,7 @@ width: 80%;
 
 }
 #chaos:active {
-  color: white;
+  color: #E72E2E;
   background-color: black;
   transform: scale(1) translate(-20, -20);
   user-select: none;
@@ -248,12 +259,12 @@ width: 80%;
 #doom{
   position: sticky;
   top: 100%;
-
-  font-size: 14px;
+user-select: none;
+  font-size: 10px;
   background-color: white;
   color: black;
   text-align: center;
-width: 80%;
+  width: 80%;
   border:4px solid black;
   border-radius: 5px;
   margin-left: 10%;
@@ -261,7 +272,7 @@ width: 80%;
 
 }
 #doom:active {
-  color: white;
+  color: #E72E2E;
   background-color: black;
   transform: scale(1) translate(-20, -20);
   user-select: none;
@@ -296,6 +307,7 @@ width: 80%;
   background-color: #282828;
   color: #ebdbb2;
 }
+
 #ghost-header{
     color: #ebdbb2;
 

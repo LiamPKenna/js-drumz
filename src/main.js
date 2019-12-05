@@ -23,8 +23,8 @@ $(document).ready(function(){
     $( "#chaos" ).mousemove(function( event ) {
       let a = parseInt(event.pageX/6);
       let b = parseInt(event.pageY/10);
-
       sequencer.chaos.changeNote(a,b);
+
     });
   }
 
@@ -33,6 +33,12 @@ $(document).ready(function(){
     sequencer.chaos.a.play();
     sequencer.chaos.b.play();
   });
+  $('#chaos').dblclick(() => {
+    sequencer.chaos.a.play();
+
+    sequencer.chaos.b.play();
+  });
+
   $('#chaos').mouseup(() => {
     sequencer.chaos.a.stop();
     sequencer.chaos.b.stop();
@@ -43,24 +49,29 @@ $(document).ready(function(){
     sequencer.chaos.b.stop();
   });
 
-//   function doomCoords() {
-//     $( "#doom" ).mousemove(function( event ) {
-//       let a = parseInt(event.pageX/6);
-//       let b = parseInt(event.pageY/10);
-
-//       sequencer.doom.changeNote(a,b);
-//     });
-//   }
+  function doomCoords() {
+    $("#doom").mousemove(function( event ) {
+      let c = parseInt(event.pageX/4);
+      let d = parseInt(event.pageY/5);
 
 
-  // $('#doom').mousedown(() => {
-  //   sequencer.doom.a.play();
-  //   sequencer.doom.b.play();
-  // });
-  // $('#doom').mouseup(() => {
-  //   sequencer.doom.a.stop();
-  //   sequencer.doom.b.stop();
-  // });
+      sequencer.doom.changeNote(c,d);
+    });
+  }
+
+
+  $('#doom').mousedown(() => {
+    sequencer.doom.c.play();
+    sequencer.doom.d.play();
+  });
+  $('#doom').dblclick(() => {
+    sequencer.doom.c.play();
+    sequencer.doom.d.play();
+  });
+  $('#doom').mouseup(() => {
+    sequencer.doom.c.stop();
+    sequencer.doom.d.stop();
+  });
 
 
 
@@ -171,6 +182,7 @@ $(document).ready(function(){
 
   refreshSequence();
   chaosCoords();
+  doomCoords();
 
 
 });

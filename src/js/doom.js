@@ -2,20 +2,20 @@ import Pizzicato from 'pizzicato';
 
 export class Doom {
   constructor() {
-    this.a = new Pizzicato.Sound({
+    this.c = new Pizzicato.Sound({
       source: 'wave',
       options: {
-        volume: 1,
-        type: 'triangle',
+        volume: .30,
+        type: 'square',
         frequency: 440,
         attack: 1
       }
     });
-    this.b = new Pizzicato.Sound({
+    this.d = new Pizzicato.Sound({
       source: 'wave',
       options: {
-        volume: .25,
-        type: 'sine',
+        volume: .30,
+        type: 'sawtooth',
         frequency: 440,
         attack: 1
       }
@@ -26,14 +26,22 @@ export class Doom {
       mix: 1,
       cutoff: 600
     });
-    this.a.addEffect(this.dub);
-    this.b.addEffect(this.dub);
+
+    this.ping = new Pizzicato.Effects.PingPongDelay({
+      feedback: 0.6,
+      time: 0.4,
+      mix: 0.8
+    });
+
+
+    this.c.addEffect(this.dub);
+    this.d.addEffect(this.ping);
 
 
   }
 
-  changeNote(aNote, bNote) {
-    this.a.frequency = aNote;
-    this.b.frequency = bNote;
+  changeNote(cNote, dNote) {
+    this.c.frequency = cNote;
+    this.d.frequency = dNote;
   }
 }
