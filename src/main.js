@@ -3,6 +3,7 @@ import $ from 'jquery';
 import 'bootstrap';
 import './css/bootstrap.min.css';
 import './css/styles.css';
+import arts from './js/art.js';
 
 
 
@@ -15,7 +16,13 @@ sequencer.changeSwing(10);
 
 // USER INTERFACE
 $(document).ready(function(){
-
+  //add ascii art
+  $('#hankhead').html(arts.hankhead);
+  $('#hank').html(arts.hank);
+  $('#doomhead').html(arts.doomHead);
+  $('#doom').html(arts.doom);
+  $('#chaos').html(arts.chaos);
+  $('#chaoshead').html(arts.chaosHead);
   //CHAOS
   function chaosCoords() {
     $( "#chaos" ).mousemove(function( event ) {
@@ -64,6 +71,24 @@ $(document).ready(function(){
   $('#doom').mouseup(() => {
     sequencer.doom.c.stop();
     sequencer.doom.d.stop();
+  });
+
+  //HANK
+  function hankCoords() {
+    $("#hank").mousemove(function( event ) {
+
+      let e = parseInt((event.pageY-event.pageX)/4);
+      sequencer.hank.changeNote(e);
+    });
+  }
+  $('#hank').mousedown(() => {
+    sequencer.hank.e.play();
+  });
+  $('#hank').dblclick(() => {
+    sequencer.hank.e.play();
+  });
+  $('#hank').mouseup(() => {
+    sequencer.hank.e.stop();
   });
 
   const refreshSequence = () => {
@@ -212,5 +237,6 @@ $(document).ready(function(){
   refreshSequence();
   chaosCoords();
   doomCoords();
+  hankCoords();
 
 });

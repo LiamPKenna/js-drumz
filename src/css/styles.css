@@ -227,23 +227,23 @@ h1{
   font-size: 8rem;
 }
 
-#doomhead {
+#doomhead, #chaoshead, #hankhead {
   color: #E72E2E;
 
 }
 
-#chaoshead {
-  color: #E72E2E;
-}
 
 #chaos{
   position: sticky;
+  opacity: 0.6;
+  overflow: hidden;
   top: 100%;
-  font-size: 16px;
+  font-size: 2px;
   background-color: white;
   color: black;
   text-align: center;
-  width: 80%;
+  width: 300px;
+  height: 375px;
   border:4px solid black;
   border-radius: 5px;
   margin-left: 10%;
@@ -253,18 +253,22 @@ h1{
 #chaos:active {
   color: #E72E2E;
   background-color: black;
-  transform: scale(1) translate(-20, -20);
+  box-shadow: 0 0 20px #cc241d;
   user-select: none;
 }
 #doom{
   position: sticky;
+  opacity: 0.6;
+  overflow: hidden;
   top: 100%;
+  scroll-behavior: none;
   user-select: none;
   font-size: 10px;
   background-color: white;
   color: black;
   text-align: center;
-  width: 80%;
+  width: 300px;
+  height: 375px;
   border:4px solid black;
   border-radius: 5px;
   margin-left: 10%;
@@ -274,11 +278,35 @@ h1{
 #doom:active {
   color: #E72E2E;
   background-color: black;
-  transform: scale(1) translate(-20, -20);
+  box-shadow: 0 0 20px #cc241d;
   user-select: none;
 }
+#hank{
 
+  position: sticky;
+  opacity: 0.6;
+  top: 100%;
+  overflow: hidden;
+  user-select: none;
+  font-size: 6px;
+  background-color: white;
+  color: black;
+  text-align: center;
+  width: 300px;
+  height: 375px;
+  border:4px solid black;
+  border-radius: 5px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
 
+#hank:active {
+  box-shadow: 0 0 20px #cc241d;
+  color: #E72E2E;
+  background-color: black;
+  /* transform: scale(1) translate(3%, 3%); */
+  user-select: none;
+}
 
 .box-1{
   margin: 5px;
@@ -380,12 +408,12 @@ h1{
 }
 .ghost-extra-contols-border{
   background-color: #282828;
-    /* border: 4px solid #cc241d; */
-    padding: 2em;
-    width: 36em;
-    height: 36em;
-    position: relative;
-    margin: 0 auto;
+  /* border: 4px solid #cc241d; */
+  padding: 2em;
+  width: 36em;
+  height: 36em;
+  position: relative;
+  margin: 0 auto;
 }
 
 .ghost-extra-contols-border:before {

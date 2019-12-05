@@ -24,8 +24,6 @@ export class Chaos {
       frequency: 2000,
       peak: 11
     });
-
-
     this.tremolo1 = new Pizzicato.Effects.Tremolo({
       speed: 7,
       depth: 0.8,
@@ -38,12 +36,7 @@ export class Chaos {
     });
     this.a.addEffect(this.lp);
     this.b.addEffect(this.tremolo);
-    // this.a.addEffect(this.tremolo1);
-
-
-
   }
-
   changeNote(aNote, bNote) {
     this.a.frequency = aNote;
     this.b.frequency = bNote;
