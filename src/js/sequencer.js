@@ -46,6 +46,7 @@ export class Sequencer {
   }
 
   togglePlay() {
+    this.ghost.sound.stop();
     this.currentStep = 0;
     this.playing = !this.playing;
     if (this.frontEndFunction) this.frontEndFunction(this.currentStep);
@@ -142,7 +143,7 @@ export class Sequencer {
 
   getGhost(index) {
     const currentNote = this.sequence[10][this.aOrB][index];
-    return (currentNote < 14) ? currentNote : currentNote - 12;
+    return (this.ghostOctaveDown) ? currentNote : currentNote - 12;
   }
 
 }
