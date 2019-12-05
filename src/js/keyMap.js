@@ -26,6 +26,6 @@ const keyMap = {
     77: 12,
     188: 13
   }
-}
+};
 
 export default keyMap;
