@@ -222,6 +222,7 @@ $(document).ready(function(){
   });
 
   $('body').keydown((event) => {
+    event.preventDefault();
     const key = event.which;
     if (key === 32) {
       sequencer.togglePlay();
@@ -230,7 +231,7 @@ $(document).ready(function(){
       sequencer.drumKit.drums[drum].play('go');
     } else if (keyMap.ghostMap[key]) {
       const note = keyMap.ghostMap[key];
-      sequencer.ghost.oOoO(note)
+      sequencer.ghost.oOoO(note);
     }
   });
 

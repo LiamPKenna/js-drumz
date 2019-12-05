@@ -63,10 +63,8 @@ export class Sequencer {
       }
     });
     if (this.sequence[10][this.aOrB][this.currentStep]) {
-      this.ghost.changeNote(this.sequence[10][this.aOrB][this.currentStep]);
-      this.ghost.sound.play();
-    } else {
-      this.ghost.sound.stop();
+      const note = this.sequence[10][this.aOrB][this.currentStep];
+      this.ghost.oOoO(note);
     }
     this.incrementStep();
   }
