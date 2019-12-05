@@ -29,8 +29,8 @@ $(document).ready(function(){
   //CHAOS
   function chaosCoords() {
     $( "#chaos" ).mousemove(function( event ) {
-      let a = parseInt(event.pageX/6);
-      let b = parseInt(event.pageY/10);
+      let a = parseInt(event.pageX/5);
+      let b = parseInt(event.pageY/9);
       sequencer.chaos.changeNote(a,b);
     });
   }
@@ -79,19 +79,22 @@ $(document).ready(function(){
   //HANK
   function hankCoords() {
     $("#hank").mousemove(function( event ) {
-
+      let f = parseInt((event.pageY-event.pageX)/8);
       let e = parseInt((event.pageY-event.pageX)/4);
-      sequencer.hank.changeNote(e);
+      sequencer.hank.changeNote(e,f);
     });
   }
   $('#hank').mousedown(() => {
     sequencer.hank.e.play();
+    sequencer.hank.f.play();
   });
   $('#hank').dblclick(() => {
     sequencer.hank.e.play();
+    sequencer.hank.f.play();
   });
   $('#hank').mouseup(() => {
     sequencer.hank.e.stop();
+    sequencer.hank.f.stop();
   });
 
   //Refresh Functions
