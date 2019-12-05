@@ -17,6 +17,7 @@ sequencer.changeSwing(10);
 
 // USER INTERFACE
 $(document).ready(function(){
+
   //add ascii art
   $('#hankhead').html(arts.hankhead);
   $('#hank').html(arts.hank);
@@ -24,6 +25,7 @@ $(document).ready(function(){
   $('#doom').html(arts.doom);
   $('#chaos').html(arts.chaos);
   $('#chaoshead').html(arts.chaosHead);
+
   //CHAOS
   function chaosCoords() {
     $( "#chaos" ).mousemove(function( event ) {
@@ -92,6 +94,7 @@ $(document).ready(function(){
     sequencer.hank.e.stop();
   });
 
+  //Refresh Functions
   const refreshSequence = () => {
     const currentSequence = sequencer.sequence[sequencer.selectedTrack][sequencer.aOrB];
     currentSequence.forEach((beat, index) => {
@@ -111,11 +114,21 @@ $(document).ready(function(){
     $(`#g-${currentNote}`).addClass('ghost-glow');
   };
 
+  //Logic triggered ui function
   sequencer.frontEndFunction = (currentStep) => {
     $('.glow').removeClass('glow');
     $(`#${currentStep}`).addClass('glow');
+    $('.key-press').removeClass('key-press');
+    if (sequencer.sequence[10][sequencer.aOrB][currentStep]) {
+      const stepNote = sequencer.sequence[10][sequencer.aOrB][currentStep];
+      const note = (sequencer.ghostOctaveDown) ? stepNote : stepNote - 12;
+      if (note > 0 && note < 14) {
+        $(`#g-${note}`).addClass('key-press');
+      }
+    }
   };
 
+  //Drum/Sequencer event listeners
   $('#start-stop-button').click(() => {
     sequencer.togglePlay();
   });
@@ -182,6 +195,7 @@ $(document).ready(function(){
     refreshGhost();
   });
 
+  //Ghost event listeners
   const ghostStep = $('.edit-step-input');
 
   $('.key-wrapper button').click((event) => {
@@ -230,6 +244,7 @@ $(document).ready(function(){
     sequencer.ghost.changeDub(slider, value);
   });
 
+  //MangleMachine event listeners
   $('.chaos-slider').on('input', (event) => {
     const inputVolume = event.target.value;
     sequencer.changeVolumeChaosAndDoom(inputVolume);
@@ -246,6 +261,7 @@ $(document).ready(function(){
     }, 1000);
   });
 
+  //Keydown listeners to allow for playing drums, ghost, and start/stop
   $('body').keydown((event) => {
     event.preventDefault();
     const key = event.which;
@@ -257,6 +273,10 @@ $(document).ready(function(){
     } else if (keyMap.ghostMap[key]) {
       const note = keyMap.ghostMap[key];
       sequencer.ghost.oOoO(note);
+      $(`#g-${note}`).addClass('key-press');
+      setTimeout(() => {
+        $(`#g-${note}`).removeClass('key-press');
+      }, 100);
     }
   });
 
