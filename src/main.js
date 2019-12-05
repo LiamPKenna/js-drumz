@@ -209,6 +209,17 @@ $(document).ready(function(){
     sequencer.changeVolumeChaosAndDoom(inputVolume);
   });
 
+  $('.chaos-kill-button').click(() => {
+    sequencer.doom.ping.feedback = 0;
+    sequencer.doom.dub.feedback = 0;
+    sequencer.doom.c.stop();
+    sequencer.doom.d.stop();
+    setTimeout(function () {
+      sequencer.doom.ping.feedback = 0.6;
+      sequencer.doom.dub.feedback = 0.3;
+    }, 1000);
+  });
+
   refreshSequence();
   chaosCoords();
   doomCoords();
