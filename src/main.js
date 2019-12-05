@@ -3,6 +3,7 @@ import $ from 'jquery';
 import 'bootstrap';
 import './css/bootstrap.min.css';
 import './css/styles.css';
+import keyMap from './js/keyMap.js';
 
 
 
@@ -207,6 +208,31 @@ $(document).ready(function(){
   $('.chaos-slider').on('input', (event) => {
     const inputVolume = event.target.value;
     sequencer.changeVolumeChaosAndDoom(inputVolume);
+  });
+
+  $('.chaos-kill-button').click(() => {
+    sequencer.doom.ping.feedback = 0;
+    sequencer.doom.dub.feedback = 0;
+    sequencer.doom.c.stop();
+    sequencer.doom.d.stop();
+    setTimeout(function () {
+      sequencer.doom.ping.feedback = 0.6;
+      sequencer.doom.dub.feedback = 0.3;
+    }, 1000);
+  });
+
+  $('body').keydown((event) => {
+    event.preventDefault();
+    const key = event.which;
+    if (key === 32) {
+      sequencer.togglePlay();
+    } else if (keyMap.drumMap[key]) {
+      const drum = keyMap.drumMap[key];
+      sequencer.drumKit.drums[drum].play('go');
+    } else if (keyMap.ghostMap[key]) {
+      const note = keyMap.ghostMap[key];
+      sequencer.ghost.oOoO(note);
+    }
   });
 
   refreshSequence();
