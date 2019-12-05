@@ -244,6 +244,12 @@ $(document).ready(function(){
     sequencer.ghost.changeDub(slider, value);
   });
 
+  $('.filter-slider').on('input', (event) => {
+    const slider = event.target.id;
+    const value = event.target.value;
+    sequencer.ghost.changeDub(slider, value);
+  });
+
   //MangleMachine event listeners
   $('.chaos-slider').on('input', (event) => {
     const inputVolume = event.target.value;
