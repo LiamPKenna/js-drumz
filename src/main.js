@@ -110,6 +110,14 @@ $(document).ready(function(){
     refreshSequence();
   });
 
+  $('.volume-slider').on('input', (event) => {
+    const inputVolume = event.target.value;
+    for (let i = 0; i < 10; i++) {
+      const faderVolume = $(`.volume[name='${i}']`).val();
+      sequencer.changeVolumeMaster(i, faderVolume, inputVolume);
+    }
+  });
+
   $('.volume').on('input', (event) => {
     const track = event.target.name;
     const volume = event.target.value;

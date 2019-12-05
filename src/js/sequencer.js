@@ -158,6 +158,11 @@ export class Sequencer {
     this.doom.d.volume = doomVolume;
   }
 
+  changeVolumeMaster(track, faderVolume, inputVolume) {
+    const newVolume = this.convertMidi(inputVolume) * this.convertMidi(faderVolume);
+    this.drumKit.drums[track].volume(newVolume);
+  }
+
   convertMidi(n) {
     return Math.round((parseInt(n)/127)*100)/100;
   }
