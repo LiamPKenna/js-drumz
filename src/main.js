@@ -244,10 +244,10 @@ $(document).ready(function(){
     sequencer.ghost.changeDub(slider, value);
   });
 
-  $('.filter-slider').on('input', (event) => {
+  $('.mix-slider').on('input', (event) => {
     const slider = event.target.id;
     const value = event.target.value;
-    sequencer.ghost.changeDub(slider, value);
+    sequencer.ghost.changePanOrGrime(slider, value);
   });
 
   //MangleMachine event listeners
