@@ -268,6 +268,7 @@ $(document).ready(function(){
     sequencer.chaos.b.stop();
     sequencer.hank.dub.feedback = 0;
     sequencer.hank.e.stop();
+    sequencer.hank.f.stop();
     setTimeout(function () {
       sequencer.doom.ping.feedback = 0.6;
       sequencer.doom.dub.feedback = 0.3;
