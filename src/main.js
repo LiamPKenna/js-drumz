@@ -11,7 +11,10 @@ import keyMap from './js/keyMap.js';
 // MAIN LOGIC
 import { Sequencer } from './js/sequencer.js';
 const sequencer = new Sequencer(1);
-sequencer.loadSequence([[0,0],[0,8],[1,4],[1,12],[3,2],[6,10],[7,1],[7,3],[7,5],[7,7],[7,13],[8,14],[9,0]]);
+sequencer.loadSequence([[0,0],[0,6],[1,4],[1,12],[2,15],[3,14],[4,13],[5,4],[5,12],[6,4],[7,0],[7,4],[7,8],[7,12],[8,14],[9,0]]);
+sequencer.aOrB = 1;
+sequencer.loadSequence([[0,10],[4,2],[4,6],[4,12],[7,2],[7,6],[7,10],[7,14],[8,0],[8,12]]);
+sequencer.aOrB = 0;
 sequencer.changeSwing(10);
 
 

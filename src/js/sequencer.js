@@ -15,7 +15,6 @@ export class Sequencer {
     this.aOrB = 0;
     this.selectedTrack = 0;
     this.swing = 0;
-    this.swing16 = true;
     this.ghost = new Ghost();
     this.chaos = new Chaos();
     this.doom = new Doom();
@@ -88,25 +87,6 @@ export class Sequencer {
     if (!this.playing) this.drumKit.drums[this.selectedTrack].play('go');
   }
 
-  loadSequence(array) {
-    array.forEach(xy => {
-      this.selectedTrack = xy[0];
-      this.toggleStepOnOff(xy[1]);
-    });
-    this.selectedTrack = 0;
-  }
-
-  loadGhostSequence(array) {
-    array.forEach(stepAndNote => {
-      this.toggleGhostNote(stepAndNote);
-    });
-  }
-
-  toggleGhostNote(stepAndNote) {
-    const currentSequence = this.sequence[10][this.aOrB];
-    currentSequence[stepAndNote[0]] = stepAndNote[1];
-  }
-
   toggleStepOnOff(step) {
     const currentSequence = this.sequence[this.selectedTrack][this.aOrB];
     currentSequence[parseInt(step)] = (currentSequence[parseInt(step)]) ? 0 : 1;
@@ -142,6 +122,25 @@ export class Sequencer {
   changeSwing(swing) {
     const swingPercent = this.convertMidi(swing);
     this.swing = ((swingPercent*100)/2)/100;
+  }
+
+  loadSequence(array) {
+    array.forEach(xy => {
+      this.selectedTrack = xy[0];
+      this.toggleStepOnOff(xy[1]);
+    });
+    this.selectedTrack = 0;
+  }
+
+  loadGhostSequence(array) {
+    array.forEach(stepAndNote => {
+      this.toggleGhostNote(stepAndNote);
+    });
+  }
+
+  toggleGhostNote(stepAndNote) {
+    const currentSequence = this.sequence[10][this.aOrB];
+    currentSequence[stepAndNote[0]] = stepAndNote[1];
   }
 
   getGhost(index) {
