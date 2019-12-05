@@ -5,7 +5,7 @@ export class Hank {
     this.e = new Pizzicato.Sound({
       source: 'wave',
       options: {
-        volume: .40,
+        volume: .60,
         type: 'triangle',
         frequency: 10,
         attack: 1
