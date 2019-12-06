@@ -1,7 +1,7 @@
 {
   "name": "js-drumz",
   "version": "1.0.0",
-  "description": "Epicodus Team Week 12/2-12/6/2019",
+  "description": "Music creation tool comprised of 3 modules: Drum Machine, Ghost Machine, and Mangle Machine.",
   "main": "src/main.js",
   "scripts": {
     "build": "webpack --mode development",
@@ -10,8 +10,12 @@
     "test": "jest",
     "debug": "node --inspect node_modules/.bin/jest --runInBand"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LiamPKenna/js-drumz.git"
+  },
   "keywords": [],
-  "author": "Liam, Jay, Mikey, Casey",
+  "author": "Liam Kenna, Jay Winebrenner, Casey Idsinga, Mikey Wells",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^4.4.1",
@@ -25,7 +29,6 @@
     "@babel/plugin-transform-modules-commonjs": "^7.6.0",
     "clean-webpack-plugin": "3.0.0",
     "css-loader": "^3.2.0",
-    "dotenv-webpack": "^1.7.0",
     "eslint": "^6.3.0",
     "eslint-loader": "^3.0.0",
     "file-loader": "^4.2.0",
