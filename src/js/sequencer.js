@@ -148,13 +148,16 @@ export class Sequencer {
     return (this.ghostOctaveDown) ? currentNote : currentNote - 12;
   }
 
-  changeVolumeChaosAndDoom(volume) {
+  changeMangleVolume(volume) {
     const chaosVolume = this.convertMidi(volume) * 0.6;
     const doomVolume = this.convertMidi(volume) * 0.3;
+    const hankVolume = this.convertMidi(volume) * 0.45;
     this.chaos.a.volume = chaosVolume;
     this.chaos.b.volume = chaosVolume;
     this.doom.c.volume = doomVolume;
     this.doom.d.volume = doomVolume;
+    this.hank.e.volume = hankVolume;
+    this.hank.f.volume = hankVolume;
   }
 
   changeVolumeMaster(track, faderVolume, inputVolume) {

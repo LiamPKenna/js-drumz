@@ -259,7 +259,7 @@ $(document).ready(function(){
   //MangleMachine event listeners
   $('.chaos-slider').on('input', (event) => {
     const inputVolume = event.target.value;
-    sequencer.changeVolumeChaosAndDoom(inputVolume);
+    sequencer.changeMangleVolume(inputVolume);
   });
 
   $('.chaos-kill-button').click(() => {
