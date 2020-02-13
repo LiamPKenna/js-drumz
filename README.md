@@ -75,24 +75,28 @@ Control Panel: <br>
 
 
 
+## Stretch Goals
 
+All faders are designed using a 127 value range for potential future midi implementation.
 
 
 ## Setup/Installation Requirements
 
-* _Clone to local machine and open index.html in the browser_
-* _This site can be viewed in it's current form at https://LiamPKenna.github.io/{PROJECT}_
-
+* _Clone to local machine_
+* _Navigate to the folder containing this README_
+* _Run "npm i"_
+* _Run "npm run start"_
+* _This site can be viewed in it's current form at https://LiamPKenna.github.io/js-drumz_
 
 _To explore the source code, feel free to browse on github or clone to your local machine_
 
 ## Known Bugs
 
-_No known bugs at this time._
+_Audio will not play on iOS devices, soulutions are currently being investigated._
 
 ## Support and contact details
 
-_Any issues or concerns, please email liam@liamkenna.com.  All math was done using a 127 value range for future midi implementation._
+_Any issues or concerns, please email liam@liamkenna.com_
 
 ## Technologies Used
 
