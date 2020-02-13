@@ -1,9 +1,12 @@
 {
+  "homepage": "https://github.com/Michael-Wayne-Wells/js-drumz.git",
   "name": "js-drumz",
   "version": "1.0.0",
   "description": "Epicodus Team Week 12/2-12/6/2019",
   "main": "src/main.js",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "webpack --mode development",
     "start": "npm run build & webpack-dev-server --open --mode development",
     "lint": "eslint src/*.js & eslint src/js/*.js",
@@ -29,6 +32,7 @@
     "eslint": "^6.3.0",
     "eslint-loader": "^3.0.0",
     "file-loader": "^4.2.0",
+    "gh-pages": "^2.2.0",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.9.0",
     "style-loader": "^1.0.0",
