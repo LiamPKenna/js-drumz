@@ -75,6 +75,12 @@ Control Panel: <br>
 
 
 
+## Keyboard Shortcuts
+
+* _Space: start/stop the sequencer_
+* _Q W E R T Y U I O P: play the ten drum tracks_
+* _Z S X D C V G B H N J M , : play the Ghost Machine keyboard (one octave, C to C; follows the Low/High octave setting)_
+
 ## Stretch Goals
 
 All faders are designed using a 127 value range for potential future midi implementation.
@@ -82,10 +88,13 @@ All faders are designed using a 127 value range for potential future midi implem
 
 ## Setup/Installation Requirements
 
+* _Requires Node.js 22.12 or newer_
 * _Clone to local machine_
 * _Navigate to the folder containing this README_
-* _Run "npm i"_
-* _Run "npm run start"_
+* _Run "npm install"_
+* _Run "npm run dev" to start the dev server_
+* _Run "npm run build" to produce a production build in dist/ ("npm run preview" serves it)_
+* _Run "npm test" to run the unit tests and "npm run lint" to lint_
 * _This site can be viewed in it's current form at https://LiamPKenna.github.io/js-drumz_
 
 _To explore the source code, feel free to browse on github or clone to your local machine_
@@ -100,7 +109,7 @@ _Any issues or concerns, please email liam@liamkenna.com_
 
 ## Technologies Used
 
-_HTML, CSS, Bootstrap, jQuery, JavaScript, Pizzicato, Howler, Webpack_
+_HTML, CSS, JavaScript, Web Audio API, Vite, Vitest, ESLint_
 
 ### License
 

@@ -1,25 +1,27 @@
-import Pizzicato from 'pizzicato';
+import { Sound, Effects } from './audio.js';
 import notes from './notes.js';
+
+const NOTE_LENGTH = 0.1;
 
 export class Ghost {
   constructor() {
-    this.sound = new Pizzicato.Sound({
+    this.sound = new Sound({
       source: 'wave',
       options: {
         volume: 0.47,
         attack: 0.01
       }
     });
-    this.dub = new Pizzicato.Effects.DubDelay({
+    this.dub = new Effects.DubDelay({
       feedback: 0.4,
       time: 0.25,
       mix: 0.4,
       cutoff: 600
     });
-    this.pan =  new Pizzicato.Effects.StereoPanner({
+    this.pan =  new Effects.StereoPanner({
       pan: 0.0
     });
-    this.grime = new Pizzicato.Effects.Distortion({
+    this.grime = new Effects.Distortion({
       gain: 0.0
     });
     this.sound.addEffect(this.grime);
@@ -28,16 +30,14 @@ export class Ghost {
     this.notes = notes;
   }
 
-  changeNote(n) {
-    this.sound.frequency = this.notes[n];
+  // Plays a 100ms note at an AudioContext time (now by default).
+  oOoO(note, when = 0) {
+    const frequency = this.notes[note];
+    if (frequency) this.sound.playNote(frequency, when, NOTE_LENGTH);
   }
 
-  oOoO(note) {
-    this.changeNote(note);
-    this.sound.play();
-    setTimeout(() => {
-      this.sound.stop();
-    }, 100);
+  stop() {
+    this.sound.stopNotes();
   }
 
   changeVolume(inputVolume) {

@@ -1,31 +1,33 @@
-const keyMap = {
-  drumMap: {
-    81: '0',
-    87: 1,
-    69: 2,
-    82: 3,
-    84: 4,
-    89: 5,
-    85: 6,
-    73: 7,
-    79: 8,
-    80: 9
-  },
-  ghostMap: {
-    90: 1,
-    83: 2,
-    88: 3,
-    68: 4,
-    67: 5,
-    86: 6,
-    71: 7,
-    66: 8,
-    72: 9,
-    78: 10,
-    74: 11,
-    77: 12,
-    188: 13
-  }
-};
+// Keyboard shortcuts, keyed by physical key position (KeyboardEvent.code) so the
+// layout stays the same on non-QWERTY keyboards.
 
-export default keyMap;
+// Top letter row plays the ten drum tracks.
+export const drumKeys = new Map([
+  ['KeyQ', 0],
+  ['KeyW', 1],
+  ['KeyE', 2],
+  ['KeyR', 3],
+  ['KeyT', 4],
+  ['KeyY', 5],
+  ['KeyU', 6],
+  ['KeyI', 7],
+  ['KeyO', 8],
+  ['KeyP', 9],
+]);
+
+// Bottom two rows form a one-octave piano for the Ghost Machine (1 = C ... 13 = C).
+export const ghostKeys = new Map([
+  ['KeyZ', 1],
+  ['KeyS', 2],
+  ['KeyX', 3],
+  ['KeyD', 4],
+  ['KeyC', 5],
+  ['KeyV', 6],
+  ['KeyG', 7],
+  ['KeyB', 8],
+  ['KeyH', 9],
+  ['KeyN', 10],
+  ['KeyJ', 11],
+  ['KeyM', 12],
+  ['Comma', 13],
+]);

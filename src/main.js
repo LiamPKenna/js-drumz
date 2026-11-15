@@ -1,306 +1,309 @@
-// UTILITIES
-import $ from 'jquery';
-import 'bootstrap';
-import './css/bootstrap.min.css';
+import './css/base.css';
 import './css/styles.css';
 import arts from './js/art.js';
-import keyMap from './js/keyMap.js';
-
-
-
-// MAIN LOGIC
+import { drumKeys, ghostKeys } from './js/keyMap.js';
 import { Sequencer } from './js/sequencer.js';
+
+// ---------------------------------------------------------------------------
+// Sequencer setup: the demo beat for patterns A and B.
+// ---------------------------------------------------------------------------
 const sequencer = new Sequencer(1);
-sequencer.loadSequence([[0,0],[0,6],[1,4],[1,12],[2,15],[3,14],[4,13],[5,4],[5,12],[6,4],[7,0],[7,4],[7,8],[7,12],[8,14],[9,0]]);
-sequencer.aOrB = 1;
-sequencer.loadSequence([[0,10],[4,2],[4,6],[4,12],[7,2],[7,6],[7,10],[7,14],[8,0],[8,12]]);
-sequencer.aOrB = 0;
+sequencer.loadSequence([[0,0],[0,6],[1,4],[1,12],[2,15],[3,14],[4,13],[5,4],[5,12],[6,4],[7,0],[7,4],[7,8],[7,12],[8,14],[9,0]], 0);
+sequencer.loadSequence([[0,10],[4,2],[4,6],[4,12],[7,2],[7,6],[7,10],[7,14],[8,0],[8,12]], 1);
 sequencer.changeSwing(10);
 
+// ---------------------------------------------------------------------------
+// DOM helpers
+// ---------------------------------------------------------------------------
+const qs = (selector) => document.querySelector(selector);
+const qsa = (selector) => [...document.querySelectorAll(selector)];
 
-// USER INTERFACE
-$(document).ready(function(){
-
-  //add ascii art
-  $('#hankhead').html(arts.hankhead);
-  $('#hank').html(arts.hank);
-  $('#doomhead').html(arts.doomHead);
-  $('#doom').html(arts.doom);
-  $('#chaos').html(arts.chaos);
-  $('#chaoshead').html(arts.chaosHead);
-
-  //CHAOS
-  function chaosCoords() {
-    $( "#chaos" ).mousemove(function( event ) {
-      let a = parseInt(event.pageX/5);
-      let b = parseInt(event.pageY/9);
-      sequencer.chaos.changeNote(a,b);
-    });
+// Marks one element in a group as active (glow class + aria-pressed).
+const setActive = (elements, active, className) => {
+  for (const el of elements) {
+    const isActive = el === active;
+    el.classList.toggle(className, isActive);
+    el.setAttribute('aria-pressed', String(isActive));
   }
+};
 
-  $('#chaos').mousedown(() => {
-    sequencer.chaos.a.play();
-    sequencer.chaos.b.play();
-  });
-  $('#chaos').dblclick(() => {
-    sequencer.chaos.a.play();
-    sequencer.chaos.b.play();
-  });
+const ui = {
+  masterVolume: qs('#master-volume'),
+  patternButtons: qsa('.a-b-buttons'),
+  tempo: qs('#tempo-input'),
+  kit: qs('#kit-select'),
+  swing: qs('#swing-slider'),
+  startStop: qs('#start-stop-button'),
+  instrumentPanel: qs('#body'),
+  instrumentButtons: qsa('.instrument-button'),
+  trackVolumes: qsa('.volume'),
+  trackPitches: qsa('.pitch-slider'),
+  stepSequencer: qs('#step-sequencer'),
+  stepButtons: qsa('.sequence-button'),
+  ghostVolume: qs('.ghost-slider'),
+  octaveButtons: qsa('.ghost-octave-button'),
+  delayControls: qs('#delay-control-margin'),
+  mixControls: qs('.filter-controls'),
+  keyboard: qs('.key-wrapper'),
+  ghostOff: qs('#ghost-off'),
+  ghostNotes: new Map(qsa('[data-note]').map((el) => [Number(el.dataset.note), el])),
+  ghostStep: qs('#ghost-step'),
+  ghostBack: qs('.ghost-back-button'),
+  ghostForward: qs('.ghost-forward-button'),
+  mangleVolume: qs('.chaos-slider'),
+  kill: qs('.chaos-kill-button'),
+  pads: { chaos: qs('#chaos'), doom: qs('#doom'), hank: qs('#hank') },
+};
 
-  $('#chaos').mouseup(() => {
-    sequencer.chaos.a.stop();
-    sequencer.chaos.b.stop();
-  });
+// ---------------------------------------------------------------------------
+// ASCII art
+// ---------------------------------------------------------------------------
+const art = {
+  hankhead: arts.hankhead,
+  hank: arts.hank,
+  doomhead: arts.doomHead,
+  doom: arts.doom,
+  chaos: arts.chaos,
+  chaoshead: arts.chaosHead,
+};
+for (const [id, text] of Object.entries(art)) {
+  document.getElementById(id).textContent = text;
+}
 
-  $('.chaos-mute-button').click(() => {
-    sequencer.chaos.a.stop();
-    sequencer.chaos.b.stop();
-  });
+// ---------------------------------------------------------------------------
+// Rendering
+// ---------------------------------------------------------------------------
+let ghostEditStep = 0;
+let glowingStep = null;
+let playheadKey = null;
 
-  //DOOM
-  function doomCoords() {
-    $("#doom").mousemove(function( event ) {
-      let c = parseInt(event.pageX/4);
-      let d = parseInt(event.pageY/5);
-      sequencer.doom.changeNote(c,d);
-    });
+const renderSequence = () => {
+  const pattern = sequencer.sequence[sequencer.selectedTrack][sequencer.aOrB];
+  ui.stepButtons.forEach((button, index) => {
+    const on = Boolean(pattern[index]);
+    button.classList.toggle('on', on);
+    button.setAttribute('aria-pressed', String(on));
+  });
+};
+
+const renderGhost = () => {
+  ui.ghostStep.textContent = String(ghostEditStep + 1);
+  const note = sequencer.getGhost(ghostEditStep);
+  for (const [value, el] of ui.ghostNotes) {
+    el.classList.toggle('ghost-glow', value === note);
   }
+};
 
-  $('#doom').mousedown(() => {
-    sequencer.doom.c.play();
-    sequencer.doom.d.play();
-  });
-  $('#doom').dblclick(() => {
-    sequencer.doom.c.play();
-    sequencer.doom.d.play();
-  });
-  $('#doom').mouseup(() => {
-    sequencer.doom.c.stop();
-    sequencer.doom.d.stop();
-  });
+const renderPlayhead = (step) => {
+  glowingStep?.classList.remove('glow');
+  glowingStep = ui.stepButtons[step];
+  glowingStep.classList.add('glow');
 
-  //HANK
-  function hankCoords() {
-    $("#hank").mousemove(function( event ) {
-      let f = parseInt((event.pageY-event.pageX)/8);
-      let e = parseInt((event.pageY-event.pageX)/4);
-      sequencer.hank.changeNote(e,f);
-    });
+  playheadKey?.classList.remove('key-press');
+  playheadKey = null;
+  const stepNote = sequencer.sequence[10][sequencer.aOrB][step];
+  if (stepNote) {
+    const note = sequencer.ghostOctaveDown ? stepNote : stepNote - 12;
+    if (note > 0 && note < 14) {
+      playheadKey = ui.ghostNotes.get(note);
+      playheadKey.classList.add('key-press');
+    }
   }
-  $('#hank').mousedown(() => {
-    sequencer.hank.e.play();
-    sequencer.hank.f.play();
+};
+
+const flashKey = (note) => {
+  const el = ui.ghostNotes.get(note);
+  if (!el) return;
+  el.classList.add('key-press');
+  setTimeout(() => el.classList.remove('key-press'), 100);
+};
+
+sequencer.addEventListener('step', (event) => renderPlayhead(event.detail.step));
+
+// ---------------------------------------------------------------------------
+// Drum machine
+// ---------------------------------------------------------------------------
+const togglePlay = () => {
+  sequencer.togglePlay();
+  ui.startStop.setAttribute('aria-pressed', String(sequencer.playing));
+};
+
+const applyMixer = () => {
+  ui.trackVolumes.forEach((fader, track) => {
+    sequencer.changeVolumeMaster(track, fader.value, ui.masterVolume.value);
   });
-  $('#hank').dblclick(() => {
-    sequencer.hank.e.play();
-    sequencer.hank.f.play();
-  });
-  $('#hank').mouseup(() => {
-    sequencer.hank.e.stop();
-    sequencer.hank.f.stop();
-  });
+};
 
-  //Refresh Functions
-  const refreshSequence = () => {
-    const currentSequence = sequencer.sequence[sequencer.selectedTrack][sequencer.aOrB];
-    currentSequence.forEach((beat, index) => {
-      const beatButton = $(`#${index}`);
-      if (beat) {
-        beatButton.addClass('on');
-      } else {
-        beatButton.removeClass('on');
-      }
-    });
-  };
+ui.startStop.addEventListener('click', togglePlay);
 
-  const refreshGhost = () => {
-    const currentStep = parseInt(ghostStep.text())-1;
-    const currentNote = sequencer.getGhost(currentStep);
-    $('.ghost-glow').removeClass('ghost-glow');
-    $(`#g-${currentNote}`).addClass('ghost-glow');
-  };
-
-  //Logic triggered ui function
-  sequencer.frontEndFunction = (currentStep) => {
-    $('.glow').removeClass('glow');
-    $(`#${currentStep}`).addClass('glow');
-    $('.key-press').removeClass('key-press');
-    if (sequencer.sequence[10][sequencer.aOrB][currentStep]) {
-      const stepNote = sequencer.sequence[10][sequencer.aOrB][currentStep];
-      const note = (sequencer.ghostOctaveDown) ? stepNote : stepNote - 12;
-      if (note > 0 && note < 14) {
-        $(`#g-${note}`).addClass('key-press');
-      }
-    }
-  };
-
-  //Drum/Sequencer event listeners
-  $('#start-stop-button').click(() => {
-    sequencer.togglePlay();
-  });
-
-  $('.sequence-button').on('click', (event) => {
-    sequencer.toggleStepOnOff(event.target.id);
-    refreshSequence();
-  });
-
-  $('#tempo-input').change((event) => {
-    sequencer.changeTempo(event.target.value);
-  });
-
-  $('.instrument-button').click((event) => {
-    sequencer.selectTrack(event.target.name);
-    $('.instrument-glow').removeClass('instrument-glow');
-    $(event.target).addClass('instrument-glow');
-    refreshSequence();
-  });
-
-  $('.volume-slider').on('input', (event) => {
-    const inputVolume = event.target.value;
-    for (let i = 0; i < 10; i++) {
-      const faderVolume = $(`.volume[name='${i}']`).val();
-      sequencer.changeVolumeMaster(i, faderVolume, inputVolume);
-    }
-  });
-
-  $('.volume').on('input', (event) => {
-    const track = event.target.name;
-    const volume = event.target.value;
-    sequencer.changeVolume(track, volume);
-  });
-
-  $('.pitch-slider').on('input', (event) => {
-    const track = event.target.name;
-    const pitch = event.target.value;
-    sequencer.changePitch(track, pitch);
-  });
-
-  $('#dropdownMenuButton').change(() => {
-    const kitSelected = $('#dropdownMenuButton option:selected').val();
-    sequencer.playing = false;
-    sequencer.selectKit(kitSelected);
-    sequencer.drumKit.drums.forEach(drum => drum.play('go'));
-    for (let i = 0; i < 10; i++) {
-      const volume = $(`.volume[name='${i}']`).val();
-      const pitch = $(`.pitch-slider[name='${i}']`).val();
-      sequencer.changeVolume(i, volume);
-      sequencer.changePitch(i, pitch);
-    }
-  });
-
-  $('#swing-slider').on('input', () => {
-    const swing = event.target.value;
-    sequencer.changeSwing(swing);
-  });
-
-  $('.a-b-buttons').click((event) => {
-    $('.a-b-glow').removeClass('a-b-glow');
-    sequencer.changeAB(event.target.name);
-    $(event.target).addClass('a-b-glow');
-    refreshSequence();
-    refreshGhost();
-  });
-
-  //Ghost event listeners
-  const ghostStep = $('.edit-step-input');
-
-  $('.key-wrapper button').click((event) => {
-    const step = parseInt(ghostStep.text())-1;
-    const noteInput = parseInt(event.target.name);
-    const note = (sequencer.ghostOctaveDown) ? noteInput : noteInput + 12;
-    if (!sequencer.playing) sequencer.ghost.oOoO(note);
-    sequencer.toggleGhostNote([step,note]);
-    refreshGhost();
-  });
-
-  $('#g-0').click(() => {
-    const step = parseInt(ghostStep.text())-1;
-    sequencer.toggleGhostNote([step,0]);
-    refreshGhost();
-  });
-
-  $('.ghost-back-button').click(() => {
-    const oldStep = parseInt(ghostStep.text());
-    const newStep = (oldStep === 1) ? 16 : oldStep - 1;
-    ghostStep.text(newStep);
-    refreshGhost();
-  });
-
-  $('.ghost-forward-button').click(() => {
-    const oldStep = parseInt(ghostStep.text());
-    const newStep = (oldStep === 16) ? 1 : oldStep + 1;
-    ghostStep.text(newStep);
-    refreshGhost();
-  });
-
-  $('.ghost-octave-button').click((event) => {
-    $('.ghost-octave-glow').removeClass('ghost-octave-glow');
-    const octaveLow = (event.target.name === 'low');
-    sequencer.ghostOctaveDown = octaveLow;
-    $(event.target).addClass('ghost-octave-glow');
-  });
-
-  $('.ghost-slider').on('input', (event) => {
-    sequencer.ghost.changeVolume(event.target.value);
-  });
-
-  $('.dub-slider').on('input', (event) => {
-    const slider = event.target.id;
-    const value = event.target.value;
-    sequencer.ghost.changeDub(slider, value);
-  });
-
-  $('.mix-slider').on('input', (event) => {
-    const slider = event.target.id;
-    const value = event.target.value;
-    sequencer.ghost.changePanOrGrime(slider, value);
-  });
-
-  //MangleMachine event listeners
-  $('.chaos-slider').on('input', (event) => {
-    const inputVolume = event.target.value;
-    sequencer.changeMangleVolume(inputVolume);
-  });
-
-  $('.chaos-kill-button').click(() => {
-    sequencer.doom.ping.feedback = 0;
-    sequencer.doom.dub.feedback = 0;
-    sequencer.doom.c.stop();
-    sequencer.doom.d.stop();
-    sequencer.chaos.a.stop();
-    sequencer.chaos.b.stop();
-    sequencer.hank.dub.feedback = 0;
-    sequencer.hank.e.stop();
-    sequencer.hank.f.stop();
-    setTimeout(function () {
-      sequencer.doom.ping.feedback = 0.6;
-      sequencer.doom.dub.feedback = 0.3;
-      sequencer.hank.dub.feedback = 0.3;
-    }, 1000);
-  });
-
-  //Keydown listeners to allow for playing drums, ghost, and start/stop
-  $('body').keydown((event) => {
-    event.preventDefault();
-    const key = event.which;
-    if (key === 32) {
-      sequencer.togglePlay();
-    } else if (keyMap.drumMap[key]) {
-      const drum = keyMap.drumMap[key];
-      sequencer.drumKit.drums[drum].play('go');
-    } else if (keyMap.ghostMap[key]) {
-      const note = keyMap.ghostMap[key];
-      sequencer.ghost.oOoO(note);
-      $(`#g-${note}`).addClass('key-press');
-      setTimeout(() => {
-        $(`#g-${note}`).removeClass('key-press');
-      }, 100);
-    }
-  });
-
-  refreshSequence();
-  chaosCoords();
-  doomCoords();
-  hankCoords();
-
+ui.stepSequencer.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-step]');
+  if (!button) return;
+  sequencer.toggleStepOnOff(button.dataset.step);
+  renderSequence();
 });
+
+ui.instrumentPanel.addEventListener('click', (event) => {
+  const button = event.target.closest('.instrument-button');
+  if (!button) return;
+  sequencer.selectTrack(button.dataset.track);
+  setActive(ui.instrumentButtons, button, 'instrument-glow');
+  renderSequence();
+});
+
+ui.instrumentPanel.addEventListener('input', (event) => {
+  const { track } = event.target.dataset;
+  if (event.target.matches('.volume')) {
+    sequencer.changeVolumeMaster(track, event.target.value, ui.masterVolume.value);
+  } else if (event.target.matches('.pitch-slider')) {
+    sequencer.changePitch(track, event.target.value);
+  }
+});
+
+ui.masterVolume.addEventListener('input', applyMixer);
+
+ui.tempo.addEventListener('change', () => {
+  sequencer.changeTempo(ui.tempo.value);
+  ui.tempo.value = String(sequencer.bpm);
+});
+
+ui.kit.addEventListener('change', () => {
+  sequencer.selectKit(ui.kit.value);
+  applyMixer();
+  ui.trackPitches.forEach((slider, track) => sequencer.changePitch(track, slider.value));
+});
+
+ui.swing.addEventListener('input', () => sequencer.changeSwing(ui.swing.value));
+
+for (const button of ui.patternButtons) {
+  button.addEventListener('click', () => {
+    sequencer.changeAB(button.dataset.pattern);
+    setActive(ui.patternButtons, button, 'a-b-glow');
+    renderSequence();
+    renderGhost();
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Ghost machine
+// ---------------------------------------------------------------------------
+const withOctave = (note) => (sequencer.ghostOctaveDown ? note : note + 12);
+
+ui.keyboard.addEventListener('click', (event) => {
+  const key = event.target.closest('[data-note]');
+  if (!key) return;
+  const note = withOctave(Number(key.dataset.note));
+  if (!sequencer.playing) sequencer.ghost.oOoO(note);
+  sequencer.toggleGhostNote([ghostEditStep, note]);
+  renderGhost();
+});
+
+ui.ghostOff.addEventListener('click', () => {
+  sequencer.toggleGhostNote([ghostEditStep, 0]);
+  renderGhost();
+});
+
+ui.ghostBack.addEventListener('click', () => {
+  ghostEditStep = (ghostEditStep + 15) % 16;
+  renderGhost();
+});
+
+ui.ghostForward.addEventListener('click', () => {
+  ghostEditStep = (ghostEditStep + 1) % 16;
+  renderGhost();
+});
+
+for (const button of ui.octaveButtons) {
+  button.addEventListener('click', () => {
+    sequencer.ghostOctaveDown = button.dataset.octave === 'low';
+    setActive(ui.octaveButtons, button, 'ghost-octave-glow');
+    renderGhost();
+  });
+}
+
+ui.ghostVolume.addEventListener('input', () => sequencer.ghost.changeVolume(ui.ghostVolume.value));
+
+ui.delayControls.addEventListener('input', (event) => {
+  const { param } = event.target.dataset;
+  if (param) sequencer.ghost.changeDub(param, event.target.value);
+});
+
+ui.mixControls.addEventListener('input', (event) => {
+  const { param } = event.target.dataset;
+  if (param) sequencer.ghost.changePanOrGrime(param, event.target.value);
+});
+
+// ---------------------------------------------------------------------------
+// Mangle machine
+// ---------------------------------------------------------------------------
+// Each pad plays two voices while pressed; pointer position sets their pitches.
+// Pointer capture stops the sound on release even outside the pad, and a
+// double-click latches the voices on until the next press or Kill.
+const bindPad = (pad, voices, toNotes, instrument) => {
+  const play = () => voices.forEach((voice) => voice.play());
+  const stop = () => voices.forEach((voice) => voice.stop());
+
+  pad.addEventListener('pointermove', (event) => {
+    instrument.changeNote(...toNotes(event.pageX, event.pageY));
+  });
+  pad.addEventListener('pointerdown', (event) => {
+    pad.setPointerCapture(event.pointerId);
+    play();
+  });
+  pad.addEventListener('pointerup', stop);
+  pad.addEventListener('pointercancel', stop);
+  pad.addEventListener('dblclick', play);
+};
+
+const { chaos, doom, hank } = sequencer;
+
+bindPad(ui.pads.chaos, [chaos.a, chaos.b],
+  (x, y) => [Math.trunc(x / 5), Math.trunc(y / 9)], chaos);
+bindPad(ui.pads.doom, [doom.c, doom.d],
+  (x, y) => [Math.trunc(x / 4), Math.trunc(y / 5)], doom);
+bindPad(ui.pads.hank, [hank.e, hank.f],
+  (x, y) => [Math.trunc((y - x) / 4), Math.trunc((y - x) / 8)], hank);
+
+ui.mangleVolume.addEventListener('input', () => sequencer.changeMangleVolume(ui.mangleVolume.value));
+
+ui.kill.addEventListener('click', () => {
+  doom.ping.feedback = 0;
+  doom.dub.feedback = 0;
+  hank.dub.feedback = 0;
+  [doom.c, doom.d, chaos.a, chaos.b, hank.e, hank.f].forEach((voice) => voice.stop());
+  setTimeout(() => {
+    doom.ping.feedback = 0.6;
+    doom.dub.feedback = 0.3;
+    hank.dub.feedback = 0.3;
+  }, 1000);
+});
+
+// ---------------------------------------------------------------------------
+// Keyboard: Space = start/stop, Q-P = drums, Z-, = ghost notes
+// ---------------------------------------------------------------------------
+const isTextEntry = (el) =>
+  el instanceof Element && el.matches('input:not([type="range"]), select, textarea, [contenteditable]');
+
+document.addEventListener('keydown', (event) => {
+  if (event.ctrlKey || event.metaKey || event.altKey || isTextEntry(event.target)) return;
+
+  if (event.code === 'Space') {
+    event.preventDefault();
+    if (!event.repeat) togglePlay();
+  } else if (drumKeys.has(event.code)) {
+    event.preventDefault();
+    sequencer.drumKit.drums[drumKeys.get(event.code)].play();
+  } else if (ghostKeys.has(event.code)) {
+    event.preventDefault();
+    const note = ghostKeys.get(event.code);
+    sequencer.ghost.oOoO(withOctave(note));
+    flashKey(note);
+  }
+});
+
+// ---------------------------------------------------------------------------
+// Initial render
+// ---------------------------------------------------------------------------
+renderSequence();
+renderGhost();
+renderPlayhead(0);

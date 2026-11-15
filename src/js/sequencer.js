@@ -3,14 +3,57 @@ import { Ghost } from './ghost.js';
 import { Chaos } from './chaos.js';
 import { Doom } from './doom.js';
 import { Hank } from './hank.js';
+import { getContext, resumeAudio } from './audio.js';
 
+const STEPS = 16;
+const DRUM_TRACKS = 10;
+const GHOST_TRACK = 10;
+const MIN_BPM = 20;
+const MAX_BPM = 300;
 
-export class Sequencer {
-  constructor(kit = 1) {
-    this.drumKit = new DrumKit(kit);
+// Steps are scheduled on the audio clock up to LOOKAHEAD seconds ahead by a
+// timer that runs every TICK_MS, so main-thread delays don't affect timing.
+const LOOKAHEAD = 0.1;
+const TICK_MS = 25;
+const START_DELAY = 0.05;
+
+const audioClock = {
+  get currentTime() {
+    return getContext().currentTime;
+  },
+  resume: resumeAudio,
+};
+
+const browserFrames = {
+  request: (callback) => requestAnimationFrame(callback),
+  cancel: (id) => cancelAnimationFrame(id),
+};
+
+/**
+ * The 16-step sequencer. Dispatches a `step` event (detail: { step }) when each
+ * step is heard, so the UI can follow the playhead.
+ *
+ * `clock` and `frames` default to the AudioContext and requestAnimationFrame;
+ * tests pass stand-ins.
+ */
+export class Sequencer extends EventTarget {
+  #clock;
+  #frames;
+  #timer = null;
+  #frame = null;
+  #nextStepTime = 0;
+  #pendingSteps = [];
+
+  constructor(kit = 1, { clock = audioClock, frames = browserFrames } = {}) {
+    super();
+    this.#clock = clock;
+    this.#frames = frames;
+    this.kits = new Map();
+    this.drumKit = this.#getKit(kit);
     this.currentStep = 0;
     this.playing = false;
     this.sequence = this.makeNewSequence();
+    this.bpm = 120;
     this.tempo = 125;
     this.aOrB = 0;
     this.selectedTrack = 0;
@@ -22,151 +65,184 @@ export class Sequencer {
     this.ghostOctaveDown = true;
   }
 
-  getSwing() {
-    const swingShift = Math.round((this.tempo * 100)*this.swing)/100;
-    if (this.currentStep === 0 || (this.currentStep % 2) === 0) {
-      return swingShift;
-    } else {
-      return swingShift * -1;
-    }
+  // Kits are created once and reused, so their samples are only fetched and
+  // decoded the first time they're selected.
+  #getKit(number) {
+    if (!this.kits.has(number)) this.kits.set(number, new DrumKit(number));
+    return this.kits.get(number);
   }
 
+  getSwing() {
+    const swingShift = Math.round((this.tempo * 100) * this.swing) / 100;
+    return this.currentStep % 2 === 0 ? swingShift : -swingShift;
+  }
+
+  // Ten drum tracks plus the ghost track, each with an A and a B pattern.
   makeNewSequence() {
-    return Array.from(new Array(11)).map(() => [
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    return Array.from({ length: DRUM_TRACKS + 1 }, () => [
+      new Array(STEPS).fill(0),
+      new Array(STEPS).fill(0),
     ]);
   }
 
-  step(tempo = this.tempo) {
-    if (!this.playing) return;
-    if (this.frontEndFunction) this.frontEndFunction(this.currentStep);
-    const thisSequence = this;
-    this.playStep();
-    const newTempo = tempo + this.getSwing();
-    setTimeout(function () {
-      thisSequence.step();
-    }, newTempo);
+  #emitStep(step) {
+    this.dispatchEvent(new CustomEvent('step', { detail: { step } }));
   }
+
+  // Schedules every step that falls inside the lookahead window.
+  #tick() {
+    const horizon = this.#clock.currentTime + LOOKAHEAD;
+    while (this.#nextStepTime < horizon) {
+      const step = this.currentStep;
+      const time = this.#nextStepTime;
+      this.playStep(time);
+      this.#pendingSteps.push({ step, time });
+      this.#nextStepTime += (this.tempo + this.getSwing()) / 1000;
+    }
+  }
+
+  // Each frame, shows the most recent step that has started sounding.
+  #draw = () => {
+    const now = this.#clock.currentTime;
+    let due = null;
+    while (this.#pendingSteps.length && this.#pendingSteps[0].time <= now) {
+      due = this.#pendingSteps.shift();
+    }
+    if (due) this.#emitStep(due.step);
+    this.#frame = this.#frames.request(this.#draw);
+  };
 
   togglePlay() {
-    this.ghost.sound.stop();
-    this.currentStep = 0;
-    this.playing = !this.playing;
-    if (this.frontEndFunction) this.frontEndFunction(this.currentStep);
-    if (this.playing) this.step();
+    if (this.playing) {
+      this.stop();
+    } else {
+      this.start();
+    }
   }
 
-  playStep() {
+  start() {
+    this.#reset();
+    this.#clock.resume();
+    this.playing = true;
+    this.#nextStepTime = this.#clock.currentTime + START_DELAY;
+    this.#tick();
+    this.#timer = setInterval(() => this.#tick(), TICK_MS);
+    this.#frame = this.#frames.request(this.#draw);
+  }
+
+  stop() {
+    this.#reset();
+    this.playing = false;
+    this.#emitStep(0);
+  }
+
+  #reset() {
+    clearInterval(this.#timer);
+    this.#timer = null;
+    if (this.#frame !== null) this.#frames.cancel(this.#frame);
+    this.#frame = null;
+    this.#pendingSteps = [];
+    for (const kit of this.kits.values()) kit.cancelScheduled();
+    this.ghost.stop();
+    this.currentStep = 0;
+  }
+
+  // Plays the current step's drums and ghost note at `time`, then advances.
+  playStep(time) {
     this.drumKit.drums.forEach((drum, index) => {
       if (this.sequence[index][this.aOrB][this.currentStep]) {
-        drum.play('go');
+        drum.play(time);
       }
     });
-    if (this.sequence[10][this.aOrB][this.currentStep]) {
-      const note = this.sequence[10][this.aOrB][this.currentStep];
-      this.ghost.oOoO(note);
-    }
+    const note = this.sequence[GHOST_TRACK][this.aOrB][this.currentStep];
+    if (note) this.ghost.oOoO(note, time);
     this.incrementStep();
   }
 
   incrementStep() {
-    if (this.currentStep === 15) {
-      this.currentStep = 0;
-    } else {
-      this.currentStep++;
-    }
+    this.currentStep = (this.currentStep + 1) % STEPS;
   }
 
+  // Sets the step length in ms from beats per minute (four steps per beat).
+  // Invalid input is ignored; out-of-range values are clamped.
   changeTempo(bpm) {
-    this.tempo = Math.round((60000/parseInt(bpm))/4);
+    const value = Number(bpm);
+    if (!Number.isFinite(value) || value <= 0) return;
+    this.bpm = Math.min(MAX_BPM, Math.max(MIN_BPM, Math.round(value)));
+    this.tempo = Math.round((60000 / this.bpm) / 4);
   }
 
   selectTrack(i) {
-    this.selectedTrack = parseInt(i);
-    if (!this.playing) this.drumKit.drums[this.selectedTrack].play('go');
+    this.selectedTrack = Number(i);
+    if (!this.playing) this.drumKit.drums[this.selectedTrack].play();
   }
 
-  toggleStepOnOff(step) {
-    const currentSequence = this.sequence[this.selectedTrack][this.aOrB];
-    currentSequence[parseInt(step)] = (currentSequence[parseInt(step)]) ? 0 : 1;
+  toggleStepOnOff(step, pattern = this.aOrB) {
+    const currentSequence = this.sequence[this.selectedTrack][pattern];
+    const index = Number(step);
+    currentSequence[index] = currentSequence[index] ? 0 : 1;
   }
 
   changeAB(index) {
-    this.aOrB = parseInt(index);
+    this.aOrB = Number(index);
   }
 
+  // Switches kits, even mid-playback; a kit's drums join in once its
+  // samples have loaded.
   selectKit(kit) {
-    this.drumKit = new DrumKit(parseInt(kit));
-  }
-
-  changeVolume(track, volume) {
-    const newVolume = this.convertMidi(volume);
-    this.drumKit.drums[track].volume(newVolume);
+    this.drumKit = this.#getKit(Number(kit));
+    return this.drumKit.ready;
   }
 
   changePitch(track, pitch) {
-    const switchPitch = (n) => {
-      let pitch;
-      if (n <= 64) {
-        pitch = this.convertMidi(n) + .5;
-      } else {
-        pitch = this.convertMidi(n) * 2;
-      }
-      return pitch;
-    };
-    const newPitch = switchPitch(pitch);
-    this.drumKit.drums[track].rate(newPitch);
+    const value = Number(pitch);
+    const rate = value <= 64 ? this.convertMidi(value) + 0.5 : this.convertMidi(value) * 2;
+    this.drumKit.drums[track].rate = rate;
   }
 
   changeSwing(swing) {
     const swingPercent = this.convertMidi(swing);
-    this.swing = ((swingPercent*100)/2)/100;
+    this.swing = ((swingPercent * 100) / 2) / 100;
   }
 
-  loadSequence(array) {
-    array.forEach(xy => {
-      this.selectedTrack = xy[0];
-      this.toggleStepOnOff(xy[1]);
+  // Loads [track, step] pairs into a pattern (the current one by default).
+  loadSequence(pairs, pattern = this.aOrB) {
+    const previousTrack = this.selectedTrack;
+    pairs.forEach(([track, step]) => {
+      this.selectedTrack = track;
+      this.toggleStepOnOff(step, pattern);
     });
-    this.selectedTrack = 0;
+    this.selectedTrack = previousTrack;
   }
 
-  loadGhostSequence(array) {
-    array.forEach(stepAndNote => {
-      this.toggleGhostNote(stepAndNote);
-    });
+  loadGhostSequence(pairs) {
+    pairs.forEach((stepAndNote) => this.toggleGhostNote(stepAndNote));
   }
 
-  toggleGhostNote(stepAndNote) {
-    const currentSequence = this.sequence[10][this.aOrB];
-    currentSequence[stepAndNote[0]] = stepAndNote[1];
+  // Sets the ghost note for a step (0 clears it).
+  toggleGhostNote([step, note]) {
+    this.sequence[GHOST_TRACK][this.aOrB][step] = note;
   }
 
   getGhost(index) {
-    const currentNote = this.sequence[10][this.aOrB][index];
-    return (this.ghostOctaveDown) ? currentNote : currentNote - 12;
+    const currentNote = this.sequence[GHOST_TRACK][this.aOrB][index];
+    return this.ghostOctaveDown ? currentNote : currentNote - 12;
   }
 
   changeMangleVolume(volume) {
-    const chaosVolume = this.convertMidi(volume) * 0.6;
-    const doomVolume = this.convertMidi(volume) * 0.3;
-    const hankVolume = this.convertMidi(volume) * 0.45;
-    this.chaos.a.volume = chaosVolume;
-    this.chaos.b.volume = chaosVolume;
-    this.doom.c.volume = doomVolume;
-    this.doom.d.volume = doomVolume;
-    this.hank.e.volume = hankVolume;
-    this.hank.f.volume = hankVolume;
+    const level = this.convertMidi(volume);
+    this.chaos.a.volume = this.chaos.b.volume = level * 0.6;
+    this.doom.c.volume = this.doom.d.volume = level * 0.3;
+    this.hank.e.volume = this.hank.f.volume = level * 0.45;
   }
 
   changeVolumeMaster(track, faderVolume, inputVolume) {
     const newVolume = this.convertMidi(inputVolume) * this.convertMidi(faderVolume);
-    this.drumKit.drums[track].volume(newVolume);
+    this.drumKit.drums[track].volume = newVolume;
   }
 
+  // Maps a 0-127 MIDI-style value to 0-1, rounded to two decimals.
   convertMidi(n) {
-    return Math.round((parseInt(n)/127)*100)/100;
+    return Math.round((Number(n) / 127) * 100) / 100;
   }
-
 }
