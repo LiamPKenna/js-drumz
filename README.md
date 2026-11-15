@@ -109,7 +109,7 @@ _Any issues or concerns, please email liam@liamkenna.com_
 
 ## Technologies Used
 
-_HTML, CSS, JavaScript, Web Audio API, Howler, Vite, Vitest, ESLint_
+_HTML, CSS, JavaScript, Web Audio API, Vite, Vitest, ESLint_
 
 ### License
 

@@ -19,8 +19,14 @@ export function getContext() {
   return context;
 }
 
+// The shared output every instrument connects to.
+export function getOutput() {
+  getContext();
+  return masterGain;
+}
+
 // Browsers start an AudioContext suspended until a user gesture; resume on play.
-function ensureRunning() {
+export function resumeAudio() {
   const ctx = getContext();
   if (ctx.state === 'suspended') ctx.resume();
   return ctx;
@@ -353,6 +359,7 @@ export class Sound {
     this.effectConnectors = [];
     this.playing = false;
     this.sourceNode = null;
+    this.notes = new Set();
 
     this.type = options.type || 'sine';
     this._frequency = isNumber(options.frequency) ? options.frequency : 440;
@@ -381,7 +388,7 @@ export class Sound {
 
   play() {
     if (this.playing) return;
-    const ctx = ensureRunning();
+    const ctx = resumeAudio();
     this.playing = true;
     this.sourceNode = this.createSourceNode(ctx);
     this.applyAttack(ctx);
@@ -392,6 +399,47 @@ export class Sound {
     if (!this.playing) return;
     this.playing = false;
     this.stopWithRelease(getContext());
+  }
+
+  /*
+   * Plays a one-shot note at an exact AudioContext time with its own envelope,
+   * independent of play()/stop(). Notes can be scheduled ahead of time.
+   */
+  playNote(frequency, when, duration) {
+    const ctx = resumeAudio();
+    const start = Math.max(when, ctx.currentTime);
+    const end = start + duration;
+
+    const osc = ctx.createOscillator();
+    osc.type = this.type;
+    osc.frequency.value = frequency;
+
+    const envelope = ctx.createGain();
+    envelope.gain.setValueAtTime(0, start);
+    envelope.gain.setTargetAtTime(1, start, Math.max(this.attack * 2, 0.001));
+    envelope.gain.setTargetAtTime(0.00001, end, Math.max(this.release / 5, 0.001));
+
+    osc.connect(envelope);
+    envelope.connect(this.inputNode());
+    osc.start(start);
+    osc.stop(end + this.release);
+
+    const note = { osc, envelope };
+    this.notes.add(note);
+    osc.onended = () => {
+      envelope.disconnect();
+      this.notes.delete(note);
+    };
+  }
+
+  // Silences every scheduled or sounding note from playNote().
+  stopNotes() {
+    const now = getContext().currentTime;
+    for (const { osc, envelope } of this.notes) {
+      envelope.gain.cancelScheduledValues(now);
+      envelope.gain.setTargetAtTime(0, now, 0.005);
+      osc.stop(now + 0.03);
+    }
   }
 
   addEffect(effect) {

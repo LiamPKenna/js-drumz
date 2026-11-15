@@ -1,6 +1,8 @@
 import { Sound, Effects } from './audio.js';
 import notes from './notes.js';
 
+const NOTE_LENGTH = 0.1;
+
 export class Ghost {
   constructor() {
     this.sound = new Sound({
@@ -28,16 +30,14 @@ export class Ghost {
     this.notes = notes;
   }
 
-  changeNote(n) {
-    this.sound.frequency = this.notes[n];
+  // Plays a 100ms note at an AudioContext time (now by default).
+  oOoO(note, when = 0) {
+    const frequency = this.notes[note];
+    if (frequency) this.sound.playNote(frequency, when, NOTE_LENGTH);
   }
 
-  oOoO(note) {
-    this.changeNote(note);
-    this.sound.play();
-    setTimeout(() => {
-      this.sound.stop();
-    }, 100);
+  stop() {
+    this.sound.stopNotes();
   }
 
   changeVolume(inputVolume) {

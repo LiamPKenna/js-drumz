@@ -75,6 +75,7 @@ for (const [id, text] of Object.entries(art)) {
 // ---------------------------------------------------------------------------
 let ghostEditStep = 0;
 let glowingStep = null;
+let playheadKey = null;
 
 const renderSequence = () => {
   const pattern = sequencer.sequence[sequencer.selectedTrack][sequencer.aOrB];
@@ -98,11 +99,15 @@ const renderPlayhead = (step) => {
   glowingStep = ui.stepButtons[step];
   glowingStep.classList.add('glow');
 
-  for (const el of ui.ghostNotes.values()) el.classList.remove('key-press');
+  playheadKey?.classList.remove('key-press');
+  playheadKey = null;
   const stepNote = sequencer.sequence[10][sequencer.aOrB][step];
   if (stepNote) {
     const note = sequencer.ghostOctaveDown ? stepNote : stepNote - 12;
-    if (note > 0 && note < 14) ui.ghostNotes.get(note).classList.add('key-press');
+    if (note > 0 && note < 14) {
+      playheadKey = ui.ghostNotes.get(note);
+      playheadKey.classList.add('key-press');
+    }
   }
 };
 
@@ -163,10 +168,7 @@ ui.tempo.addEventListener('change', () => {
 });
 
 ui.kit.addEventListener('change', () => {
-  sequencer.stop();
-  ui.startStop.setAttribute('aria-pressed', 'false');
   sequencer.selectKit(ui.kit.value);
-  sequencer.drumKit.drums.forEach((drum) => drum.play('go'));
   applyMixer();
   ui.trackPitches.forEach((slider, track) => sequencer.changePitch(track, slider.value));
 });
@@ -290,7 +292,7 @@ document.addEventListener('keydown', (event) => {
     if (!event.repeat) togglePlay();
   } else if (drumKeys.has(event.code)) {
     event.preventDefault();
-    sequencer.drumKit.drums[drumKeys.get(event.code)].play('go');
+    sequencer.drumKit.drums[drumKeys.get(event.code)].play();
   } else if (ghostKeys.has(event.code)) {
     event.preventDefault();
     const note = ghostKeys.get(event.code);
