@@ -1,10 +1,12 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <link href="https://fonts.googleapis.com/css?family=Monoton&display=swap" rel="stylesheet">
-  <meta name="viewport" content="width=1560" />
   <meta charset="utf-8">
+  <meta name="viewport" content="width=1560">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
   <title>Drum Machine</title>
 </head>
 <body>
@@ -12,23 +14,23 @@
     <div id="left">
       <h2>Volume</h2>
       <div id="volume-slider-div">
-        <input class="volume-slider" value="127" type="range" min="0" max="127" step="1">
+        <input id="master-volume" class="volume-slider" aria-label="Master volume" value="127" type="range" min="0" max="127" step="1">
       </div>
       <h2 id='patterns'>Patterns</h2>
       <div id="a-b-button-div">
         <div class="a-b-wrap">
-          <button id="a-button" class="a-b-buttons a-b-glow" type="button" name="0">A</button>
+          <button id="a-button" class="a-b-buttons a-b-glow" type="button" data-pattern="0" aria-pressed="true">A</button>
         </div>
         <div class="a-b-wrap">
-          <button id="b-button" class="a-b-buttons" type="button" name="1">B</button>
+          <button id="b-button" class="a-b-buttons" type="button" data-pattern="1" aria-pressed="false">B</button>
         </div>
       </div>
       <h2>Tempo</h2>
-      <input type="number" id="tempo-input" name="" value="120">
+      <input type="number" id="tempo-input" aria-label="Tempo in BPM" value="120" min="20" max="300" step="1">
       <div>
-        <div class="left-col-div dropdown" id="dropdown">
+        <div class="left-col-div" id="dropdown">
           <h2>Sounds</h2>
-          <select id="dropdownMenuButton" class="form-control form-control-lg btn btn-secondary dropdown-toggle">
+          <select id="kit-select" class="kit-select" aria-label="Drum kit">
             <option value="1">Phil</option>
             <option value="2">Sling</option>
             <option value="3">DIY</option>
@@ -42,7 +44,7 @@
         <input id="swing-slider" type="range" min="0" max="127" value="0" step="1">
       </div>
       <div class="left-col-div" id="start-stop-button-div">
-        <button id="start-stop-button" type="button" name="button">Start/Stop</button>
+        <button id="start-stop-button" type="button" aria-pressed="false">Start/Stop</button>
       </div>
     </div>
     <div id="main">
@@ -52,179 +54,179 @@
       <div id="body">
         <div class="inst-panel" id="kick">
           <div class="pitch-slider-div">
-            <input type="range" min="1" max="100" value="50" class="pitch-slider" name="0">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" data-track="0" aria-label="BD pitch">
             <h5>Pitch</h5>
           </div>
           <div class="instrument-slider">
-            <input value="100" name="0" type="range" min="0" max="127" class="volume" step="1">
+            <input value="100" data-track="0" type="range" min="0" max="127" class="volume" step="1" aria-label="BD volume">
           </div>
           <h4>BD</h4>
-          <button class="instrument-button instrument-glow" type="button" name="0"></button>
+          <button class="instrument-button instrument-glow" type="button" data-track="0" aria-label="Select BD" aria-pressed="true"></button>
         </div>
         <div class="inst-panel" id="snare">
           <div class="pitch-slider-div">
-            <input type="range" min="1" max="100" value="50" class="pitch-slider" name="1">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" data-track="1" aria-label="SD pitch">
             <h5>Pitch</h5>
           </div>
           <div class="instrument-slider">
-            <input value="100" name="1" type="range" min="0" max="127" class="volume" step="1">
+            <input value="100" data-track="1" type="range" min="0" max="127" class="volume" step="1" aria-label="SD volume">
           </div>
           <h4>SD</h4>
-          <button class="instrument-button" type="button" name="1"></button>
+          <button class="instrument-button" type="button" data-track="1" aria-label="Select SD" aria-pressed="false"></button>
         </div>
         <div class="inst-panel" id="high-tom">
           <div class="pitch-slider-div">
-            <input type="range" min="1" max="100" value="50" class="pitch-slider" name="2">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" data-track="2" aria-label="LT pitch">
             <h5>Pitch</h5>
           </div>
           <div class="instrument-slider">
-            <input value="100" name="2" type="range" min="0" max="127" class="volume" step="1">
+            <input value="100" data-track="2" type="range" min="0" max="127" class="volume" step="1" aria-label="LT volume">
           </div>
           <h4>LT</h4>
-          <button class="instrument-button" type="button" name="2"></button>
+          <button class="instrument-button" type="button" data-track="2" aria-label="Select LT" aria-pressed="false"></button>
         </div>
         <div class="inst-panel" id="mid-tom">
           <div class="pitch-slider-div">
-            <input type="range" min="1" max="100" value="50" class="pitch-slider" name="3">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" data-track="3" aria-label="MT pitch">
             <h5>Pitch</h5>
           </div>
           <div class="instrument-slider">
-            <input value="100" name="3" type="range" min="0" max="127" class="volume" step="1">
+            <input value="100" data-track="3" type="range" min="0" max="127" class="volume" step="1" aria-label="MT volume">
           </div>
           <h4>MT</h4>
-          <button class="instrument-button" type="button" name="3"></button>
+          <button class="instrument-button" type="button" data-track="3" aria-label="Select MT" aria-pressed="false"></button>
         </div>
         <div class="inst-panel" id="low-tom">
           <div class="pitch-slider-div">
-            <input type="range" min="1" max="100" value="50" class="pitch-slider" name="4">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" data-track="4" aria-label="HT pitch">
             <h5>Pitch</h5>
           </div>
           <div class="instrument-slider">
-            <input value="100" name="4" type="range" min="0" max="127" class="volume" step="1">
+            <input value="100" data-track="4" type="range" min="0" max="127" class="volume" step="1" aria-label="HT volume">
           </div>
           <h4>HT</h4>
-          <button class="instrument-button" type="button" name="4"></button>
+          <button class="instrument-button" type="button" data-track="4" aria-label="Select HT" aria-pressed="false"></button>
         </div>
         <div class="inst-panel" id="rim-shot">
           <div class="pitch-slider-div">
-            <input type="range" min="1" max="100" value="50" class="pitch-slider" name="5">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" data-track="5" aria-label="RS pitch">
             <h5>Pitch</h5>
           </div>
           <div class="instrument-slider">
-            <input value="100" name="5" type="range" min="0" max="127" class="volume" step="1">
+            <input value="100" data-track="5" type="range" min="0" max="127" class="volume" step="1" aria-label="RS volume">
           </div>
           <h4>RS</h4>
-          <button class="instrument-button" type="button" name="5"></button>
+          <button class="instrument-button" type="button" data-track="5" aria-label="Select RS" aria-pressed="false"></button>
         </div>
         <div class="inst-panel" id="hand-clap">
           <div class="pitch-slider-div">
-            <input type="range" min="1" max="100" value="50" class="pitch-slider" name="6">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" data-track="6" aria-label="HC pitch">
             <h5>Pitch</h5>
           </div>
           <div class="instrument-slider">
-            <input value="100" name="6" type="range" min="0" max="127" class="volume" step="1">
+            <input value="100" data-track="6" type="range" min="0" max="127" class="volume" step="1" aria-label="HC volume">
           </div>
           <h4>HC</h4>
-          <button class="instrument-button" type="button" name="6"></button>
+          <button class="instrument-button" type="button" data-track="6" aria-label="Select HC" aria-pressed="false"></button>
         </div>
         <div class="inst-panel" id="closed-hat">
           <div class="pitch-slider-div">
-            <input type="range" min="1" max="100" value="50" class="pitch-slider" name="7">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" data-track="7" aria-label="CH pitch">
             <h5>Pitch</h5>
           </div>
           <div class="instrument-slider">
-            <input value="100" name="7" type="range" min="0" max="127" class="volume" step="1">
+            <input value="100" data-track="7" type="range" min="0" max="127" class="volume" step="1" aria-label="CH volume">
           </div>
           <h4>CH</h4>
-          <button class="instrument-button" type="button" name="7"></button>
+          <button class="instrument-button" type="button" data-track="7" aria-label="Select CH" aria-pressed="false"></button>
         </div>
         <div class="inst-panel" id="open-hat">
           <div class="pitch-slider-div">
-            <input type="range" min="1" max="100" value="50" class="pitch-slider" name="8">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" data-track="8" aria-label="OH pitch">
             <h5>Pitch</h5>
           </div>
           <div class="instrument-slider">
-            <input value="100" name="8" type="range" min="0" max="127" class="volume" step="1">
+            <input value="100" data-track="8" type="range" min="0" max="127" class="volume" step="1" aria-label="OH volume">
           </div>
           <h4>OH</h4>
-          <button class="instrument-button" type="button" name="8"></button>
+          <button class="instrument-button" type="button" data-track="8" aria-label="Select OH" aria-pressed="false"></button>
         </div>
         <div class="inst-panel" id="crash">
           <div class="pitch-slider-div">
-            <input type="range" min="1" max="100" value="50" class="pitch-slider" name="9">
+            <input type="range" min="1" max="100" value="50" class="pitch-slider" data-track="9" aria-label="CC pitch">
             <h5>Pitch</h5>
           </div>
           <div class="instrument-slider">
-            <input value="100" name="9" type="range" min="0" max="127" class="volume" step="1">
+            <input value="100" data-track="9" type="range" min="0" max="127" class="volume" step="1" aria-label="CC volume">
           </div>
           <h4>CC</h4>
-          <button class="instrument-button" type="button" name="9"></button>
+          <button class="instrument-button" type="button" data-track="9" aria-label="Select CC" aria-pressed="false"></button>
         </div>
       </div>
 
       <div id="step-sequencer">
         <div class="sequence-button-div">
-          <button class="sequence-button glow on" type="button" name="button" id="0">1</button>
+          <button class="sequence-button" type="button" data-step="0" aria-pressed="false">1</button>
         </div>
 
         <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="1">2</button>
+          <button class="sequence-button" type="button" data-step="1" aria-pressed="false">2</button>
         </div>
 
         <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="2">3</button>
+          <button class="sequence-button" type="button" data-step="2" aria-pressed="false">3</button>
         </div>
 
         <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="3">4</button>
+          <button class="sequence-button" type="button" data-step="3" aria-pressed="false">4</button>
         </div>
 
         <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="4">5</button>
+          <button class="sequence-button" type="button" data-step="4" aria-pressed="false">5</button>
         </div>
 
         <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="5">6</button>
+          <button class="sequence-button" type="button" data-step="5" aria-pressed="false">6</button>
         </div>
 
         <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="6">7</button>
+          <button class="sequence-button" type="button" data-step="6" aria-pressed="false">7</button>
         </div>
 
         <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="7">8</button>
+          <button class="sequence-button" type="button" data-step="7" aria-pressed="false">8</button>
         </div>
 
         <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="8">9</button>
+          <button class="sequence-button" type="button" data-step="8" aria-pressed="false">9</button>
         </div>
 
         <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="9">10</button>
+          <button class="sequence-button" type="button" data-step="9" aria-pressed="false">10</button>
         </div>
 
         <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="10">11</button>
+          <button class="sequence-button" type="button" data-step="10" aria-pressed="false">11</button>
         </div>
 
         <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="11">12</button>
+          <button class="sequence-button" type="button" data-step="11" aria-pressed="false">12</button>
         </div>
 
         <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="12">13</button>
+          <button class="sequence-button" type="button" data-step="12" aria-pressed="false">13</button>
         </div>
 
         <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="13">14</button>
+          <button class="sequence-button" type="button" data-step="13" aria-pressed="false">14</button>
         </div>
 
         <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="14">15</button>
+          <button class="sequence-button" type="button" data-step="14" aria-pressed="false">15</button>
         </div>
 
         <div class="sequence-button-div">
-          <button class="sequence-button" type="button" name="button" id="15">16</button>
+          <button class="sequence-button" type="button" data-step="15" aria-pressed="false">16</button>
         </div>
       </div>
 
@@ -234,32 +236,32 @@
     <div class="left-ghost-col-div" id="ghost-volume">
       <h2 class="ghost-margin">Volume</h2>
       <div id="ghost-volume-slider-div" class="ghost-volume-slider ghost-margin">
-        <input class="ghost-slider" value="100" type="range" min="0" max="127" step="1">
+        <input class="ghost-slider" aria-label="Ghost volume" value="100" type="range" min="0" max="127" step="1">
       </div>
       <h2 class="ghost-margin">Octave</h2>
       <div class="ghost-octave-button-div ghost-margin">
         <div class="ghost-low-div">
-          <button class="ghost-octave-button ghost-octave-glow" type="button" name="low">Low</button>
+          <button class="ghost-octave-button ghost-octave-glow" type="button" data-octave="low" aria-pressed="true">Low</button>
         </div>
         <div class="ghost-high-div">
-          <button class="ghost-octave-button" type="button" name="high">High</button>
+          <button class="ghost-octave-button" type="button" data-octave="high" aria-pressed="false">High</button>
         </div>
       </div>
       <div class="delay-controls ghost-margin" id="delay-control-margin">
         <h2>Delay</h2>
         <h4>Mix</h4>
-        <input id="mix" class="dub-slider" value="51" type="range" min="0" max="127" step="1">
+        <input data-param="mix" class="dub-slider" aria-label="Delay mix" value="51" type="range" min="0" max="127" step="1">
         <h4>Feedback</h4>
-        <input id="feedback" class="dub-slider" value="51" type="range" min="0" max="127" step="1">
+        <input data-param="feedback" class="dub-slider" aria-label="Delay feedback" value="51" type="range" min="0" max="127" step="1">
         <h4>Time</h4>
-        <input id="time" class="dub-slider" value="32" type="range" min="20" max="127" step="1">
+        <input data-param="time" class="dub-slider" aria-label="Delay time" value="32" type="range" min="20" max="127" step="1">
       </div>
       <div class="filter-controls">
         <h2>Mix</h2>
         <h4>Pan</h4>
-        <input id="pan" class="mix-slider" value="64" type="range" min="0" max="127" step="1">
+        <input data-param="pan" class="mix-slider" aria-label="Pan" value="64" type="range" min="0" max="127" step="1">
         <h4>Grime</h4>
-        <input id="grime" class="mix-slider" value="0" type="range" min="0" max="127" step="1">
+        <input data-param="grime" class="mix-slider" aria-label="Grime" value="0" type="range" min="0" max="127" step="1">
       </div>
     </div>
 
@@ -271,37 +273,37 @@
         <div class="key-wrapper">
           <div class="black-keys">
             <p> </p>
-            <button id="g-2" class="black-ghost-note" type="button" name="2"></button>
-            <button id="g-4" class="black-ghost-note" type="button" name="4"></button>
+            <button class="black-ghost-note" type="button" data-note="2" aria-label="C sharp"></button>
+            <button class="black-ghost-note" type="button" data-note="4" aria-label="D sharp"></button>
             <p> </p>
-            <button id="g-7" class="black-ghost-note" type="button" name="7"></button>
-            <button id="g-9" class="black-ghost-note" type="button" name="9"></button>
-            <button id="g-11" class="black-ghost-note" type="button" name="11"></button>
+            <button class="black-ghost-note" type="button" data-note="7" aria-label="F sharp"></button>
+            <button class="black-ghost-note" type="button" data-note="9" aria-label="G sharp"></button>
+            <button class="black-ghost-note" type="button" data-note="11" aria-label="A sharp"></button>
             <p> </p>
             <p> </p>
           </div>
           <div class="white-keys">
-            <button id="g-1" class="white-ghost-note" type="button" name="1"></button>
-            <button id="g-3" class="white-ghost-note" type="button" name="3"></button>
-            <button id="g-5" class="white-ghost-note" type="button" name="5"></button>
-            <button id="g-6" class="white-ghost-note" type="button" name="6"></button>
-            <button id="g-8" class="white-ghost-note" type="button" name="8"></button>
-            <button id="g-10" class="white-ghost-note" type="button" name="10"></button>
-            <button id="g-12" class="white-ghost-note" type="button" name="12"></button>
-            <button id="g-13" class="white-ghost-note" type="button" name="13"></button>
+            <button class="white-ghost-note" type="button" data-note="1" aria-label="C"></button>
+            <button class="white-ghost-note" type="button" data-note="3" aria-label="D"></button>
+            <button class="white-ghost-note" type="button" data-note="5" aria-label="E"></button>
+            <button class="white-ghost-note" type="button" data-note="6" aria-label="F"></button>
+            <button class="white-ghost-note" type="button" data-note="8" aria-label="G"></button>
+            <button class="white-ghost-note" type="button" data-note="10" aria-label="A"></button>
+            <button class="white-ghost-note" type="button" data-note="12" aria-label="B"></button>
+            <button class="white-ghost-note" type="button" data-note="13" aria-label="High C"></button>
           </div>
         </div>
         <div class="ghost-extra-controls">
           <div class="ghost-extra-margin-div">
             <div class="ghost-off-button-div">
-              <button id="g-0" class="ghost-off-button ghost-glow" type="button" name="button">OFF</button>
+              <button id="ghost-off" class="ghost-off-button ghost-glow" type="button" data-note="0">OFF</button>
             </div>
             <h2>Edit Step</h2>
-            <h2 class="edit-step-input">1</h2>
+            <h2 id="ghost-step" class="edit-step-input" aria-live="polite">1</h2>
             <div class="back-forward-div">
               <h2>Back / Forward</h2>
-              <button class="ghost-back-button" type="button" name="button">&lt;</button>
-              <button class="ghost-forward-button" type="button" name="button">&gt;</button>
+              <button class="ghost-back-button" type="button" aria-label="Previous step">&lt;</button>
+              <button class="ghost-forward-button" type="button" aria-label="Next step">&gt;</button>
             </div>
           </div>
         </div>
@@ -312,10 +314,10 @@
   <div class="chaos-wrapper">
     <div class="left-chaos-col-div" id="volume-2">
       <h2>Volume</h2>
-      <div id="volume-slider-div" class="chaos-volume-slider">
-        <input class="chaos-slider" value="127" type="range" min="0" max="127" step="1">
+      <div class="chaos-volume-slider">
+        <input class="chaos-slider" aria-label="Mangle volume" value="127" type="range" min="0" max="127" step="1">
       </div>
-      <button class="chaos-kill-button" type="button" name="button">Kill</button>
+      <button class="chaos-kill-button" type="button">Kill</button>
     </div>
     <div class="chaos-body">
       <div class="chaos-body-top">
@@ -323,7 +325,7 @@
       </div>
       <div class="chaos-display">
         <div class="row box-1">
-          <div  class="col-4 box-2">
+          <div class="col-4 box-2">
             <pre id="chaoshead"></pre>
             <pre id="chaos"></pre>
           </div>
@@ -338,6 +340,7 @@
         </div>
       </div>
     </div>
-    <script type="module" src="./main.js"></script>
+  </div>
+  <script type="module" src="./main.js"></script>
   </body>
 </html>

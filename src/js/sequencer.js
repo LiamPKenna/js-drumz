@@ -4,13 +4,26 @@ import { Chaos } from './chaos.js';
 import { Doom } from './doom.js';
 import { Hank } from './hank.js';
 
+const STEPS = 16;
+const DRUM_TRACKS = 10;
+const GHOST_TRACK = 10;
+const MIN_BPM = 20;
+const MAX_BPM = 300;
 
-export class Sequencer {
+/**
+ * The 16-step sequencer. Dispatches a `step` event (detail: { step }) each time
+ * the playhead moves, so the UI can follow along.
+ */
+export class Sequencer extends EventTarget {
+  #timer = null;
+
   constructor(kit = 1) {
+    super();
     this.drumKit = new DrumKit(kit);
     this.currentStep = 0;
     this.playing = false;
     this.sequence = this.makeNewSequence();
+    this.bpm = 120;
     this.tempo = 125;
     this.aOrB = 0;
     this.selectedTrack = 0;
@@ -23,38 +36,54 @@ export class Sequencer {
   }
 
   getSwing() {
-    const swingShift = Math.round((this.tempo * 100)*this.swing)/100;
-    if (this.currentStep === 0 || (this.currentStep % 2) === 0) {
-      return swingShift;
-    } else {
-      return swingShift * -1;
-    }
+    const swingShift = Math.round((this.tempo * 100) * this.swing) / 100;
+    return this.currentStep % 2 === 0 ? swingShift : -swingShift;
   }
 
+  // Ten drum tracks plus the ghost track, each with an A and a B pattern.
   makeNewSequence() {
-    return Array.from(new Array(11)).map(() => [
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    return Array.from({ length: DRUM_TRACKS + 1 }, () => [
+      new Array(STEPS).fill(0),
+      new Array(STEPS).fill(0),
     ]);
   }
 
-  step(tempo = this.tempo) {
+  #emitStep() {
+    this.dispatchEvent(new CustomEvent('step', { detail: { step: this.currentStep } }));
+  }
+
+  step() {
     if (!this.playing) return;
-    if (this.frontEndFunction) this.frontEndFunction(this.currentStep);
-    const thisSequence = this;
+    this.#emitStep();
     this.playStep();
-    const newTempo = tempo + this.getSwing();
-    setTimeout(function () {
-      thisSequence.step();
-    }, newTempo);
+    this.#timer = setTimeout(() => this.step(), this.tempo + this.getSwing());
   }
 
   togglePlay() {
+    if (this.playing) {
+      this.stop();
+    } else {
+      this.start();
+    }
+  }
+
+  start() {
+    this.#reset();
+    this.playing = true;
+    this.step();
+  }
+
+  stop() {
+    this.#reset();
+    this.playing = false;
+    this.#emitStep();
+  }
+
+  #reset() {
+    clearTimeout(this.#timer);
+    this.#timer = null;
     this.ghost.sound.stop();
     this.currentStep = 0;
-    this.playing = !this.playing;
-    if (this.frontEndFunction) this.frontEndFunction(this.currentStep);
-    if (this.playing) this.step();
   }
 
   playStep() {
@@ -63,101 +92,87 @@ export class Sequencer {
         drum.play('go');
       }
     });
-    if (this.sequence[10][this.aOrB][this.currentStep]) {
-      const note = this.sequence[10][this.aOrB][this.currentStep];
-      this.ghost.oOoO(note);
-    }
+    const note = this.sequence[GHOST_TRACK][this.aOrB][this.currentStep];
+    if (note) this.ghost.oOoO(note);
     this.incrementStep();
   }
 
   incrementStep() {
-    if (this.currentStep === 15) {
-      this.currentStep = 0;
-    } else {
-      this.currentStep++;
-    }
+    this.currentStep = (this.currentStep + 1) % STEPS;
   }
 
+  // Sets the step length in ms from beats per minute (four steps per beat).
+  // Invalid input is ignored; out-of-range values are clamped.
   changeTempo(bpm) {
-    this.tempo = Math.round((60000/parseInt(bpm))/4);
+    const value = Number(bpm);
+    if (!Number.isFinite(value) || value <= 0) return;
+    this.bpm = Math.min(MAX_BPM, Math.max(MIN_BPM, Math.round(value)));
+    this.tempo = Math.round((60000 / this.bpm) / 4);
   }
 
   selectTrack(i) {
-    this.selectedTrack = parseInt(i);
+    this.selectedTrack = Number(i);
     if (!this.playing) this.drumKit.drums[this.selectedTrack].play('go');
   }
 
-  toggleStepOnOff(step) {
-    const currentSequence = this.sequence[this.selectedTrack][this.aOrB];
-    currentSequence[parseInt(step)] = (currentSequence[parseInt(step)]) ? 0 : 1;
+  toggleStepOnOff(step, pattern = this.aOrB) {
+    const currentSequence = this.sequence[this.selectedTrack][pattern];
+    const index = Number(step);
+    currentSequence[index] = currentSequence[index] ? 0 : 1;
   }
 
   changeAB(index) {
-    this.aOrB = parseInt(index);
+    this.aOrB = Number(index);
   }
 
   selectKit(kit) {
-    this.drumKit = new DrumKit(parseInt(kit));
+    this.drumKit = new DrumKit(Number(kit));
   }
 
   changeVolume(track, volume) {
-    const newVolume = this.convertMidi(volume);
-    this.drumKit.drums[track].volume(newVolume);
+    this.drumKit.drums[track].volume(this.convertMidi(volume));
   }
 
   changePitch(track, pitch) {
-    const switchPitch = (n) => {
-      let pitch;
-      if (n <= 64) {
-        pitch = this.convertMidi(n) + .5;
-      } else {
-        pitch = this.convertMidi(n) * 2;
-      }
-      return pitch;
-    };
-    const newPitch = switchPitch(pitch);
-    this.drumKit.drums[track].rate(newPitch);
+    const value = Number(pitch);
+    const rate = value <= 64 ? this.convertMidi(value) + 0.5 : this.convertMidi(value) * 2;
+    this.drumKit.drums[track].rate(rate);
   }
 
   changeSwing(swing) {
     const swingPercent = this.convertMidi(swing);
-    this.swing = ((swingPercent*100)/2)/100;
+    this.swing = ((swingPercent * 100) / 2) / 100;
   }
 
-  loadSequence(array) {
-    array.forEach(xy => {
-      this.selectedTrack = xy[0];
-      this.toggleStepOnOff(xy[1]);
+  // Loads [track, step] pairs into a pattern (the current one by default).
+  loadSequence(pairs, pattern = this.aOrB) {
+    const previousTrack = this.selectedTrack;
+    pairs.forEach(([track, step]) => {
+      this.selectedTrack = track;
+      this.toggleStepOnOff(step, pattern);
     });
-    this.selectedTrack = 0;
+    this.selectedTrack = previousTrack;
   }
 
-  loadGhostSequence(array) {
-    array.forEach(stepAndNote => {
-      this.toggleGhostNote(stepAndNote);
-    });
+  loadGhostSequence(pairs) {
+    pairs.forEach((stepAndNote) => this.toggleGhostNote(stepAndNote));
   }
 
-  toggleGhostNote(stepAndNote) {
-    const currentSequence = this.sequence[10][this.aOrB];
-    currentSequence[stepAndNote[0]] = stepAndNote[1];
+  // Sets the ghost note for a step (0 clears it).
+  toggleGhostNote([step, note]) {
+    this.sequence[GHOST_TRACK][this.aOrB][step] = note;
   }
 
   getGhost(index) {
-    const currentNote = this.sequence[10][this.aOrB][index];
-    return (this.ghostOctaveDown) ? currentNote : currentNote - 12;
+    const currentNote = this.sequence[GHOST_TRACK][this.aOrB][index];
+    return this.ghostOctaveDown ? currentNote : currentNote - 12;
   }
 
   changeMangleVolume(volume) {
-    const chaosVolume = this.convertMidi(volume) * 0.6;
-    const doomVolume = this.convertMidi(volume) * 0.3;
-    const hankVolume = this.convertMidi(volume) * 0.45;
-    this.chaos.a.volume = chaosVolume;
-    this.chaos.b.volume = chaosVolume;
-    this.doom.c.volume = doomVolume;
-    this.doom.d.volume = doomVolume;
-    this.hank.e.volume = hankVolume;
-    this.hank.f.volume = hankVolume;
+    const level = this.convertMidi(volume);
+    this.chaos.a.volume = this.chaos.b.volume = level * 0.6;
+    this.doom.c.volume = this.doom.d.volume = level * 0.3;
+    this.hank.e.volume = this.hank.f.volume = level * 0.45;
   }
 
   changeVolumeMaster(track, faderVolume, inputVolume) {
@@ -165,8 +180,8 @@ export class Sequencer {
     this.drumKit.drums[track].volume(newVolume);
   }
 
+  // Maps a 0-127 MIDI-style value to 0-1, rounded to two decimals.
   convertMidi(n) {
-    return Math.round((parseInt(n)/127)*100)/100;
+    return Math.round((Number(n) / 127) * 100) / 100;
   }
-
 }

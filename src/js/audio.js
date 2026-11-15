@@ -1,12 +1,10 @@
 /*
- * Minimal native Web Audio toolkit.
+ * Minimal Web Audio toolkit: oscillator Sounds and the DubDelay, PingPongDelay,
+ * LowPassFilter, Tremolo, StereoPanner and Distortion effects.
  *
- * Replaces the unmaintained `pizzicato` package (last published 2018). Only the
- * pieces this app uses are implemented: oscillator Sounds and the DubDelay,
- * PingPongDelay, LowPassFilter, Tremolo, StereoPanner and Distortion effects.
- * Node graphs, defaults and parameter ranges are ported from Pizzicato 0.6.4
- * (MIT License, Copyright (c) 2016 Alejandro Mantecon Guillen) so the
- * instruments sound the same.
+ * Node graphs, defaults and parameter ranges are derived from Pizzicato 0.6.4
+ * (https://github.com/alemangui/pizzicato), MIT License,
+ * Copyright (c) 2016 Alejandro Mantecon Guillen.
  */
 
 let context;
@@ -416,7 +414,7 @@ export class Sound {
   createSourceNode(ctx) {
     const previous = this.sourceNode;
     if (previous) {
-      // Fade the old oscillator out rather than cutting it, which would click.
+      // Fade out the previous oscillator rather than cutting it off, which would click.
       const gain = previous.gainSuccessor.gain;
       holdParam(gain, ctx.currentTime);
       gain.linearRampToValueAtTime(0.0001, ctx.currentTime + 0.2);

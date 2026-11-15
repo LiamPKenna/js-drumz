@@ -2,7 +2,7 @@ body, #left, #top, #body, #step-sequencer, .inst-panel, .box-2 {
   background-color: #36383b;
 }
 
-body, #left, #dropdownMenuButton, .chaos-kill-button, #left {
+body, #left, #kit-select, .chaos-kill-button, #left {
   color: #f8f8f8;
 }
 
@@ -18,7 +18,7 @@ h1, #step-sequencer, #doomhead, #chaoshead, #chaos:active, #doom:active {
   border: 3px solid #F8A125;
 }
 
-#patterns, #swing-slider, .instrument-slider, #volume-slider-div, #start-stop-button, .a-b-buttons, .pitch-slider, #tempo-input, #dropdownMenuButton, .chaos-volume-slider, .ghost-octave-button, .ghost-extra-contols-border:before, .ghost-off-button, .edit-step-input  {
+#patterns, #swing-slider, .instrument-slider, #volume-slider-div, #start-stop-button, .a-b-buttons, .pitch-slider, #tempo-input, #kit-select, .chaos-volume-slider, .ghost-octave-button, .ghost-extra-contols-border:before, .ghost-off-button, .edit-step-input  {
   display: block;
 }
 
@@ -139,7 +139,7 @@ h1 {
   margin: 10% auto;
 }
 
-#dropdownMenuButton {
+#kit-select {
   background-color: #54575B;
   width: 100px;
   margin: 10% auto;
@@ -436,8 +436,9 @@ h1 {
   margin: 5px auto;
 }
 
-button:focus {
-  outline:none;
+/* Hide the focus ring for mouse clicks but keep it for keyboard users. */
+button:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .ghost-off-button-div {
@@ -447,4 +448,9 @@ button:focus {
 
 .back-forward-div {
   margin-bottom: 30px;
+}
+
+/* The synth pads are dragged with a pointer; stop touch drags from scrolling. */
+#chaos, #doom, #hank {
+  touch-action: none;
 }

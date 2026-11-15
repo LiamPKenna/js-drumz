@@ -75,6 +75,12 @@ Control Panel: <br>
 
 
 
+## Keyboard Shortcuts
+
+* _Space: start/stop the sequencer_
+* _Q W E R T Y U I O P: play the ten drum tracks_
+* _Z S X D C V G B H N J M , : play the Ghost Machine keyboard (one octave, C to C; follows the Low/High octave setting)_
+
 ## Stretch Goals
 
 All faders are designed using a 127 value range for potential future midi implementation.
@@ -103,7 +109,7 @@ _Any issues or concerns, please email liam@liamkenna.com_
 
 ## Technologies Used
 
-_HTML, CSS, Bootstrap (CSS only), jQuery, JavaScript, Web Audio API, Howler, Vite, Vitest, ESLint_
+_HTML, CSS, JavaScript, Web Audio API, Howler, Vite, Vitest, ESLint_
 
 ### License
 
