@@ -1,8 +1,8 @@
-import Pizzicato from 'pizzicato';
+import { Sound, Effects } from './audio.js';
 
 export class Hank {
   constructor() {
-    this.e = new Pizzicato.Sound({
+    this.e = new Sound({
       source: 'wave',
       options: {
         volume: .45,
@@ -11,7 +11,7 @@ export class Hank {
         attack: 1
       }
     });
-    this.f = new Pizzicato.Sound({
+    this.f = new Sound({
       source: 'wave',
       options: {
         volume: .45,
@@ -20,13 +20,13 @@ export class Hank {
         attack: 1
       }
     });
-    this.tremolo = new Pizzicato.Effects.Tremolo({
+    this.tremolo = new Effects.Tremolo({
       speed: 5,
       depth: 1,
       mix: 1
     });
 
-    this.dub = new Pizzicato.Effects.PingPongDelay({
+    this.dub = new Effects.PingPongDelay({
       feedback: 0.3,
       time: .5,
       mix: .5

@@ -1,25 +1,25 @@
-import Pizzicato from 'pizzicato';
+import { Sound, Effects } from './audio.js';
 import notes from './notes.js';
 
 export class Ghost {
   constructor() {
-    this.sound = new Pizzicato.Sound({
+    this.sound = new Sound({
       source: 'wave',
       options: {
         volume: 0.47,
         attack: 0.01
       }
     });
-    this.dub = new Pizzicato.Effects.DubDelay({
+    this.dub = new Effects.DubDelay({
       feedback: 0.4,
       time: 0.25,
       mix: 0.4,
       cutoff: 600
     });
-    this.pan =  new Pizzicato.Effects.StereoPanner({
+    this.pan =  new Effects.StereoPanner({
       pan: 0.0
     });
-    this.grime = new Pizzicato.Effects.Distortion({
+    this.grime = new Effects.Distortion({
       gain: 0.0
     });
     this.sound.addEffect(this.grime);

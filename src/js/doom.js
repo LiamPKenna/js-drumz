@@ -1,8 +1,8 @@
-import Pizzicato from 'pizzicato';
+import { Sound, Effects } from './audio.js';
 
 export class Doom {
   constructor() {
-    this.c = new Pizzicato.Sound({
+    this.c = new Sound({
       source: 'wave',
       options: {
         volume: .20,
@@ -11,7 +11,7 @@ export class Doom {
         attack: 1
       }
     });
-    this.d = new Pizzicato.Sound({
+    this.d = new Sound({
       source: 'wave',
       options: {
         volume: .20,
@@ -20,13 +20,13 @@ export class Doom {
         attack: 1
       }
     });
-    this.dub = new Pizzicato.Effects.DubDelay({
+    this.dub = new Effects.DubDelay({
       feedback: .3,
       time: 1,
       mix: 1,
       cutoff: 600
     });
-    this.ping = new Pizzicato.Effects.PingPongDelay({
+    this.ping = new Effects.PingPongDelay({
       feedback: 0.6,
       time: 0.4,
       mix: 0.8

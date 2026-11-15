@@ -1,4 +1,22 @@
+import { describe, test, expect, beforeEach, vi } from 'vitest';
 import { Sequencer } from './../src/js/sequencer.js';
+
+// The sequencer's logic is pure; stub the audio-producing instruments so the
+// tests don't need a browser AudioContext or audio files.
+vi.mock('./../src/js/drums.js', () => ({
+  DrumKit: class {
+    drums = [];
+  },
+}));
+vi.mock('./../src/js/ghost.js', () => ({
+  Ghost: class {
+    sound = { stop() {} };
+    oOoO() {}
+  },
+}));
+vi.mock('./../src/js/chaos.js', () => ({ Chaos: class {} }));
+vi.mock('./../src/js/doom.js', () => ({ Doom: class {} }));
+vi.mock('./../src/js/hank.js', () => ({ Hank: class {} }));
 
 describe('Sequencer', () => {
 

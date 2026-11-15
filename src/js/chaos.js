@@ -1,8 +1,8 @@
-import Pizzicato from 'pizzicato';
+import { Sound, Effects } from './audio.js';
 
 export class Chaos {
   constructor() {
-    this.a = new Pizzicato.Sound({
+    this.a = new Sound({
       source: 'wave',
       options: {
         volume: .60,
@@ -11,7 +11,7 @@ export class Chaos {
         attack: 1
       }
     });
-    this.b = new Pizzicato.Sound({
+    this.b = new Sound({
       source: 'wave',
       options: {
         volume: .60,
@@ -20,16 +20,16 @@ export class Chaos {
         attack: 1
       }
     });
-    this.lp = new Pizzicato.Effects.LowPassFilter({
+    this.lp = new Effects.LowPassFilter({
       frequency: 2000,
       peak: 11
     });
-    this.tremolo1 = new Pizzicato.Effects.Tremolo({
+    this.tremolo1 = new Effects.Tremolo({
       speed: 5,
       depth: 0.8,
       mix: 0.8
     });
-    this.tremolo = new Pizzicato.Effects.Tremolo({
+    this.tremolo = new Effects.Tremolo({
       speed: 10,
       depth: 1,
       mix: 1

@@ -1,6 +1,5 @@
 // UTILITIES
 import $ from 'jquery';
-import 'bootstrap';
 import './css/bootstrap.min.css';
 import './css/styles.css';
 import arts from './js/art.js';
